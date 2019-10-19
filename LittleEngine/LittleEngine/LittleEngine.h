@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include "ModuleRender.h"
 #include "ModuleWindow.h"
 
 class LittleEngine {
@@ -17,8 +18,9 @@ public:
 	bool CleanUp();
 
 public:
-	//std::unique_ptr<ModuleRender> renderer;
-	std::shared_ptr<ModuleWindow> window;
+	std::shared_ptr<ModuleRender> moduleRenderer = nullptr;
+	std::shared_ptr<ModuleWindow> moduleWindow = nullptr;
+	int x;
 	//std::unique_ptr<ModuleInput> input;
 
 private:
@@ -27,7 +29,7 @@ private:
 
 };
 
-
+extern LittleEngine * Engine;
 
 
 #endif // !_LLITTLE_ENGINE_

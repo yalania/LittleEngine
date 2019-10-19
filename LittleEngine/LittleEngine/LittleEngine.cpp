@@ -1,5 +1,4 @@
 #include "LittleEngine.h"
-#include "ModuleWindow.h"
 
 using namespace std;
 
@@ -7,7 +6,8 @@ LittleEngine::LittleEngine()
 {
 	// Order matters: they will Init/start/update in this order
 	modules.reserve(1);
-	modules.push_back(window = std::make_shared<ModuleWindow>());
+	modules.push_back(moduleRenderer = std::make_shared<ModuleRender>());
+	modules.push_back(moduleWindow = std::make_shared<ModuleWindow>());
 }
 
 LittleEngine::~LittleEngine()
