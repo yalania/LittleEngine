@@ -1,7 +1,7 @@
 #include "ModuleRender.h"
 #include "LittleEngine.h"
 #include "GL/glew.h"
-
+#include "ShaderProgram.h"
 //SDL_GLContext glcontext;
 ModuleRender::ModuleRender() {
 
@@ -23,6 +23,7 @@ bool ModuleRender::Init() {
 	glEnable(GL_TEXTURE_2D);
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
 	addVertexBufferObject();
+	loadShaders();
 	return true;
 }
 
@@ -67,4 +68,11 @@ void ModuleRender::addVertexBufferObject() {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRender::loadShaders() {
+	GLuint shaderProgram = ShaderProgram::loadShaderProgram("vertexShader.vert", "fragmentShader.frag");
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	//glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
 }

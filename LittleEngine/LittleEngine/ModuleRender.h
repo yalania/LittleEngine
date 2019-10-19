@@ -11,7 +11,11 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	void addVertexBufferObject();
+	void loadShaders();
+
+
 	unsigned int vbo = 0;
+	unsigned int vertexShader;
 
 };
 
