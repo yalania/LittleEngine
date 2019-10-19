@@ -12,6 +12,7 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 
+
 };
 
 #endif // !_MODULE_RENDER_
