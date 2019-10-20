@@ -35,19 +35,8 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-	glEnableVertexAttribArray(0); // attribute 0
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(
-		0, // attribute 0
-		3, // number of componentes (3 floats)
-		GL_FLOAT, // data type
-		GL_FALSE, // should be normalized?
-		0, // stride
-		(void*)0 // array buffer offset
-	);
-	glDrawArrays(GL_TRIANGLES, 0, 3); // start at 0 and 3 tris
-	glDisableVertexAttribArray(0);
-
+	
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	return UPDATE_CONTINUE;
 
 }
@@ -61,18 +50,21 @@ update_status ModuleRender::PostUpdate() {
 
 //Only a triangle for now
 void ModuleRender::addVertexBufferObject() {
-	float buffer_data[] = { -1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f };
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	float buffer_data[] = { -0.5f, -0.5f, 0.0f,
+	 0.5f, -0.5f, 0.0f,
+	 0.0f,  0.5f, 0.0f };
+
+	glGenBuffers(1, &VBO);
+
+	// 2. copy our vertices array in a buffer for OpenGL to use
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// 3. then set our vertex attributes pointers
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 }
 
 void ModuleRender::loadShaders() {
 	GLuint shaderProgram = ShaderProgram::loadShaderProgram("vertexShader.vert", "fragmentShader.frag");
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	//glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
+	glUseProgram(shaderProgram);
 }

@@ -14,7 +14,7 @@ public:
 	void loadShaders();
 
 
-	unsigned int vbo = 0;
+	unsigned int VBO = 0;
 	unsigned int vertexShader;
 
 };

@@ -11,7 +11,7 @@ public:
 
 private:
 
-	static const char * readFile(const std::string & shaderFilePath);
+	static const std::string readFile(const std::string & shaderFilePath);
 	static void compileShader(const GLuint & shader, const char * shaderFile);
 };
 #endif // _SHADERS_PROGRAM_
