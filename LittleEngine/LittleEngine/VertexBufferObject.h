@@ -12,6 +12,7 @@ public:
 
 private:
 	unsigned int VBO = 0;
+	unsigned int EBO = 0;
 };
 #endif // !_VERTEX_BUFFER_OBJECT
 
