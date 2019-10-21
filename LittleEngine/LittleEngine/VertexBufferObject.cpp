@@ -5,12 +5,12 @@
 VertexBufferObject::VertexBufferObject(){
 
 	float vertices[] = {
-	0.5f,  0.5f, 0.0f,  
 		 0.5f, -0.5f, 0.0f,  
+	    0.5f,  0.5f, 0.0f,  
 		-0.5f, -0.5f, 0.0f,  
 		-0.5f,  0.5f, 0.0f  };
 	unsigned int indices[] = {
-		0,1,3,
+		0,1,2,
 		1,3,2
 	};
 
