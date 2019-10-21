@@ -7,16 +7,19 @@
 
 class ModuleRender : public Module {
 public:
-	ModuleRender();
+	ModuleRender() = default;
 	~ModuleRender() = default;
 
 	bool Init() override;
 	update_status PreUpdate() override;
 	update_status Update() override;
 	update_status PostUpdate() override;
-	void loadShaders();
 
+private:
+	void LoadShaders() const;
+	void InitOpenGlOptions() const;
 
+private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
 
 };

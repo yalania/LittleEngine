@@ -16,7 +16,7 @@ public:
 	bool CleanUp() override;
 
 private:
-	//void InitOpenGL();
+	void InitOpenGLAttributes();
 
 public:
 	//The window we'll be rendering to
