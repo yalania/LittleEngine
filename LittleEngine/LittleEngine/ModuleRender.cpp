@@ -31,6 +31,12 @@ update_status ModuleRender::PostUpdate() {
 
 	SDL_GL_SwapWindow(Engine->moduleWindow->window);
 
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
+			WindowResized(event.window.data1, event.window.data2);
+		}
+	}
 	return UPDATE_CONTINUE;
 
 }
@@ -39,6 +45,11 @@ update_status ModuleRender::PostUpdate() {
 void ModuleRender::LoadShaders() const{
 	GLuint shaderProgram = ShaderProgram::loadShaderProgram("vertexShader.vert", "fragmentShader.frag");
 	glUseProgram(shaderProgram);
+}
+
+void ModuleRender::WindowResized(unsigned width, unsigned height)
+{
+	glViewport(0, 0, width, height);
 }
 
 void ModuleRender::InitOpenGlOptions() const{
@@ -56,3 +67,4 @@ void ModuleRender::InitOpenGlOptions() const{
 	glEnable(GL_TEXTURE_2D);
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
 }
+
