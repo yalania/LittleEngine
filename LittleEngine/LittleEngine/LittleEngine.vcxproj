@@ -74,6 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)LittleEngine\Dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)LittleEngine\Dependencies\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)LittleEngine\Engine</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -164,6 +165,7 @@
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="VertexBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\fragmentShader.frag" />

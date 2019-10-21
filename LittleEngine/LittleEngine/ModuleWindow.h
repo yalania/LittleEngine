@@ -15,6 +15,8 @@ public:
 	bool Init() override;
 	bool CleanUp() override;
 
+private:
+	//void InitOpenGL();
 
 public:
 	//The window we'll be rendering to

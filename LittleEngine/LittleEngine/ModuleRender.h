@@ -1,6 +1,10 @@
 #ifndef _MODULE_RENDER_
 #define _MODULE_RENDER_
 #include "Module.h"
+#include "VertexBufferObject.h"
+#include <vector>
+#include <memory>
+
 class ModuleRender : public Module {
 public:
 	ModuleRender();
@@ -10,11 +14,10 @@ public:
 	update_status PreUpdate() override;
 	update_status Update() override;
 	update_status PostUpdate() override;
-	void addVertexBufferObject();
 	void loadShaders();
 
 
-	unsigned int VBO = 0;
+	std::vector<std::unique_ptr<VertexBufferObject>> objects;
 
 };
 

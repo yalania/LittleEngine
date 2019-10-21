@@ -17,7 +17,7 @@ bool LittleEngine::Init()
 {
 	bool result = true;
 
-	for(auto module : modules) {
+	for(auto &module : modules) {
 		bool ret = module->Init();
 		if (!ret) {
 			result = ret;
@@ -31,14 +31,14 @@ update_status LittleEngine::Update()
 {
 	update_status result = UPDATE_CONTINUE;
 
-	for (auto module : modules) {
+	for (auto &module : modules) {
 		update_status ret = module->PreUpdate();
 		if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
 			result = ret;
 		}
 	}
 	if (result == UPDATE_CONTINUE) {
-		for (auto module : modules) {
+		for (auto &module : modules) {
 			update_status ret = module->Update();
 			if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
 				result = ret;
@@ -47,7 +47,7 @@ update_status LittleEngine::Update()
 	}
 
 	if (result == UPDATE_CONTINUE) {
-		for (auto module : modules) {
+		for (auto &module : modules) {
 			update_status ret = module->PostUpdate();
 			if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
 				result = ret;
@@ -62,7 +62,7 @@ bool LittleEngine::CleanUp()
 {
 	bool result = true;
 
-	for (auto module : modules) {
+	for (auto &module : modules) {
 		bool ret = module->CleanUp();
 		if (!ret) {
 			result = ret;
