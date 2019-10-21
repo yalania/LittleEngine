@@ -47,7 +47,7 @@ void ModuleRender::LoadShaders() const{
 	glUseProgram(shaderProgram);
 }
 
-void ModuleRender::WindowResized(unsigned width, unsigned height)
+void ModuleRender::WindowResized(unsigned width, unsigned height) const
 {
 	glViewport(0, 0, width, height);
 }
@@ -55,7 +55,12 @@ void ModuleRender::WindowResized(unsigned width, unsigned height)
 void ModuleRender::InitOpenGlOptions() const{
 
 	SDL_GLContext glcontext = SDL_GL_CreateContext(Engine->moduleWindow->window);
-	glewInit();
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		LOG("Error: %s\n", glewGetErrorString(err));
+	}
 	glClearColor(0.2, 0.2, 0.2, 1);
 
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -68,3 +73,5 @@ void ModuleRender::InitOpenGlOptions() const{
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
 }
 
+bool ModuleRender::CleanUp() {
+}
