@@ -1,5 +1,5 @@
-#ifndef _LLITTLE_ENGINE_
-#define _LLITTLE_ENGINE_
+#ifndef _LITTLE_ENGINE_
+#define _LITTLE_ENGINE_
 
 #include <vector>
 #include <memory>
@@ -11,17 +11,15 @@ class LittleEngine {
 public:
 
 	LittleEngine();
-	~LittleEngine();
+	virtual ~LittleEngine();
 
 	bool Init();
 	update_status Update();
 	bool CleanUp();
 
 public:
-	std::shared_ptr<ModuleRender> moduleRenderer = nullptr;
-	std::shared_ptr<ModuleWindow> moduleWindow = nullptr;
-	int x;
-	//std::unique_ptr<ModuleInput> input;
+	std::shared_ptr<ModuleRender> moduleRenderer;
+	std::shared_ptr<ModuleWindow> moduleWindow;
 
 private:
 
@@ -32,5 +30,5 @@ private:
 extern LittleEngine * Engine;
 
 
-#endif // !_LLITTLE_ENGINE_
+#endif // !_LITTLE_ENGINE_
 

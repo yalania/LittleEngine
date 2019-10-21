@@ -6,9 +6,9 @@ class Module
 {
 public:
 
-	Module()
-	{
-	}
+	Module() = default;
+
+	virtual ~Module() = default;
 
 	virtual bool Init()
 	{
