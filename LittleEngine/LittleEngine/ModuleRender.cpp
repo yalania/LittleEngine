@@ -1,12 +1,16 @@
 #include "ModuleRender.h"
 #include "LittleEngine.h"
 #include "GL/glew.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
+#include "MathGeoLib/include/Math/float4x4.h"
+#include "MathGeoLib/include/Math/float3x3.h"
+#include <cmath>
 
 bool ModuleRender::Init() {
 
 	InitOpenGlOptions();
 	objects.push_back(std::make_unique<VertexBufferObject>());
-	LoadShaders();
+	GenerateMatrices();
 	return true;
 }
 
@@ -18,6 +22,7 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
+	LoadShaders();
 	for (auto &object : objects) {
 		object->Update();
 	}
@@ -40,14 +45,26 @@ update_status ModuleRender::PostUpdate() {
 
 }
 
-
 void ModuleRender::LoadShaders() const{
 
+
 	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
+
+	GLuint modelOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"model");
+	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"view");
+	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"proj");
+	glUniformMatrix4fv(modelOutput, 1, GL_TRUE, &model[0][0]);
+	glUniformMatrix4fv(viewOutput, 1, GL_TRUE, &view[0][0]);
+	glUniformMatrix4fv(projOutput, 1, GL_TRUE, &projection[0][0]);
+
 }
 
-void ModuleRender::WindowResized(unsigned width, unsigned height) const
+void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
+	aspect = width / height;
 	glViewport(0, 0, width, height);
 }
 
@@ -74,4 +91,30 @@ void ModuleRender::InitOpenGlOptions() const{
 
 bool ModuleRender::CleanUp() {
 	return true;
+}
+
+void ModuleRender::GenerateMatrices(){
+	Frustum frustum;
+	frustum.type = FrustumType::PerspectiveFrustum;
+	frustum.pos = float3::zero;
+	frustum.front = -float3::unitZ;
+	frustum.up = float3::unitY;
+
+	frustum.nearPlaneDistance = 0.1f;
+	frustum.farPlaneDistance = 100.0f;
+	frustum.verticalFov = M_PI / 4.0f;
+	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) *aspect);
+	
+	float4x4 proj = frustum.ProjectionMatrix();
+
+	projection[0][0] = proj.v[0][0];
+	
+	float4x4 modelF = float4x4::FromTRS(float3(0.0f, 0.0f, -4.0f),float3x3::RotateY((float)M_PI / 4.0f), float3(1.0f,1.0f, 1.0f));
+	model[0][0] = modelF.v[0][0];
+	
+	float4x4 viewF = float4x4::LookAt(math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f, 1.0f, 1.0f),math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f,1.0f, .0f));
+	view[0][0] = viewF.v[0][0];
+
+	float4x4 transform = proj * viewF*modelF;
+
 }

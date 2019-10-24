@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 
+
 class ModuleRender : public Module {
 public:
 	ModuleRender() = default;
@@ -15,15 +16,20 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
-	void WindowResized(unsigned width, unsigned height) const;
+	void WindowResized(unsigned width, unsigned height);
 
 
 private:
 	void LoadShaders() const;
 	void InitOpenGlOptions() const;
+	void GenerateMatrices();
 
 private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
+	float projection[4][4];
+	float model[4][4];
+	float view[4][4];
+	float aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
 };
 
