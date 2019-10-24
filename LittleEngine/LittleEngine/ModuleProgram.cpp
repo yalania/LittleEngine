@@ -1,10 +1,17 @@
-#include "ShaderProgram.h"
+#include "ModuleProgram.h"
 #include "Globals.h"
 #include <fstream>
 #include <vector>
 
 
-const std::string ShaderProgram::readFile(const std::string & shaderFilePath){
+
+bool ModuleProgram::Init() {
+	 defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
+	 return true;
+}
+
+
+const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath){
 	std::ifstream file(shaderFilePath, std::ios::in);
 
 	if (!file.is_open()) {
@@ -19,7 +26,7 @@ const std::string ShaderProgram::readFile(const std::string & shaderFilePath){
 	
 }
 
-void ShaderProgram::compileShader(const GLuint & shader, const char * shaderFile){
+void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile){
 
 	GLint success = GL_FALSE;
 	int logLength;
@@ -40,7 +47,7 @@ void ShaderProgram::compileShader(const GLuint & shader, const char * shaderFile
 }
 
 
-GLuint ShaderProgram::loadShaderProgram(const char *vertex_path, const char *fragment_path){
+GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fragment_path){
 
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -50,11 +57,11 @@ GLuint ShaderProgram::loadShaderProgram(const char *vertex_path, const char *fra
 
 	GLuint program = glCreateProgram();
 
-	const std::string vertexShaderFile = readFile(vertex_path);
-	const std::string farmentShaderFile = readFile(fragment_path);
+	const std::string vertexShaderFile = ReadFile(vertex_path);
+	const std::string farmentShaderFile = ReadFile(fragment_path);
 
-	compileShader(vertexShader, vertexShaderFile.c_str());
-	compileShader(fragmentShader, farmentShaderFile.c_str());
+	CompileShader(vertexShader, vertexShaderFile.c_str());
+	CompileShader(fragmentShader, farmentShaderFile.c_str());
 
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, fragmentShader);

@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{298ebeb3-5320-4aa0-9eeb-d12931125845}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MathGeoLib">
+      <UniqueIdentifier>{74a5d3a6-6494-4a7a-8686-2b02769c2c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LittleEngine.cpp">
@@ -33,13 +36,13 @@
     <ClCompile Include="ModuleRender.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="VertexBufferObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleProgram.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,13 +62,13 @@
     <ClInclude Include="ModuleRender.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleInput.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="VertexBufferObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleProgram.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

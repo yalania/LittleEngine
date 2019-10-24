@@ -164,7 +164,7 @@
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ModuleProgram.cpp" />
     <ClCompile Include="VertexBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ModuleProgram.h" />
     <ClInclude Include="VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>

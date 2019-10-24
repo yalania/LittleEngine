@@ -1,7 +1,6 @@
 #include "ModuleRender.h"
 #include "LittleEngine.h"
 #include "GL/glew.h"
-#include "ShaderProgram.h"
 
 bool ModuleRender::Init() {
 
@@ -43,8 +42,8 @@ update_status ModuleRender::PostUpdate() {
 
 
 void ModuleRender::LoadShaders() const{
-	GLuint shaderProgram = ShaderProgram::loadShaderProgram("vertexShader.vert", "fragmentShader.frag");
-	glUseProgram(shaderProgram);
+
+	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
 }
 
 void ModuleRender::WindowResized(unsigned width, unsigned height) const
