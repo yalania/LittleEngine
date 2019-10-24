@@ -74,4 +74,5 @@ void ModuleRender::InitOpenGlOptions() const{
 }
 
 bool ModuleRender::CleanUp() {
+	return true;
 }
