@@ -3,13 +3,10 @@
 #include <fstream>
 #include <vector>
 
-
-
 bool ModuleProgram::Init() {
 	 defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
 	 return true;
 }
-
 
 const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath){
 	std::ifstream file(shaderFilePath, std::ios::in);
@@ -46,7 +43,6 @@ void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile
 	
 }
 
-
 GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fragment_path){
 
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -80,6 +76,5 @@ GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fra
 	glDeleteShader(fragmentShader);
 
 	return program;
-
-
 }
+

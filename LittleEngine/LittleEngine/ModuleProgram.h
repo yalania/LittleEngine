@@ -6,7 +6,7 @@
 class ModuleProgram : public Module {
 
 public:
-	bool Init();
+	bool Init() override;
 	GLuint defaultProgram;
 private:
 
