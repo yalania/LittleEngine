@@ -2,8 +2,8 @@
 #include "LittleEngine.h"
 #include "GL/glew.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
-#include "MathGeoLib/include/Math/float4x4.h"
 #include "MathGeoLib/include/Math/float3x3.h"
+#include "MathGeoLib/include/Math/float4.h"
 #include <cmath>
 
 bool ModuleRender::Init() {
@@ -56,9 +56,9 @@ void ModuleRender::LoadShaders() const{
 		"view");
 	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"proj");
-	glUniformMatrix4fv(modelOutput, 1, GL_TRUE, &model[0][0]);
-	glUniformMatrix4fv(viewOutput, 1, GL_TRUE, &view[0][0]);
-	glUniformMatrix4fv(projOutput, 1, GL_TRUE, &projection[0][0]);
+	glUniformMatrix4fv(modelOutput, 1, GL_TRUE, &model.v[0][0]);
+	glUniformMatrix4fv(viewOutput, 1, GL_TRUE, &view.v[0][0]);
+	glUniformMatrix4fv(projOutput, 1, GL_TRUE, &projection.v[0][0]);
 
 }
 
@@ -105,16 +105,20 @@ void ModuleRender::GenerateMatrices(){
 	frustum.verticalFov = M_PI / 4.0f;
 	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) *aspect);
 	
-	float4x4 proj = frustum.ProjectionMatrix();
+	projection = frustum.ProjectionMatrix();
 
-	projection[0][0] = proj.v[0][0];
 	
-	float4x4 modelF = float4x4::FromTRS(float3(0.0f, 0.0f, -4.0f),float3x3::RotateY((float)M_PI / 4.0f), float3(1.0f,1.0f, 1.0f));
-	model[0][0] = modelF.v[0][0];
+	model = float4x4( float4(2.0f,0.0f,0.0f,0.0f), 
+		float4(0.0f, 1.0f, 0.0f, 0.0f),
+		float4(0.0f, 0.0f, 1.0f, 0.0f),
+		float4(0.0f, 0.0f, 0.0f, 1.0f));
+		//float4x4::FromTRS(float3(0.0f, 0.0f, -4.0f),float3x3::RotateY((float)M_PI / 4.0f), float3(1.0f,1.0f, 1.0f));
 	
-	float4x4 viewF = float4x4::LookAt(math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f, 1.0f, 1.0f),math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f,1.0f, .0f));
-	view[0][0] = viewF.v[0][0];
+	view = float4x4(float4(1.0f, 0.0f, 0.0f, 0.0f),
+		float4(0.0f, 1.0f, 0.0f, 0.0f),
+		float4(0.0f, 0.0f, 1.0f, 0.0f),
+		float4(0.0f, 0.0f, 0.0f, 1.0f));
+		//float4x4::LookAt(math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f, 1.0f, 1.0f),math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f,1.0f, .0f));
 
-	float4x4 transform = proj * viewF*modelF;
 
 }
