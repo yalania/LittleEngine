@@ -1,6 +1,5 @@
 #include"ModuleIMGUI.h"
 
-
 #include <SDL/SDL.h>
 #include "GL/glew.h"
 
@@ -29,6 +28,7 @@ update_status ModuleIMGUI::PreUpdate() {
 update_status ModuleIMGUI::Update() {
 
 	ImGui::ShowTestWindow();
+	ImGui::TextUnformatted(getBuffer().Buf.begin());
 	return UPDATE_CONTINUE;
 }
 

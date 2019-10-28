@@ -42,7 +42,6 @@ update_status ModuleInput::Update()
 			done = true;
 	}
 	keyboard = SDL_GetKeyboardState(NULL);
-
 	return UPDATE_CONTINUE;
 }
 
