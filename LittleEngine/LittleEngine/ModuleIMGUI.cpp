@@ -1,28 +1,33 @@
 #include"ModuleIMGUI.h"
 
 
-#include "imgui/imgui.h"
-
-#include "imgui/imgui_internal.h"
-
-#include "imgui/imgui_impl_opengl3.h"
-
 #include <SDL/SDL.h>
 #include "GL/glew.h"
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_sdl.h"
+
 #include "ModuleWindow.h"
 #include "LittleEngine.h"
 
 bool ModuleIMGUI::Init() {
-	return ImGui_ImplOpenGL3_Init("4.0");
+	SDL_GLContext glcontext = ImGui::CreateContext();
+	ImGui_ImplSDL2_InitForOpenGL(Engine->moduleWindow->window, glcontext);
+	return ImGui_ImplOpenGL3_Init("#version 330");
 }
 
 update_status ModuleIMGUI::PreUpdate() {
-	
+
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(Engine->moduleWindow->window);
+	ImGui::NewFrame();
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleIMGUI::Update() {
-	ImGui_ImplOpenGL3_NewFrame();
+
 	ImGui::ShowTestWindow();
 	return UPDATE_CONTINUE;
 }
@@ -30,10 +35,14 @@ update_status ModuleIMGUI::Update() {
 
 update_status ModuleIMGUI::PostUpdate() {
 
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleIMGUI::CleanUp() {
 	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 	return true;
 }

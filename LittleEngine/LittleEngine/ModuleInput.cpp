@@ -1,8 +1,8 @@
 #include "Globals.h"
 #include "LittleEngine.h"
 #include "ModuleInput.h"
-#include "SDL//SDL.h"
-
+#include "SDL/SDL.h"
+#include "imgui/imgui_impl_sdl.h"
 
 // Destructor
 ModuleInput::~ModuleInput()

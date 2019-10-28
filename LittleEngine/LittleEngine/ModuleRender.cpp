@@ -108,7 +108,7 @@ void ModuleRender::GenerateMatrices(){
 	projection = frustum.ProjectionMatrix();
 
 	
-	model = float4x4( float4(2.0f,0.0f,0.0f,0.0f), 
+	model = float4x4( float4(1.0f,0.0f,0.0f,0.0f), 
 		float4(0.0f, 1.0f, 0.0f, 0.0f),
 		float4(0.0f, 0.0f, 1.0f, 0.0f),
 		float4(0.0f, 0.0f, 0.0f, 1.0f));
