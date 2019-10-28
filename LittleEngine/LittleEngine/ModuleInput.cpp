@@ -31,6 +31,16 @@ update_status ModuleInput::Update()
 {
 	SDL_PumpEvents();
 
+	SDL_Event event;
+	bool done = true;
+	while (SDL_PollEvent(&event))
+	{
+		ImGui_ImplSDL2_ProcessEvent(&event);
+		if (event.type == SDL_QUIT)
+			done = true;
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine->moduleWindow->window))
+			done = true;
+	}
 	keyboard = SDL_GetKeyboardState(NULL);
 
 	return UPDATE_CONTINUE;

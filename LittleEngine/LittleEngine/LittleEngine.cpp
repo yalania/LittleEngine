@@ -8,6 +8,7 @@ LittleEngine::LittleEngine()
 	modules.push_back(moduleInput = std::make_shared<ModuleInput>());
 	modules.push_back(moduleRenderer = std::make_shared<ModuleRender>());
 	modules.push_back(moduleShaderProgram = std::make_shared<ModuleProgram>());
+	modules.push_back(moduleImgui = std::make_shared<ModuleIMGUI>());
 }
 
 LittleEngine::~LittleEngine()

@@ -7,6 +7,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleProgram.h"
+#include "ModuleIMGUI.h"
 
 class LittleEngine {
 
@@ -24,6 +25,7 @@ public:
 	std::shared_ptr<ModuleWindow> moduleWindow;
 	std::shared_ptr<ModuleInput> moduleInput;
 	std::shared_ptr<ModuleProgram> moduleShaderProgram;
+	std::shared_ptr<ModuleIMGUI> moduleImgui;
 
 private:
 
