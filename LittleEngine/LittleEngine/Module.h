@@ -1,5 +1,6 @@
 #ifndef _MODULE_
 #define _MODULE_
+
 #include "Globals.h"
 
 class Module

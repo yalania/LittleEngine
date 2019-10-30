@@ -2,9 +2,10 @@
 #define _MODULE_RENDER_
 #include "Module.h"
 #include "VertexBufferObject.h"
+
 #include <vector>
 #include <memory>
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 
 class ModuleRender : public Module {

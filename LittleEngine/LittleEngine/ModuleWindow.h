@@ -2,7 +2,7 @@
 #define _MODULE_WINDOW_
 
 #include "Module.h"
-#include "SDL/SDL.h"
+#include <SDL/SDL.h>
 class LittleEngine;
 
 class ModuleWindow : public Module

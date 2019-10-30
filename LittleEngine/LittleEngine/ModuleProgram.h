@@ -1,7 +1,7 @@
 #ifndef _SHADERS_PROGRAM_
 #define _SHADERS_PROGRAM_
 #include <string>
-#include "GL/glew.h"
+#include <GL/glew.h>
 #include "Module.h"
 class ModuleProgram : public Module {
 

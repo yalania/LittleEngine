@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "Globals.h"
 
-
 class ModuleInput : public Module
 {
 public:

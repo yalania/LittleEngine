@@ -1,7 +1,7 @@
 #include"ModuleIMGUI.h"
 
 #include <SDL/SDL.h>
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"

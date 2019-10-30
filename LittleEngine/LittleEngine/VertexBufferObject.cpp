@@ -1,5 +1,5 @@
 #include "VertexBufferObject.h"
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 
 VertexBufferObject::VertexBufferObject(){

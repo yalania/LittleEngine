@@ -1,5 +1,6 @@
 #ifndef _GLOBALS_
 #define _GLOBALS_
+
 #include <windows.h>
 #include <stdio.h>
 #include "imgui/imgui.h"

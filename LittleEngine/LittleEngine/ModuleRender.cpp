@@ -1,8 +1,9 @@
 #include "ModuleRender.h"
 #include "LittleEngine.h"
-#include "GL/glew.h"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
+
+#include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <cmath>
 
 bool ModuleRender::Init() {
