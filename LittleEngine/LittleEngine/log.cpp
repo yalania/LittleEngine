@@ -11,8 +11,8 @@ void log(const char file[], int line, const char* format, ...)
 	// Construct the string from variable arguments
 	va_start(ap, format);
 	vsprintf_s(tmp_string, 4096, format, ap);
-	buffer.appendfv(tmp_string,ap);
-	buffer.append("\n");
+	//buffer.appendfv(tmp_string,ap);
+	//buffer.append("\n");
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 
