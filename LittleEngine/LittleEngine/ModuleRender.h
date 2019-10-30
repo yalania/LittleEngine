@@ -4,7 +4,7 @@
 #include "VertexBufferObject.h"
 #include <vector>
 #include <memory>
-#include "MathGeoLib/include/Math/float4x4.h"
+#include "glm/glm.hpp"
 
 
 class ModuleRender : public Module {
@@ -27,10 +27,10 @@ private:
 
 private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
-	float4x4 projection;
-	float4x4 model;
-	float4x4 view;
-	float aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+	glm::mat4 projection;
+	glm::mat4 model;
+	glm::mat4 view;
+	float aspect = (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
 
 };
 

@@ -1,9 +1,8 @@
 #include "ModuleRender.h"
 #include "LittleEngine.h"
 #include "GL/glew.h"
-#include "MathGeoLib/include/Geometry/Frustum.h"
-#include "MathGeoLib/include/Math/float3x3.h"
-#include "MathGeoLib/include/Math/float4.h"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include <cmath>
 
 bool ModuleRender::Init() {
@@ -55,9 +54,9 @@ void ModuleRender::LoadShaders() const{
 		"view");
 	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"proj");
-	glUniformMatrix4fv(modelOutput, 1, GL_TRUE, &model.v[0][0]);
-	glUniformMatrix4fv(viewOutput, 1, GL_TRUE, &view.v[0][0]);
-	glUniformMatrix4fv(projOutput, 1, GL_TRUE, &projection.v[0][0]);
+	glUniformMatrix4fv(modelOutput, 1, GL_TRUE, glm::value_ptr(model));
+	glUniformMatrix4fv(viewOutput, 1, GL_TRUE, glm::value_ptr(view));
+	glUniformMatrix4fv(projOutput, 1, GL_TRUE, glm::value_ptr(projection));
 
 }
 
@@ -93,31 +92,18 @@ bool ModuleRender::CleanUp() {
 }
 
 void ModuleRender::GenerateMatrices(){
-	Frustum frustum;
-	frustum.type = FrustumType::PerspectiveFrustum;
-	frustum.pos = float3::zero;
-	frustum.front = -float3::unitZ;
-	frustum.up = float3::unitY;
+	
+	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
 
-	frustum.nearPlaneDistance = 0.1f;
-	frustum.farPlaneDistance = 100.0f;
-	frustum.verticalFov = M_PI / 4.0f;
-	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) *aspect);
-	
-	projection = frustum.ProjectionMatrix();
 
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(-20.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.0f));
 	
-	model = float4x4( float4(1.0f,0.0f,0.0f,0.0f), 
-		float4(0.0f, 1.0f, 0.0f, 0.0f),
-		float4(0.0f, 0.0f, 1.0f, 0.0f),
-		float4(0.0f, 0.0f, 0.0f, 1.0f));
-		//float4x4::FromTRS(float3(0.0f, 0.0f, -4.0f),float3x3::RotateY((float)M_PI / 4.0f), float3(1.0f,1.0f, 1.0f));
-	
-	view = float4x4(float4(1.0f, 0.0f, 0.0f, 0.0f),
-		float4(0.0f, 1.0f, 0.0f, 0.0f),
-		float4(0.0f, 0.0f, 1.0f, 0.0f),
-		float4(0.0f, 0.0f, 0.0f, 1.0f));
-		//float4x4::LookAt(math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f, 1.0f, 1.0f),math::float3(1.0f, 1.0f, 1.0f), math::float3(1.0f,1.0f, .0f));
+
+	view = glm::mat4(1.0f);
+	// note that we're translating the scene in the reverse direction of where we want to move
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
 
 }
