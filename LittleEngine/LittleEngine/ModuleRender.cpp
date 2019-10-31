@@ -51,16 +51,12 @@ void ModuleRender::LoadShaders() const{
 
 	GLuint modelOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"model");
-	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"proj");
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
-
 }
 
 void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
-	aspect = width / height;
+	Engine->moduleCamera->aspect = width / height;
 	glViewport(0, 0, width, height);
 }
 
@@ -90,8 +86,7 @@ bool ModuleRender::CleanUp() {
 }
 
 void ModuleRender::GenerateMatrices(){
-	projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+
 
 	model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 1.0f, 0.0f));

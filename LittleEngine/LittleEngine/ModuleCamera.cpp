@@ -6,6 +6,9 @@ bool ModuleCamera::Init() {
 	view = glm::mat4(1.0f);
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+	projection = glm::mat4(1.0f);
+	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
 	return true;
 }
 
@@ -13,7 +16,10 @@ update_status ModuleCamera::PreUpdate() {
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"view");
+	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"proj");
 	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
 	return UPDATE_CONTINUE;
 }
 
@@ -35,7 +41,7 @@ void ModuleCamera::Rotate(const glm::vec2 & mouseOffset) {
 
 }
 
-void ModuleCamera::Translate(glm::vec4 direction) {
+void ModuleCamera::Translate(const glm::vec4 & direction) {
 
 	if (direction.x != 0)
 		cameraPos -= cameraSpeed * cameraUp;

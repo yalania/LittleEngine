@@ -11,9 +11,10 @@ public:
 	bool Init() override;
 	update_status PreUpdate() override;
 	void Rotate(const glm::vec2 & mouseOffset);
-	void Translate(glm::vec4 direction);
+	void Translate(const glm::vec4 & direction);
 	void Zoom(bool zoomIn);
 
+	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 private:
 	const float cameraSpeed = 0.01f;
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -24,6 +25,7 @@ private:
 	float pitch = 0;
 
 	glm::mat4 view;
+	glm::mat4 projection;
 };
 #endif // !_MODULE_CAMERA_
 
