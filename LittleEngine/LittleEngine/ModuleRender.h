@@ -30,7 +30,6 @@ private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
 	glm::mat4 projection;
 	glm::mat4 model;
-	glm::mat4 view;
 	float aspect = (float) SCREEN_WIDTH / (float) SCREEN_HEIGHT;
 
 };

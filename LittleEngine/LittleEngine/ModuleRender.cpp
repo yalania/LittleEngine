@@ -16,12 +16,12 @@ bool ModuleRender::Init() {
 
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	LoadShaders();
 	return UPDATE_CONTINUE;
 
 }
 
 update_status ModuleRender::Update() {
-	LoadShaders();
 	for (auto &object : objects) {
 		object->Update();
 	}
@@ -51,12 +51,9 @@ void ModuleRender::LoadShaders() const{
 
 	GLuint modelOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"model");
-	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"view");
 	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"proj");
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
 
 }
@@ -93,18 +90,10 @@ bool ModuleRender::CleanUp() {
 }
 
 void ModuleRender::GenerateMatrices(){
-	
 	projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
-
 
 	model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 1.0f, 0.0f));
 	
-
-	view = glm::mat4(1.0f);
-	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -2.0f));
-
-
 }

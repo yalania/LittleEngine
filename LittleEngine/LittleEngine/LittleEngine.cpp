@@ -5,10 +5,11 @@ LittleEngine::LittleEngine()
 	// Order matters: they will Init/start/update in this order
 	modules.reserve(5);
 	modules.push_back(moduleWindow = std::make_shared<ModuleWindow>());
-	//modules.push_back(moduleInput = std::make_shared<ModuleInput>());
+	modules.push_back(moduleInput = std::make_shared<ModuleInput>());
 	//modules.push_back(moduleImgui = std::make_shared<ModuleIMGUI>());
 	modules.push_back(moduleRenderer = std::make_shared<ModuleRender>());
 	modules.push_back(moduleShaderProgram = std::make_shared<ModuleProgram>());
+	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
 }
 
 LittleEngine::~LittleEngine()
