@@ -62,3 +62,17 @@ void ModuleCamera::Zoom(bool zoomIn) {
 		cameraPos.z += 0.1f;
 	}
 }
+
+void ModuleCamera::ChangeProjection() {
+
+	if (perspectiveEnable) {
+		projection = glm::ortho(0.0f, (float)SCREEN_WIDTH, 0.0f, (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		perspectiveEnable = false;
+	}
+	else {
+		perspectiveEnable = false;
+		projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+	}
+	
+
+}
