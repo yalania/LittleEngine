@@ -46,3 +46,13 @@ void ModuleCamera::Translate(glm::vec4 direction) {
 	if (direction.w != 0)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
+
+void ModuleCamera::Zoom(bool zoomIn) {
+
+	if (zoomIn) {
+		cameraPos.z -= 0.1f;
+	}
+	else {
+		cameraPos.z += 0.1f;
+	}
+}

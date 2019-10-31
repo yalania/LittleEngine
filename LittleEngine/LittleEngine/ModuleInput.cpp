@@ -49,6 +49,18 @@ update_status ModuleInput::Update()
 			initialMousePosition = glm::vec2(event.button.x, event.button.y);
 			rightMouseButtonIsDown = true;
 		}
+		
+		if(event.type == SDL_MOUSEWHEEL){
+			if (event.wheel.y > 0) // scroll up
+			{
+				Engine->moduleCamera->Zoom(true);
+			}
+			else if (event.wheel.y < 0) // scroll down
+			{
+				Engine->moduleCamera->Zoom(false);
+			}
+
+		}
 		if (event.type == SDL_MOUSEBUTTONUP && SDL_BUTTON(2))
 		{
 			rightMouseButtonIsDown = false;

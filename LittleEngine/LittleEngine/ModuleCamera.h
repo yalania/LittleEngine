@@ -12,6 +12,7 @@ public:
 	update_status PreUpdate() override;
 	void Rotate(const glm::vec2 & mouseOffset);
 	void Translate(glm::vec4 direction);
+	void Zoom(bool zoomIn);
 
 private:
 	const float cameraSpeed = 0.01f;
