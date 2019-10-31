@@ -55,18 +55,35 @@ update_status ModuleInput::Update()
 		}
 		if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
 
-			int mouseXPos = initialMousePosition.x - event.motion.x;
-			int mouseYPos = initialMousePosition.y - event.motion.y;
+			int mouseXPos = (event.motion.x - initialMousePosition.x) *mouseSensitivity;
+			int mouseYPos = (initialMousePosition.y - event.motion.y) *mouseSensitivity;
 
-			glm::vec3 direction = glm::vec3(0.0f);
-			direction.x = mouseXPos != 0 ? 1 : 0;
-			direction.y = mouseYPos != 0 ? 1 : 0;
-
-			float rotationAngle = (atan2(mouseXPos, mouseYPos)) / M_PI;
-			Engine->moduleCamera->Rotate(rotationAngle, direction);
+			initialMousePosition.x = event.motion.x;	
+			initialMousePosition.x = event.motion.x;
+			Engine->moduleCamera->Rotate(glm::vec2(mouseXPos, mouseYPos));
 		}
+
 	}
 	keyboard = SDL_GetKeyboardState(NULL);
+
+	glm::vec4 translation = glm::vec4(0.0f);
+	if (keyboard[SDL_SCANCODE_UP]) {
+		translation.x = 1.0f;
+		Engine->moduleCamera->Translate(translation);
+	}
+	if (keyboard[SDL_SCANCODE_RIGHT] ) {
+		translation.y = 1.0f;
+		Engine->moduleCamera->Translate(translation);
+	}
+	if (keyboard[SDL_SCANCODE_DOWN]) {
+		translation.z = 1.0f;
+		Engine->moduleCamera->Translate(translation);
+	}
+	if (keyboard[SDL_SCANCODE_LEFT]) {
+		translation.w = 1.0f;
+		Engine->moduleCamera->Translate(translation);
+	}
+
 	return UPDATE_CONTINUE;
 }
 

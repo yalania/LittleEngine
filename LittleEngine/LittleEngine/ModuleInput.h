@@ -18,6 +18,7 @@ public:
 
 private:
 	const UINT8 *keyboard = NULL;
+	const float mouseSensitivity = 0.05f;
 	bool rightMouseButtonIsDown = false;
 	glm::vec2 initialMousePosition = glm::vec2(0.0f);
 };
