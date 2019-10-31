@@ -35,11 +35,36 @@ update_status ModuleInput::Update()
 	bool done = true;
 	while (SDL_PollEvent(&event))
 	{
-		ImGui_ImplSDL2_ProcessEvent(&event);
-		if (event.type == SDL_QUIT)
-			done = true;
-		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine->moduleWindow->window))
-			done = true;
+		//ImGui_ImplSDL2_ProcessEvent(&event);
+		if (event.type == SDL_QUIT) 
+		{
+
+		}
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine->moduleWindow->window)) 
+		{
+
+		}
+		if (event.type == SDL_MOUSEBUTTONDOWN && SDL_BUTTON(2))
+		{
+			initialMousePosition = glm::vec2(event.button.x, event.button.y);
+			rightMouseButtonIsDown = true;
+		}
+		if (event.type == SDL_MOUSEBUTTONUP && SDL_BUTTON(2))
+		{
+			rightMouseButtonIsDown = false;
+		}
+		if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
+
+			int mouseXPos = initialMousePosition.x - event.motion.x;
+			int mouseYPos = initialMousePosition.y - event.motion.y;
+
+			glm::vec3 direction = glm::vec3(0.0f);
+			direction.x = mouseXPos != 0 ? 1 : 0;
+			direction.y = mouseYPos != 0 ? 1 : 0;
+
+			float rotationAngle = (atan2(mouseXPos, mouseYPos)) / M_PI;
+			Engine->moduleCamera->Rotate(rotationAngle, direction);
+		}
 	}
 	keyboard = SDL_GetKeyboardState(NULL);
 	return UPDATE_CONTINUE;

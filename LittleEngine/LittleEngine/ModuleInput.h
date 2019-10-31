@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include <glm/vec2.hpp>
 
 class ModuleInput : public Module
 {
@@ -17,6 +18,8 @@ public:
 
 private:
 	const UINT8 *keyboard = NULL;
+	bool rightMouseButtonIsDown = false;
+	glm::vec2 initialMousePosition = glm::vec2(0.0f);
 };
 
 #endif // !_MODULE_RENDER_
