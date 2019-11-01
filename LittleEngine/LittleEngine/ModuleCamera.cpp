@@ -5,7 +5,7 @@
 bool ModuleCamera::Init() {
 	view = glm::mat4(1.0f);
 	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
 
 	projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
@@ -13,7 +13,7 @@ bool ModuleCamera::Init() {
 }
 
 update_status ModuleCamera::PreUpdate() {
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
 	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
 		"view");
 	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
@@ -34,7 +34,7 @@ void ModuleCamera::Rotate(const glm::vec2 & mouseOffset) {
 		pitch = -89.0f;
 
 	glm::vec3 front;
-	front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 	cameraFront = glm::normalize(front);
@@ -43,23 +43,27 @@ void ModuleCamera::Rotate(const glm::vec2 & mouseOffset) {
 
 void ModuleCamera::Translate(const glm::vec4 & direction) {
 
-	if (direction.x != 0)
-		cameraPos -= cameraSpeed * cameraUp;
-	if (direction.y != 0)
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if (direction.z != 0)
-		cameraPos += cameraSpeed * cameraUp;
-	if (direction.w != 0)
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (direction.x != 0) {
+		cameraPosition -= cameraSpeed * cameraUp;
+	}
+	if (direction.z != 0) {
+		cameraPosition += cameraSpeed * cameraUp;
+	}
+	if (direction.y != 0) {
+		cameraPosition +=  cameraSpeed * cameraRight;
+	}
+	if (direction.w != 0) {
+		cameraPosition -= cameraSpeed * cameraRight;
+	}
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
 
 	if (zoomIn) {
-		cameraPos.z -= 0.1f;
+		cameraPosition += cameraSpeed * cameraFront;
 	}
 	else {
-		cameraPos.z += 0.1f;
+		cameraPosition -= cameraSpeed * cameraFront;
 	}
 }
 

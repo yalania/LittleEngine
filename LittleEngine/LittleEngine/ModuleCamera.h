@@ -17,16 +17,19 @@ public:
 
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 private:
-	const float cameraSpeed = 0.01f;
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::mat4 view;
+	glm::mat4 projection;
+
+	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // Z position
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //Up position
+	glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront)); //Right camera vector
+	
 
 	float yaw = -90.0f;
 	float pitch = 0;
 
-	glm::mat4 view;
-	glm::mat4 projection;
+	const float cameraSpeed = 0.05f;
 	bool perspectiveEnable = true;
 };
 #endif // !_MODULE_CAMERA_

@@ -46,7 +46,7 @@ update_status ModuleInput::Update()
 		}
 		if (event.type == SDL_MOUSEBUTTONDOWN && SDL_BUTTON(2))
 		{
-			initialMousePosition = glm::vec2(event.button.x, event.button.y);
+			lastMousePosition = glm::vec2(event.button.x, event.button.y);
 			rightMouseButtonIsDown = true;
 		}
 		
@@ -67,11 +67,11 @@ update_status ModuleInput::Update()
 		}
 		if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
 
-			int mouseXPos = (event.motion.x - initialMousePosition.x) *mouseSensitivity;
-			int mouseYPos = (initialMousePosition.y - event.motion.y) *mouseSensitivity;
+			int mouseXPos = (event.motion.x - lastMousePosition.x) *mouseSensitivity;
+			int mouseYPos = (lastMousePosition.y - event.motion.y) *mouseSensitivity;
 
-			initialMousePosition.x = event.motion.x;	
-			initialMousePosition.x = event.motion.x;
+			lastMousePosition.x = event.motion.x;	
+			lastMousePosition.y = event.motion.y;
 			Engine->moduleCamera->Rotate(glm::vec2(mouseXPos, mouseYPos));
 		}
 
