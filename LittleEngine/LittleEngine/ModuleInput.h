@@ -17,6 +17,9 @@ public:
 	bool CleanUp() override;
 
 private:
+	void CameraMovementWithMouse(const SDL_Event & event);
+	void CameraMovementWithKeys() const;
+private:
 	const UINT8 *keyboard = NULL;
 	const float mouseSensitivity = 0.5f;
 	bool rightMouseButtonIsDown = false;

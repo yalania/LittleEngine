@@ -79,6 +79,14 @@ void ModuleRender::InitOpenGlOptions() const{
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
+
+	// Enable the debug callback
+	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(OurOpenGLErrorFunction, nullptr);
+	glDebugMessageControl(
+		GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, true
+	);
 }
 
 bool ModuleRender::CleanUp() {

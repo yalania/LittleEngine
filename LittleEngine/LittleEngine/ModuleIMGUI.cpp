@@ -28,7 +28,9 @@ update_status ModuleIMGUI::PreUpdate() {
 update_status ModuleIMGUI::Update() {
 
 	ImGui::ShowTestWindow();
-	ImGui::TextUnformatted(getBuffer().Buf.begin());
+	if (!getLogData()->empty()) {
+		//ImGui::TextUnformatted(getLogData()->begin());
+	}
 	return UPDATE_CONTINUE;
 }
 

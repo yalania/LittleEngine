@@ -2,6 +2,7 @@
 #define _MODULE_
 
 #include "Globals.h"
+#include "Log.h"
 
 class Module
 {

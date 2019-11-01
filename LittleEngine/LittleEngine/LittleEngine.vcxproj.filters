@@ -30,9 +30,6 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="log.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleRender.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,6 +123,9 @@
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

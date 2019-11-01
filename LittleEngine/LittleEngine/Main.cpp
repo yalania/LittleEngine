@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "Log.h"
 #include "LittleEngine.h"
 
 enum main_states
