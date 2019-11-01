@@ -23,7 +23,7 @@ update_status ModuleCamera::PreUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-void ModuleCamera::Rotate(const glm::vec2 & mouseOffset) {
+void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
 
 	yaw += mouseOffset.x;
 	pitch += mouseOffset.y;
@@ -39,20 +39,22 @@ void ModuleCamera::Rotate(const glm::vec2 & mouseOffset) {
 	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 	cameraFront = glm::normalize(front);
 
+	cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront));
+
 }
 
-void ModuleCamera::Translate(const glm::vec4 & direction) {
+void ModuleCamera::Translate(const glm::vec2 & direction) {
 
-	if (direction.x != 0) {
+	if (direction.y > 0) {
 		cameraPosition -= cameraSpeed * cameraUp;
 	}
-	if (direction.z != 0) {
+	if (direction.y < 0) {
 		cameraPosition += cameraSpeed * cameraUp;
 	}
-	if (direction.y != 0) {
+	if (direction.x > 0) {
 		cameraPosition +=  cameraSpeed * cameraRight;
 	}
-	if (direction.w != 0) {
+	if (direction.x < 0) {
 		cameraPosition -= cameraSpeed * cameraRight;
 	}
 }
