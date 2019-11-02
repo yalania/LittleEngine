@@ -90,6 +90,7 @@ void ModuleRender::InitOpenGlOptions() const{
 }
 
 bool ModuleRender::CleanUp() {
+	SDL_GL_DeleteContext(SDL_GL_GetCurrentContext());
 	return true;
 }
 

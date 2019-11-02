@@ -3,13 +3,17 @@
 #include <fstream>
 #include <vector>
 
+
+ModuleProgram::~ModuleProgram() {
+	CleanUp();
+}
 bool ModuleProgram::Init() {
 	LOG("Init Shader program");
 	 defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
 	 return true;
 }
 
-const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath){
+const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath) const{
 	std::ifstream file(shaderFilePath, std::ios::in);
 
 	if (!file.is_open()) {
@@ -24,7 +28,7 @@ const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath){
 	
 }
 
-void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile){
+void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile) const{
 
 	GLint success = GL_FALSE;
 	int logLength;
@@ -44,7 +48,7 @@ void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile
 	
 }
 
-GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fragment_path){
+GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fragment_path) const{
 
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -73,9 +77,16 @@ GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fra
 		LOG("Problems linking  : %s\n", &programError[0]);
 	}
 
+	glDetachShader(program,vertexShader);
+	glDetachShader(program,fragmentShader);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
 	return program;
 }
 
+
+bool ModuleProgram::CleanUp() {
+	glDeleteProgram(defaultProgram);
+	return true;
+}
