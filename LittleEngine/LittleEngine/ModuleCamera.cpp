@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 bool ModuleCamera::Init() {
+	LOG("Init Camera System");
 	view = glm::mat4(1.0f);
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);

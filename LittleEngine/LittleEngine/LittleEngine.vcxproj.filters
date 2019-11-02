@@ -19,6 +19,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{01e8050e-3ec8-4ec3-b4ee-0b4af91e982f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{6c70a4ba-e9a3-474e-b189-b30b3dfe2aa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LittleEngine.cpp">

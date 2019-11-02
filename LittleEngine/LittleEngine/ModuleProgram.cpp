@@ -4,6 +4,7 @@
 #include <vector>
 
 bool ModuleProgram::Init() {
+	LOG("Init Shader program");
 	 defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
 	 return true;
 }
