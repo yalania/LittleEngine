@@ -12,7 +12,7 @@ public:
 	update_status PostUpdate() override;
 
 private:
-	void DrawConsoleWindow();
+
 
 };
 #endif // _MODULE_IMGUI_
