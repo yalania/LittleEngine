@@ -13,9 +13,11 @@ public:
 	void MoveCameraWithMousePosition(const glm::vec2 & mouseOffset);
 	void Translate(const glm::vec2 & direction);
 	void Zoom(bool zoomIn);
-	void ChangeProjection();
+	void EnablePerspective();
+	void EnableOrthographic();
 
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
+
 private:
 	glm::mat4 view;
 	glm::mat4 projection;
@@ -30,6 +32,8 @@ private:
 	float pitch = 0;
 
 	const float cameraSpeed = 0.05f;
+
+public:
 	bool perspectiveEnable = true;
 };
 #endif // !_MODULE_CAMERA_

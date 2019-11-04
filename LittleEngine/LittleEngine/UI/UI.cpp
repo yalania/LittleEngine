@@ -1,6 +1,8 @@
 #include "UI.h"
 #include "../imgui/imgui.h"
 #include "../Log.h"
+#include "../LittleEngine.h"
+#include "../imgui/imgui_internal.h"
 
 void UI::ShowUI() {
 	if (ImGui::BeginMainMenuBar())
@@ -10,6 +12,25 @@ void UI::ShowUI() {
 			if (ImGui::MenuItem("Load Texture"))
 			{
 				ImGui::OpenPopup("Some Popup");
+			}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("View"))
+		{
+			if (ImGui::BeginMenu("Projection..."))
+			{
+				bool perspectiveEnable = Engine->moduleCamera->perspectiveEnable;
+				if (ImGui::MenuItem("Orthographic ", nullptr, !perspectiveEnable, perspectiveEnable))
+				{
+					Engine->moduleCamera->EnableOrthographic();
+
+				}
+				if (ImGui::MenuItem("perspective", nullptr, perspectiveEnable, !perspectiveEnable))
+				{
+					Engine->moduleCamera->EnablePerspective();
+
+				}
+				ImGui::EndMenu();
 			}
 			ImGui::EndMenu();
 		}

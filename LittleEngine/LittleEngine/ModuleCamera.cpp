@@ -70,16 +70,19 @@ void ModuleCamera::Zoom(bool zoomIn) {
 	}
 }
 
-void ModuleCamera::ChangeProjection() {
+void ModuleCamera::EnablePerspective() {
+
+	if (!perspectiveEnable) {
+		projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+		perspectiveEnable = true;
+	}
+}
+
+void ModuleCamera::EnableOrthographic() {
 
 	if (perspectiveEnable) {
-		projection = glm::ortho(0.0f, (float)SCREEN_WIDTH, 0.0f, (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), 0.1f, 0.0f, 100.0f);
 		perspectiveEnable = false;
 	}
-	else {
-		perspectiveEnable = false;
-		projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
-	}
-	
 
 }
