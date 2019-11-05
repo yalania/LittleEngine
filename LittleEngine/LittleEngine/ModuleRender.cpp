@@ -78,7 +78,7 @@ void ModuleRender::InitOpenGlOptions() const{
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Enable the debug callback
 	glEnable(GL_DEBUG_OUTPUT);
