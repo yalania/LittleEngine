@@ -4,12 +4,10 @@
 
 bool ModuleCamera::Init() {
 	LOG("Init Camera System");
-	view = glm::mat4(1.0f);
+
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
-
-	projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+	LoadProjection();
 	return true;
 }
 
@@ -63,17 +61,22 @@ void ModuleCamera::Translate(const glm::vec2 & direction) {
 void ModuleCamera::Zoom(bool zoomIn) {
 
 	if (zoomIn) {
-		cameraPosition += cameraSpeed * cameraFront;
+		orthoUnits -= 0.05f;
+		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
+		--frustumFov;
 	}
 	else {
-		cameraPosition -= cameraSpeed * cameraFront;
+		orthoUnits += 0.05;
+		++frustumFov;
 	}
+	LoadProjection();
+
 }
 
 void ModuleCamera::EnablePerspective() {
 
 	if (!perspectiveEnable) {
-		projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(frustumFov), aspect, 0.1f, 100.0f);
 		perspectiveEnable = true;
 	}
 }
@@ -81,8 +84,18 @@ void ModuleCamera::EnablePerspective() {
 void ModuleCamera::EnableOrthographic() {
 
 	if (perspectiveEnable) {
-		projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), 0.1f, 0.0f, 100.0f);
+		float orthoUnitsAbs = abs(orthoUnits);
+		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, 0.1f, 100.0f);
 		perspectiveEnable = false;
 	}
 
+}
+
+void ModuleCamera::LoadProjection() {
+	if (perspectiveEnable) {
+		projection = glm::perspective(glm::radians(frustumFov), aspect, 0.1f, 100.0f);
+	}
+	else {
+		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, 0.1f, 100.0f);
+	}
 }

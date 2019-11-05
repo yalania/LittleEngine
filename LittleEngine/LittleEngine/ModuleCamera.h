@@ -17,10 +17,10 @@ public:
 	void EnableOrthographic();
 
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
-
+	void LoadProjection();
 private:
-	glm::mat4 view;
-	glm::mat4 projection;
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
 
 	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // Z position
@@ -30,6 +30,8 @@ private:
 
 	float yaw = -90.0f;
 	float pitch = 0;
+	float frustumFov = 45.0f;
+	float orthoUnits = 1.0f;
 
 	const float cameraSpeed = 0.05f;
 

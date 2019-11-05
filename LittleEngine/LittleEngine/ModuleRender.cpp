@@ -57,6 +57,7 @@ void ModuleRender::LoadShaders() const{
 void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
 	Engine->moduleCamera->aspect = width / height;
+	Engine->moduleCamera->LoadProjection();
 	glViewport(0, 0, width, height);
 }
 
@@ -95,8 +96,6 @@ bool ModuleRender::CleanUp() {
 }
 
 void ModuleRender::GenerateMatrices(){
-
-
 	model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(15.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	
