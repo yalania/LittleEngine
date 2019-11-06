@@ -8,18 +8,15 @@
 namespace UIState {
 	bool showingDebugWindow = false;
 	bool showingAboutWindow = false;
-	bool showingConfigureWindow = false;
+	bool showingPropertiesWindow = false;
 }
 
 void UI::ShowUI() {
 	if (ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::BeginMenu("File"))
+		if (ImGui::BeginMenu("LittleEngine"))
 		{
-			if (ImGui::MenuItem("Load Texture"))
-			{
-				ImGui::OpenPopup("Some Popup");
-			}
+			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
@@ -41,16 +38,9 @@ void UI::ShowUI() {
 			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Debug"))
-		{
-			UIState::showingDebugWindow = !UIState::showingDebugWindow;
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("About"))
-		{
-			UIState::showingAboutWindow = !UIState::showingDebugWindow;
-			ImGui::EndMenu();
-		}
+
+		ImGui::MenuItem("Debug", NULL, &UIState::showingDebugWindow);
+		ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 		ImGui::EndMainMenuBar();
 	}
 
@@ -103,7 +93,7 @@ void UI::UpdateState() {
 	if (UIState::showingDebugWindow) {
 		DrawConsoleWindow();
 	}
-	if (UIState::showingConfigureWindow) {
+	if (UIState::showingPropertiesWindow) {
 
 	}
 }
