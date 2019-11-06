@@ -76,28 +76,20 @@ void ModuleCamera::Zoom(bool zoomIn) {
 }
 
 void ModuleCamera::EnablePerspective() {
-
-	if (!perspectiveEnable) {
-		projection = glm::perspective(glm::radians(frustumFov), aspect, 0.1f, 100.0f);
 		perspectiveEnable = true;
-	}
+		LoadProjection();
 }
 
 void ModuleCamera::EnableOrthographic() {
-
-	if (perspectiveEnable) {
-		float orthoUnitsAbs = abs(orthoUnits);
-		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, 0.1f, 100.0f);
 		perspectiveEnable = false;
-	}
-
+		LoadProjection();
 }
 
 void ModuleCamera::LoadProjection() {
 	if (perspectiveEnable) {
-		projection = glm::perspective(glm::radians(frustumFov), aspect, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);
 	}
 	else {
-		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, 0.1f, 100.0f);
+		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, nearPlane, farPlane);
 	}
 }

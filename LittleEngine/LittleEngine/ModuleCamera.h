@@ -18,6 +18,12 @@ public:
 
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	void LoadProjection();
+
+	float frustumFov = 45.0f;
+	float orthoUnits = 1.0f;
+	float cameraSpeed = 0.05f;
+	float farPlane = 100.0f;
+	float nearPlane = 0.1f;
 private:
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
@@ -30,10 +36,7 @@ private:
 
 	float yaw = -90.0f;
 	float pitch = 0;
-	float frustumFov = 45.0f;
-	float orthoUnits = 1.0f;
 
-	const float cameraSpeed = 0.05f;
 
 public:
 	bool perspectiveEnable = true;

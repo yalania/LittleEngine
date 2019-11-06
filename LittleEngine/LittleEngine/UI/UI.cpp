@@ -11,6 +11,17 @@ namespace UIState {
 	bool showingPropertiesWindow = false;
 }
 
+namespace WindowOptions {
+	bool showingDebugWindow = false;
+	bool showingAboutWindow = false;
+	bool showingPropertiesWindow = false;
+}
+
+namespace CameraOptions {
+	bool frustumCulling = true;
+	bool isActiveCamera = true;
+}
+
 void UI::ShowUI() {
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -45,7 +56,7 @@ void UI::ShowUI() {
 	}
 
 	UpdateState();
-	//ImGui::ShowDemoWindow();
+	ImGui::ShowDemoWindow();
 }
 
 
@@ -89,7 +100,21 @@ void UI::DrawPropertiesWindow() {
 	ImGui::Begin("Properties");
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-	
+		ImGui::Checkbox("Active", &CameraOptions::isActiveCamera);
+		ImGui::SliderFloat("Mov.Speed", &Engine->moduleCamera->cameraSpeed, 0.05f, 2.0f);
+		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, 200.0f)) {
+			Engine->moduleCamera->LoadProjection();
+		}
+		if (ImGui::SliderFloat("Far Plane", &Engine->moduleCamera->farPlane, 0.0f, 200.0f)) {
+			Engine->moduleCamera->LoadProjection();
+		}
+		if(ImGui::SliderFloat("Aspect ratio", &Engine->moduleCamera->aspect, -10.0f, 10.0f) ){
+			Engine->moduleCamera->LoadProjection();
+		}
+		if (ImGui::SliderFloat("Fov ratio", &Engine->moduleCamera->frustumFov, 0.0f, 179.9f)) {
+			Engine->moduleCamera->LoadProjection();
+		}
+		ImGui::Checkbox("Frustum Culling", &CameraOptions::frustumCulling);
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
