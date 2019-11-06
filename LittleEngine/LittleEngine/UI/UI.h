@@ -13,7 +13,8 @@ private:
 
 	static void TabExample();
 	static void DrawConsoleWindow();
-	static void DrawAboutWindow();
+	static void DrawAboutWindow(); 
+	static void DrawPropertiesWindow();
 	static void UpdateState();
 };
 

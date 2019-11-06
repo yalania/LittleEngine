@@ -3440,6 +3440,7 @@ static void ShowExampleAppMainMenuBar()
         }
         ImGui::EndMainMenuBar();
     }
+	ImGui::ShowDemoWindow();
 }
 
 // Note that shortcuts are currently provided for display only (future version will add flags to BeginMenu to process shortcuts)

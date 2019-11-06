@@ -45,6 +45,7 @@ void UI::ShowUI() {
 	}
 
 	UpdateState();
+	//ImGui::ShowDemoWindow();
 }
 
 
@@ -84,6 +85,18 @@ void UI::DrawAboutWindow() {
 
 }
 
+void UI::DrawPropertiesWindow() {
+	ImGui::Begin("Properties");
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+	
+	}
+	if (ImGui::CollapsingHeader("Window"))
+	{
+
+	}
+	ImGui::End();
+}
 
 void UI::UpdateState() {
 
@@ -94,6 +107,6 @@ void UI::UpdateState() {
 		DrawConsoleWindow();
 	}
 	if (UIState::showingPropertiesWindow) {
-
+		DrawPropertiesWindow();
 	}
 }
