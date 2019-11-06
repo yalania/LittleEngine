@@ -25,6 +25,8 @@ private:
 	void LoadShaders() const;
 	void InitOpenGlOptions() const;
 	void GenerateMatrices();
+	void ShowGrid() const;
+	void ShowDirectionArrows() const;
 
 private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
