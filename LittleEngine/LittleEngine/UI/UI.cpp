@@ -4,6 +4,13 @@
 #include "../LittleEngine.h"
 #include "../imgui/imgui_internal.h"
 
+
+namespace UIState {
+	bool showingDebugWindow = false;
+	bool showingAboutWindow = false;
+	bool showingConfigureWindow = false;
+}
+
 void UI::ShowUI() {
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -34,41 +41,69 @@ void UI::ShowUI() {
 			}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Debug"))
+		{
+			UIState::showingDebugWindow = !UIState::showingDebugWindow;
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("About"))
+		{
+			UIState::showingAboutWindow = !UIState::showingDebugWindow;
+			ImGui::EndMenu();
+		}
 		ImGui::EndMainMenuBar();
 	}
 
-	TabExample();
+	UpdateState();
 }
 
 
 void UI::TabExample() {
 	ImGui::BeginTabBar("Tab Bar");
 	DrawConsoleWindow();
-	DrawActivityWindow();
+	DrawAboutWindow();
 	ImGui::EndTabBar();
 }
 
 
 void UI::DrawConsoleWindow() {
-	if (ImGui::BeginTabItem("Console")) {
-		if (!getLogData()->empty()) {
-			ImGui::TextUnformatted(getLogData()->begin());
-			//ImGui::SetScrollHere(1.0f);
-		}
-		ImGui::EndTabItem();
+
+	ImGui::Begin("Debug");
+	ImGui::BeginTabBar("Debug");
+	ImGui::BeginTabItem("Console");
+	if (!getLogData()->empty()) {
+		ImGui::TextUnformatted(getLogData()->begin());
+		//ImGui::SetScrollHere(1.0f);
 	}
+	ImGui::EndTabItem();
+	ImGui::EndTabBar();
+	ImGui::End();
 }
 
-void UI::DrawActivityWindow() {
-	if (ImGui::BeginTabItem("About")) {
-		ImGui::Text("LittleEngine");
-		ImGui::Text("An Engine done for learning");
-		ImGui::Text("Author: Anabel Hernández Barrera");
-		ImGui::Text("Libraries:");
-		ImGui::Text("\t* GLM v0.9.9.6 ");
-		ImGui::Text("\t* IMGUI v1.73 ");
-		ImGui::Text("\t* stb_image v2.23 ");
-		ImGui::Text("License: MIT License");
-		ImGui::EndTabItem();
+void UI::DrawAboutWindow() {
+	ImGui::Begin("About");
+	ImGui::Text("LittleEngine");
+	ImGui::Text("An Engine done for learning");
+	ImGui::Text("Author: Anabel Hernández Barrera");
+	ImGui::Text("Libraries:");
+	ImGui::Text("\t* GLM v0.9.9.6 ");
+	ImGui::Text("\t* IMGUI v1.73 ");
+	ImGui::Text("\t* stb_image v2.23 ");
+	ImGui::Text("License: MIT License");
+	ImGui::End();
+
+}
+
+
+void UI::UpdateState() {
+
+	if (UIState::showingAboutWindow) {
+		DrawAboutWindow();
+	}
+	if (UIState::showingDebugWindow) {
+		DrawConsoleWindow();
+	}
+	if (UIState::showingConfigureWindow) {
+
 	}
 }
