@@ -38,11 +38,11 @@ update_status ModuleInput::Update()
 		//ImGui_ImplSDL2_ProcessEvent(&event);
 		if (event.type == SDL_QUIT) 
 		{
-
+			return UPDATE_STOP;
 		}
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine->moduleWindow->window)) 
 		{
-
+			Engine->moduleRenderer->WindowResized(event.window.data1, event.window.data2);
 		}
 		CameraMovementWithMouse(event);
 		

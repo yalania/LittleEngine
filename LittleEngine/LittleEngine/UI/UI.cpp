@@ -118,7 +118,12 @@ void UI::DrawPropertiesWindow() {
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
-
+		if (ImGui::SliderFloat("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1080.0f)) {
+			Engine->moduleCamera->LoadProjection();
+		}
+		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 1920.0f)) {
+			Engine->moduleCamera->LoadProjection();
+		}
 	}
 	ImGui::End();
 }

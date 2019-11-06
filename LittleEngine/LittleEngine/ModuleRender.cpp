@@ -35,12 +35,6 @@ update_status ModuleRender::PostUpdate() {
 
 	SDL_GL_SwapWindow(Engine->moduleWindow->window);
 
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) {
-			WindowResized(event.window.data1, event.window.data2);
-		}
-	}
 	return UPDATE_CONTINUE;
 
 }
@@ -57,7 +51,8 @@ void ModuleRender::LoadShaders() const{
 
 void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
-	Engine->moduleCamera->aspect = width / height;
+	Engine->moduleWindow->width = width;
+	Engine->moduleWindow->height = height;
 	Engine->moduleCamera->LoadProjection();
 	glViewport(0, 0, width, height);
 }

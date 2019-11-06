@@ -86,6 +86,7 @@ void ModuleCamera::EnableOrthographic() {
 }
 
 void ModuleCamera::LoadProjection() {
+	aspect = Engine->moduleWindow->width / Engine->moduleWindow->height;
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);
 	}
