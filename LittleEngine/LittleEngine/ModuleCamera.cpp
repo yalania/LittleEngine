@@ -62,12 +62,14 @@ void ModuleCamera::Zoom(bool zoomIn) {
 
 	if (zoomIn) {
 		orthoUnits -= 0.05f;
-		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
 		--frustumFov;
+		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
+		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;
 	}
 	else {
 		orthoUnits += 0.05;
 		++frustumFov;
+		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;
 	}
 	LoadProjection();
 
