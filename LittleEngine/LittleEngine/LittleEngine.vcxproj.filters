@@ -22,6 +22,9 @@
     <Filter Include="UI">
       <UniqueIdentifier>{6c70a4ba-e9a3-474e-b189-b30b3dfe2aa4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{05d19784-848b-4b19-aa80-0db284c9934c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LittleEngine.cpp">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="ModuleTexture.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
