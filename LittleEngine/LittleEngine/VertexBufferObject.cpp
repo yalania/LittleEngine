@@ -1,8 +1,7 @@
 #include "VertexBufferObject.h"
 #include <GL/glew.h>
 #include "LittleEngine.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image/stb_image.h>
+
 
 VertexBufferObject::VertexBufferObject(){
 
@@ -40,7 +39,7 @@ VertexBufferObject::VertexBufferObject(){
 	//Texture
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
-	LoadTexture();
+	Engine->moduleTexture->LoadTexture("wall.jpg");
 }
 
 VertexBufferObject::~VertexBufferObject() {
@@ -50,30 +49,5 @@ VertexBufferObject::~VertexBufferObject() {
 
 void VertexBufferObject::Update(){
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-}
-
-void VertexBufferObject::LoadTexture() {
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	// load image, create texture and generate mipmaps
-	int width, height, nrChannels;
-
-	unsigned char *data = stbi_load("wall.jpg", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		LOG("Failed to load texture");
-	}
-	stbi_image_free(data);
-
-	GLuint textureOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"textureImg");
-	glUniform1i(textureOutput,texture);
 }

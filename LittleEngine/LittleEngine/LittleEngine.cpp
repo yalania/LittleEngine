@@ -10,6 +10,7 @@ LittleEngine::LittleEngine()
 	modules.push_back(moduleRenderer = std::make_shared<ModuleRender>());
 	modules.push_back(moduleShaderProgram = std::make_shared<ModuleProgram>());
 	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
+	modules.push_back(moduleTexture = std::make_shared<ModuleTexture>());
 }
 
 LittleEngine::~LittleEngine()

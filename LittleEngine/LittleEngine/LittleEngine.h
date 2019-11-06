@@ -7,6 +7,7 @@
 #include "ModuleProgram.h"
 #include "ModuleIMGUI.h"
 #include "ModuleCamera.h"
+#include "ModuleTexture.h"
 
 #include <vector>
 #include <memory>
@@ -29,6 +30,7 @@ public:
 	std::shared_ptr<ModuleProgram> moduleShaderProgram;
 	std::shared_ptr<ModuleIMGUI> moduleImgui;
 	std::shared_ptr<ModuleCamera> moduleCamera;
+	std::shared_ptr<ModuleTexture> moduleTexture;
 
 private:
 
