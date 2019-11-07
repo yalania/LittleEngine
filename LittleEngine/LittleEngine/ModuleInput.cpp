@@ -40,7 +40,7 @@ update_status ModuleInput::Update()
 		{
 			return UPDATE_STOP;
 		}
-		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(Engine->moduleWindow->window)) 
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) 
 		{
 			Engine->moduleRenderer->WindowResized(event.window.data1, event.window.data2);
 		}

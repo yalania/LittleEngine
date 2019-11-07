@@ -27,9 +27,7 @@ update_status ModuleIMGUI::PreUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleIMGUI::Update() {
-
-	
+update_status ModuleIMGUI::Update() {	
 	UI::ShowUI();
 	return UPDATE_CONTINUE;
 }

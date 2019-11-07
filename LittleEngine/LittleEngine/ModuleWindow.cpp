@@ -69,7 +69,6 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
-
 void ModuleWindow::InitOpenGLAttributes() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
