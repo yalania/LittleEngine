@@ -206,6 +206,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\fragmentShader.frag" />
+    <None Include="Engine\gridShader.frag" />
+    <None Include="Engine\gridShader.vert" />
     <None Include="Engine\vertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

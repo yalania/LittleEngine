@@ -163,5 +163,11 @@
     <None Include="Engine\vertexShader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Engine\gridShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Engine\gridShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
