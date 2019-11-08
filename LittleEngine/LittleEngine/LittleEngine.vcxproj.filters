@@ -87,6 +87,9 @@
     <ClCompile Include="Components\Transform.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleModelLoader.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LittleEngine.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="Components\Transform.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleModelLoader.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
