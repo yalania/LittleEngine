@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <vector>
 
 class ModuleCamera : public Module {
 
@@ -17,14 +18,16 @@ public:
 	void EnableOrthographic();
 
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
-	void LoadProjection();
 
 	float frustumFov = 45.0f;
 	float orthoUnits = 1.0f;
 	float cameraSpeed = 0.05f;
 	float farPlane = 100.0f;
 	float nearPlane = 0.1f;
+	void LoadProjection();
+	void AddShaderProgram(GLuint shaderProgram);
 private:
+	void UpdateMatricesInShaderPograms() const;
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 
@@ -32,8 +35,7 @@ private:
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // Z position
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //Up position
 	glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront)); //Right camera vector
-	
-
+	std::vector<GLuint> shaderPrograms;
 	float yaw = -90.0f;
 	float pitch = 0;
 

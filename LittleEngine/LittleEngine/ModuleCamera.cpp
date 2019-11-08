@@ -13,12 +13,7 @@ bool ModuleCamera::Init() {
 
 update_status ModuleCamera::PreUpdate() {
 	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
-	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"view");
-	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"proj");
-	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
+	UpdateMatricesInShaderPograms();
 	return UPDATE_CONTINUE;
 }
 
@@ -92,5 +87,21 @@ void ModuleCamera::LoadProjection() {
 	}
 	else {
 		projection = glm::ortho(-orthoUnits * aspect, orthoUnits * aspect, -orthoUnits, orthoUnits, nearPlane, farPlane);
+	}
+}
+
+void ModuleCamera::AddShaderProgram(GLuint shaderProgram) {
+	shaderPrograms.push_back(shaderProgram);
+}
+
+void ModuleCamera::UpdateMatricesInShaderPograms() const{
+
+	for (auto &shaderPogram : shaderPrograms) {
+		GLuint viewOutput = glGetUniformLocation(shaderPogram,
+			"view");
+		GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+			"proj");
+		glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
 	}
 }

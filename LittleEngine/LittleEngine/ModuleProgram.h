@@ -12,9 +12,9 @@ public:
 	bool CleanUp() override;
 
 	GLuint defaultProgram;
+	GLuint LoadShaderProgram(const char *vertex_path, const char *fragment_path) const;
 private:
 
-	GLuint LoadShaderProgram(const char *vertex_path, const char *fragment_path) const;
 	const std::string ReadFile(const std::string & shaderFilePath) const;
 	void CompileShader(const GLuint & shader, const char * shaderFile) const;
 };
