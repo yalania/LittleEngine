@@ -81,6 +81,9 @@
     <ClCompile Include="ModuleTexture.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleGrid.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LittleEngine.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGrid.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
