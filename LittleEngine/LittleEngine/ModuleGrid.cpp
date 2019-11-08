@@ -5,6 +5,7 @@
 bool ModuleGrid::Init() {
 	LOG("Init render system");
 	gridShaderProgram = Engine->moduleShaderProgram->LoadShaderProgram("gridShader.vert", "gridShader.frag");
+	Engine->moduleCamera->AddShaderProgram(gridShaderProgram);
 	model = glm::mat4(1.0f);
 	return true;
 }
@@ -14,8 +15,6 @@ update_status ModuleGrid::Update() {
 
 	GLuint modelOutput = glGetUniformLocation(gridShaderProgram,"model");
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
-
-
 	return UPDATE_CONTINUE;
 
 }

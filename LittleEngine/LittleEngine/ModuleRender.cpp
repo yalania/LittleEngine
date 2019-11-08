@@ -25,6 +25,7 @@ update_status ModuleRender::Update() {
 	for (auto &object : objects) {
 		object->Update();
 	}
+	glUseProgram(0);
 	return UPDATE_CONTINUE;
 
 }

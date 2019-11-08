@@ -7,6 +7,7 @@ bool ModuleCamera::Init() {
 
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
+	AddShaderProgram(Engine->moduleShaderProgram->defaultProgram);
 	LoadProjection();
 	return true;
 }
