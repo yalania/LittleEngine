@@ -121,7 +121,7 @@ void UI::DrawPropertiesWindow() {
 		if (ImGui::SliderFloat("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920.0f)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
-		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 1080.0f)) {
+		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100.0f)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
 	}

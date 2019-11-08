@@ -3,13 +3,13 @@
 
 #include "Module.h"
 #include <SDL/SDL.h>
-class LittleEngine;
+
 
 class ModuleWindow : public Module
 {
 public:
 
-	ModuleWindow();
+	ModuleWindow() = default;
 	~ModuleWindow();
 
 	bool Init() override;

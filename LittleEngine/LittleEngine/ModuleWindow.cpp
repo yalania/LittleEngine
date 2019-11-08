@@ -2,10 +2,6 @@
 #include "LittleEngine.h"
 #include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow()
-{
-}
-
 ModuleWindow::~ModuleWindow()
 {
 	CleanUp();
