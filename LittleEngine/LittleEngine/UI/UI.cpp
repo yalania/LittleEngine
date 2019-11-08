@@ -118,11 +118,11 @@ void UI::DrawPropertiesWindow() {
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		if (ImGui::SliderFloat("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1080.0f)) {
-			SDL_SetWindowSize(Engine->moduleWindow->window, Engine->moduleWindow->width, Engine->moduleWindow->height);
+		if (ImGui::SliderFloat("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920.0f)) {
+			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
-		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 1920.0f)) {
-			Engine->moduleRenderer->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
+		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 1080.0f)) {
+			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
 	}
 	ImGui::End();

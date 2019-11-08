@@ -69,6 +69,15 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
+void ModuleWindow::WindowResized(unsigned width, unsigned height)
+{
+	this->width = width;
+	this->height = height;
+	Engine->moduleCamera->LoadProjection();
+	SDL_SetWindowSize(window, width, height);
+	glViewport(0, 0, width, height);
+}
+
 void ModuleWindow::InitOpenGLAttributes() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);

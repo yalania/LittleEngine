@@ -48,13 +48,6 @@ void ModuleRender::LoadShaders() const{
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
 }
 
-void ModuleRender::WindowResized(unsigned width, unsigned height)
-{
-	Engine->moduleWindow->width = width;
-	Engine->moduleWindow->height = height;
-	Engine->moduleCamera->LoadProjection();
-	glViewport(0, 0, width, height);
-}
 
 void ModuleRender::InitOpenGlOptions() const{
 

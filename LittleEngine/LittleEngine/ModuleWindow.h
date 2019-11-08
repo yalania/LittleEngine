@@ -15,6 +15,8 @@ public:
 	bool Init() override;
 	bool CleanUp() override;
 
+	void WindowResized(unsigned width, unsigned height);
+
 private:
 	void InitOpenGLAttributes();
 

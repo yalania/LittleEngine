@@ -18,9 +18,6 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
-	void WindowResized(unsigned width, unsigned height);
-
-
 private:
 	void LoadShaders() const;
 	void InitOpenGlOptions() const;

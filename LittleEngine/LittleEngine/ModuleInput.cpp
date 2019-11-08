@@ -42,7 +42,7 @@ update_status ModuleInput::Update()
 		}
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) 
 		{
-			Engine->moduleRenderer->WindowResized(event.window.data1, event.window.data2);
+			Engine->moduleWindow->WindowResized(event.window.data1, event.window.data2);
 		}
 		CameraMovementWithMouse(event);
 		
