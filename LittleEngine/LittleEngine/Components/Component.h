@@ -3,6 +3,7 @@
 #include "../Globals.h"
 class Component {
 
+public:
 	Component() = default;
 	virtual ~Component() = default;
 
