@@ -7,6 +7,7 @@
 class ModuleModelLoader : public Module {
 public:
 	void LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
+	std::vector<Mesh> meshes;
 private:
 	void ProcessNode(aiNode *node, const aiScene *scene);
 	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);

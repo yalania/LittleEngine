@@ -2,6 +2,7 @@
 #define _MODULE_RENDER_
 #include "Module.h"
 #include "VertexBufferObject.h"
+#include "Components/Mesh.h"
 
 #include <vector>
 #include <memory>

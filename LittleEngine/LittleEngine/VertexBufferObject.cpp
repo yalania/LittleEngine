@@ -48,6 +48,8 @@ VertexBufferObject::~VertexBufferObject() {
 }
 
 void VertexBufferObject::Update(){
-	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	glActiveTexture(GL_TEXTURE0);
 }

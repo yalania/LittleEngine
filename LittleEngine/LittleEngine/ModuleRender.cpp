@@ -11,6 +11,7 @@ bool ModuleRender::Init() {
 	InitOpenGlOptions();
 	objects.push_back(std::make_unique<VertexBufferObject>());
 	GenerateMatrices();
+	Engine->moduleModelLoader->LoadModel("BakerHouse.fbx");
 	return true;
 }
 
@@ -24,6 +25,9 @@ update_status ModuleRender::PreUpdate() {
 update_status ModuleRender::Update() {
 	for (auto &object : objects) {
 		object->Update();
+	}
+	for (auto &mesh : Engine->moduleModelLoader->meshes) {
+		mesh.Update();
 	}
 	glUseProgram(0);
 	return UPDATE_CONTINUE;

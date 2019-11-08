@@ -11,8 +11,8 @@ LittleEngine::LittleEngine()
 	modules.push_back(moduleShaderProgram = std::make_shared<ModuleProgram>());
 	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
 	modules.push_back(moduleTexture = std::make_shared<ModuleTexture>());
-	modules.push_back(moduleGrid = std::make_shared<ModuleGrid>());
 	modules.push_back(moduleModelLoader = std::make_shared<ModuleModelLoader>());
+	modules.push_back(moduleGrid = std::make_shared<ModuleGrid>());
 }
 
 LittleEngine::~LittleEngine()
