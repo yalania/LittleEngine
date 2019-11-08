@@ -4,9 +4,12 @@ layout (location = 1) in vec3 vertexColor;
 layout (location = 2) in vec2 vertexTexture;
 
 
-uniform mat4 view;
+layout (std140) uniform Matrices
+{
+    mat4 proj;
+    mat4 view;
+};
 uniform mat4 model;
-uniform mat4 proj;
 
 out vec3 color;
 out vec2 textureCoords;

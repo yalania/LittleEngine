@@ -13,10 +13,12 @@ public:
 
 	GLuint defaultProgram;
 	GLuint LoadShaderProgram(const char *vertex_path, const char *fragment_path) const;
+	unsigned int uniformsBuffer;
 private:
 
 	const std::string ReadFile(const std::string & shaderFilePath) const;
 	void CompileShader(const GLuint & shader, const char * shaderFile) const;
+	void SetUpUniformSBuffer();
 };
 #endif // _SHADERS_PROGRAM_
 

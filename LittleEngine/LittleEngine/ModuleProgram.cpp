@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include <fstream>
 #include <vector>
+#include <glm/glm.hpp>
 
 
 ModuleProgram::~ModuleProgram() {
@@ -9,8 +10,9 @@ ModuleProgram::~ModuleProgram() {
 }
 bool ModuleProgram::Init() {
 	LOG("Init Shader program");
-	 defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
-	 return true;
+	defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
+	SetUpUniformSBuffer();
+	return true;
 }
 
 const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath) const{
@@ -85,7 +87,15 @@ GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fra
 	return program;
 }
 
+void ModuleProgram::SetUpUniformSBuffer() {
+	glGenBuffers(1, &uniformsBuffer);
 
+	glBindBuffer(GL_UNIFORM_BUFFER, uniformsBuffer);
+	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uniformsBuffer, 0, 2 * sizeof(glm::mat4));
+}
 bool ModuleProgram::CleanUp() {
 	glDeleteProgram(defaultProgram);
 	return true;

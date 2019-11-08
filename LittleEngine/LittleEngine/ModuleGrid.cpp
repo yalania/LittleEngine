@@ -11,12 +11,6 @@ bool ModuleGrid::Init() {
 
 update_status ModuleGrid::Update() {
 	glUseProgram(gridShaderProgram);
-	GLuint viewOutput = glGetUniformLocation(gridShaderProgram,
-		"view");
-	GLuint projOutput = glGetUniformLocation(gridShaderProgram,
-		"proj");
-	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(Engine->moduleCamera->view));
-	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(Engine->moduleCamera->projection));
 	GLuint modelOutput = glGetUniformLocation(gridShaderProgram,"model");
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
 	ShowGrid();
