@@ -3,10 +3,14 @@
 #include "Module.h"
 #include <string>
 #include <assimp/scene.h>
-
+#include "Components/Mesh.h"
 class ModuleModelLoader : public Module {
+public:
 	void LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
-	void processNode(aiNode *node, const aiScene *scene);
+private:
+	void ProcessNode(aiNode *node, const aiScene *scene);
+	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
+	//void ProcessMaterial();
 };
 #endif // !_MODULE_MODEL_LOADER_
 

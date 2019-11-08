@@ -9,6 +9,7 @@
 #include "ModuleCamera.h"
 #include "ModuleTexture.h"
 #include "ModuleGrid.h"
+#include "ModuleModelLoader.h"
 
 #include <vector>
 #include <memory>
@@ -33,6 +34,7 @@ public:
 	std::shared_ptr<ModuleCamera> moduleCamera;
 	std::shared_ptr<ModuleTexture> moduleTexture;
 	std::shared_ptr<ModuleGrid> moduleGrid;
+	std::shared_ptr<ModuleModelLoader> moduleModelLoader;
 
 private:
 
