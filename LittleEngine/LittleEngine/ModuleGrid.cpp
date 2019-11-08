@@ -5,16 +5,23 @@
 bool ModuleGrid::Init() {
 	LOG("Init render system");
 	gridShaderProgram = Engine->moduleShaderProgram->LoadShaderProgram("gridShader.vert", "gridShader.frag");
-	Engine->moduleCamera->AddShaderProgram(gridShaderProgram);
 	model = glm::mat4(1.0f);
 	return true;
 }
 
 update_status ModuleGrid::Update() {
 	glUseProgram(gridShaderProgram);
-
+	GLuint viewOutput = glGetUniformLocation(gridShaderProgram,
+		"view");
+	GLuint projOutput = glGetUniformLocation(gridShaderProgram,
+		"proj");
+	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(Engine->moduleCamera->view));
+	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(Engine->moduleCamera->projection));
 	GLuint modelOutput = glGetUniformLocation(gridShaderProgram,"model");
 	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
+	ShowGrid();
+	ShowDirectionArrows();
+	glUseProgram(0);
 	return UPDATE_CONTINUE;
 
 }
@@ -23,6 +30,7 @@ void ModuleGrid::ShowGrid() const {
 	glLineWidth(1.0f);
 	float d = 200.0f;
 	glBegin(GL_LINES);
+	glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
 	for (float i = -d; i <= d; i += 1.0f)
 	{
 		glVertex3f(i, 0.0f, -d);

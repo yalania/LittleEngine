@@ -7,7 +7,6 @@ bool ModuleCamera::Init() {
 
 	// note that we're translating the scene in the reverse direction of where we want to move
 	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
-	AddShaderProgram(Engine->moduleShaderProgram->defaultProgram);
 	LoadProjection();
 	return true;
 }
@@ -91,18 +90,12 @@ void ModuleCamera::LoadProjection() {
 	}
 }
 
-void ModuleCamera::AddShaderProgram(GLuint shaderProgram) {
-	shaderPrograms.push_back(shaderProgram);
-}
-
 void ModuleCamera::UpdateMatricesInShaderPograms() const{
 
-	for (auto &shaderPogram : shaderPrograms) {
-		GLuint viewOutput = glGetUniformLocation(shaderPogram,
-			"view");
-		GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-			"proj");
-		glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
-	}
+	GLuint viewOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"view");
+	GLuint projOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
+		"proj");
+	glUniformMatrix4fv(viewOutput, 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(projOutput, 1, GL_FALSE, glm::value_ptr(projection));
 }

@@ -24,18 +24,16 @@ public:
 	float cameraSpeed = 0.05f;
 	float farPlane = 100.0f;
 	float nearPlane = 0.1f;
-	void LoadProjection();
-	void AddShaderProgram(GLuint shaderProgram);
-private:
-	void UpdateMatricesInShaderPograms() const;
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
+	void LoadProjection();
+private:
+	void UpdateMatricesInShaderPograms() const;
 
 	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // Z position
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //Up position
 	glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront)); //Right camera vector
-	std::vector<GLuint> shaderPrograms;
 	float yaw = -90.0f;
 	float pitch = 0;
 
