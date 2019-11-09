@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Components\Mesh.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Mesh.h" />
     <ClInclude Include="Components\Transform.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

@@ -93,6 +93,9 @@
     <ClCompile Include="Components\Mesh.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LittleEngine.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="Components\Mesh.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
