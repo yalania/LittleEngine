@@ -23,9 +23,11 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
+	GenerateMatrices();
 	for (auto &object : objects) {
 		object->Update();
 	}
+	model = glm::mat4(1.0f);
 	for (auto &mesh : Engine->moduleModelLoader->meshes) {
 		mesh.Update();
 	}

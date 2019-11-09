@@ -39,7 +39,7 @@ VertexBufferObject::VertexBufferObject(){
 	//Texture
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
-	Engine->moduleTexture->LoadTexture("wall.jpg");
+	texture = Engine->moduleTexture->LoadTexture("wall.jpg");
 }
 
 VertexBufferObject::~VertexBufferObject() {
@@ -48,6 +48,8 @@ VertexBufferObject::~VertexBufferObject() {
 }
 
 void VertexBufferObject::Update(){
+	glBindTexture(GL_TEXTURE_2D, texture);
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
