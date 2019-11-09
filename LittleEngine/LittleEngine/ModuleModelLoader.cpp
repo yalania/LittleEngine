@@ -18,10 +18,10 @@ void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string co
 
 
 	if (pathToTexture == "") {
-		textureDirectory = pathToModel.substr(0, pathToModel.find_last_of('/'));
+		textureDirectory = pathToTexture;
 	}
 	else {
-		textureDirectory = pathToTexture;
+		textureDirectory = pathToModel.substr(0, pathToModel.find_last_of('/'));
 	}
 
 	ProcessNode(*scene->mRootNode, *scene);

@@ -8,7 +8,6 @@
 #include <assimp/scene.h>
 class ModuleTexture : public Module {
 public:
-	update_status Update() override;
 	unsigned int LoadTexture(const char *texturePath, const std::string &directory = "");
 	std::vector<Texture> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string directory);
 private:

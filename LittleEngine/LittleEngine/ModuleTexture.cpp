@@ -4,11 +4,6 @@
 #include <stb_image/stb_image.h>
 
 
-update_status ModuleTexture::Update() {
-	//glBindTexture(GL_TEXTURE_2D, texture);
-	return UPDATE_CONTINUE;
-}
-
 unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 	std::string filename = std::string(texturePath);
 	if (directory.size() > 0) {
@@ -40,6 +35,12 @@ unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::stri
 	{
 		LOG("Failed to load texture");
 	}
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	stbi_image_free(data);
 
 	GLuint textureOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
