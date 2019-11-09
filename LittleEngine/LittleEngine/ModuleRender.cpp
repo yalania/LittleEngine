@@ -16,6 +16,7 @@ bool ModuleRender::Init() {
 
 void ModuleRender::AddEntity(const char * model) {
 	Engine->moduleModelLoader->LoadModel(model);
+	entities.erase(entities.begin(), entities.end()); //ASSIMENT: For now because the assiment requirements
 	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
 }
 update_status ModuleRender::PreUpdate() {

@@ -30,7 +30,7 @@ bool LittleEngine::Init()
 			result = ret;
 		}
 	}
-
+	moduleRenderer->AddEntity("BakerHouse.fbx"); //TODO: THIS IS FOR DEBUGGING
 	return result;
 }
 
