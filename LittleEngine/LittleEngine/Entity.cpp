@@ -1,15 +1,17 @@
 #include "Entity.h"
 #include <GL/glew.h>
 
-Entity::Entity(Mesh mesh, unsigned int  shaderProgram) : entityMesh(std::make_unique<Mesh>(mesh)), shaderProgram(shaderProgram){
-	entityTransform = std::make_unique<Transform>(shaderProgram);
+Entity::Entity(std::vector<Mesh> entityMeshes, unsigned int  shaderProgram) : entityMeshes(entityMeshes), shaderProgram(shaderProgram){
+	//entityTransform = std::make_unique<Transform>(shaderProgram);
 }
 
 
 update_status Entity::Update(){
-	glUseProgram(shaderProgram);
+	//glUseProgram(shaderProgram);
 	update_status result = UPDATE_CONTINUE;
-	//result = entityMesh->Update();
+	for (auto &mesh : entityMeshes) {
+		mesh.Update();
+	}
 	return result;
 
 }

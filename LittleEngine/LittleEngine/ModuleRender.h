@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
+#include "Entity.h"
 
 
 class ModuleRender : public Module {
@@ -26,6 +27,7 @@ private:
 
 private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
+	std::vector<std::unique_ptr<Entity>> entities;
 	glm::mat4 model;
 };
 

@@ -7,14 +7,14 @@
 
 class Entity {
 public:
-	Entity(Mesh mesh, unsigned int shaderProgram);
+	Entity(std::vector<Mesh> entityMeshes, unsigned int shaderProgram);
 	~Entity() = default;
 
 	update_status Update();
 
 	std::unique_ptr<Transform> entityTransform;
 private:
-	std::unique_ptr<Mesh> entityMesh;
+	std::vector<Mesh> entityMeshes;
 	unsigned int shaderProgram;
 
 };

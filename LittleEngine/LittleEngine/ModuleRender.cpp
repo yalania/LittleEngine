@@ -12,6 +12,7 @@ bool ModuleRender::Init() {
 	objects.push_back(std::make_unique<VertexBufferObject>());
 	GenerateMatrices();
 	Engine->moduleModelLoader->LoadModel("BakerHouse.fbx");
+	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
 	return true;
 }
 
@@ -23,13 +24,17 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-	GenerateMatrices();
-	for (auto &object : objects) {
+	model = glm::mat4(1.0f);
+	//GenerateMatrices();
+	/*for (auto &object : objects) {
 		object->Update();
 	}
 	model = glm::mat4(1.0f);
 	for (auto &mesh : Engine->moduleModelLoader->meshes) {
 		mesh.Update();
+	}*/
+	for (auto & entity : entities) {
+		entity->Update();
 	}
 	glUseProgram(0);
 	return UPDATE_CONTINUE;
