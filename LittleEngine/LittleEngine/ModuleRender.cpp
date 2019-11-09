@@ -3,14 +3,13 @@
 
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+
 #include <cmath>
 
 bool ModuleRender::Init() {
 	LOG("Init render system");
 	InitOpenGlOptions();
 	objects.push_back(std::make_unique<VertexBufferObject>());
-	GenerateMatrices();
 	Engine->moduleModelLoader->LoadModel("BakerHouse.fbx");
 	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
 	return true;
@@ -18,13 +17,13 @@ bool ModuleRender::Init() {
 
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	LoadShaders();
 	return UPDATE_CONTINUE;
 
 }
 
 update_status ModuleRender::Update() {
-	model = glm::mat4(1.0f);
+
+
 	//GenerateMatrices();
 	/*for (auto &object : objects) {
 		object->Update();
@@ -36,7 +35,7 @@ update_status ModuleRender::Update() {
 	for (auto & entity : entities) {
 		entity->Update();
 	}
-	glUseProgram(0);
+
 	return UPDATE_CONTINUE;
 
 }
@@ -47,16 +46,6 @@ update_status ModuleRender::PostUpdate() {
 
 	return UPDATE_CONTINUE;
 
-}
-
-void ModuleRender::LoadShaders() const{
-
-
-	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
-
-	GLuint modelOutput = glGetUniformLocation(Engine->moduleShaderProgram->defaultProgram,
-		"model");
-	glUniformMatrix4fv(modelOutput, 1, GL_FALSE, glm::value_ptr(model));
 }
 
 
@@ -92,10 +81,4 @@ void ModuleRender::InitOpenGlOptions() const{
 bool ModuleRender::CleanUp() {
 	SDL_GL_DeleteContext(SDL_GL_GetCurrentContext());
 	return true;
-}
-
-void ModuleRender::GenerateMatrices(){
-	model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(15.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	
 }

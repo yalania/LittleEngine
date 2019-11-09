@@ -21,9 +21,7 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 private:
-	void LoadShaders() const;
 	void InitOpenGlOptions() const;
-	void GenerateMatrices();
 
 private:
 	std::vector<std::unique_ptr<VertexBufferObject>> objects;
