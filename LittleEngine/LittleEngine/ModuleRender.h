@@ -20,6 +20,8 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
+
+	void AddEntity(const char * model);
 private:
 	void InitOpenGlOptions() const;
 

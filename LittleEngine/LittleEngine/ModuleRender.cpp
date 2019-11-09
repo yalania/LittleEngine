@@ -10,11 +10,14 @@ bool ModuleRender::Init() {
 	LOG("Init render system");
 	InitOpenGlOptions();
 	objects.push_back(std::make_unique<VertexBufferObject>());
-	Engine->moduleModelLoader->LoadModel("BakerHouse.fbx");
-	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
+
 	return true;
 }
 
+void ModuleRender::AddEntity(const char * model) {
+	Engine->moduleModelLoader->LoadModel(model);
+	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
+}
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	return UPDATE_CONTINUE;
@@ -22,28 +25,15 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-
-
-	//GenerateMatrices();
-	/*for (auto &object : objects) {
-		object->Update();
-	}
-	model = glm::mat4(1.0f);
-	for (auto &mesh : Engine->moduleModelLoader->meshes) {
-		mesh.Update();
-	}*/
 	for (auto & entity : entities) {
 		entity->Update();
 	}
-
 	return UPDATE_CONTINUE;
 
 }
 
 update_status ModuleRender::PostUpdate() {
-
 	SDL_GL_SwapWindow(Engine->moduleWindow->window);
-
 	return UPDATE_CONTINUE;
 
 }

@@ -28,6 +28,11 @@ void UI::ShowUI() {
 		if (ImGui::BeginMenu("LittleEngine"))
 		{
 			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
+
+			if (ImGui::MenuItem("Load Default Model", NULL)) {
+				Engine->moduleRenderer->AddEntity("BakerHouse.fbx");
+			}
+
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
