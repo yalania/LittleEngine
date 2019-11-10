@@ -17,4 +17,9 @@ enum update_status
 #define VSYNC true
 #define TITLE "LittleEngine"
 
+
+// Camera Default Configuration -----------
+#define CAMERA_SPEED 0.05
+
+
 #endif // !_GLOBALS_

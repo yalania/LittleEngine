@@ -57,15 +57,17 @@ void ModuleCamera::Translate(const glm::vec2 & direction) {
 void ModuleCamera::Zoom(bool zoomIn) {
 
 	if (zoomIn) {
-		orthoUnits -= 0.05f;
+		/*orthoUnits -= 0.05f;
 		--frustumFov;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
-		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;
+		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
+		cameraPosition += cameraSpeed * cameraFront;
 	}
 	else {
-		orthoUnits += 0.05;
+		/*orthoUnits += 0.05;
 		++frustumFov;
-		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;
+		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
+		cameraPosition -= cameraSpeed * cameraFront;
 	}
 	LoadProjection();
 

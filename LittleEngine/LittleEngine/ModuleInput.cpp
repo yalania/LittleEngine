@@ -122,19 +122,31 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 void ModuleInput::CameraMovementWithKeys() const {
 
 	glm::vec2 translationDirection = glm::vec2(0.0f);
-	if (keyboard[SDL_SCANCODE_UP]) {
+	if (keyboard[SDL_SCANCODE_Q]) {
 		translationDirection.y = 1.0f;
 	}
-	if (keyboard[SDL_SCANCODE_RIGHT]) {
+	if (keyboard[SDL_SCANCODE_A]) {
 		translationDirection.x = 1.0f;
 	}
-	if (keyboard[SDL_SCANCODE_DOWN]) {
+	if (keyboard[SDL_SCANCODE_E]) {
 		translationDirection.y = -1.0f;
 	}
-	if (keyboard[SDL_SCANCODE_LEFT]) {
+	if (keyboard[SDL_SCANCODE_D]) {
 		translationDirection.x = -1.0f;
 	}
 	if (translationDirection != glm::vec2(0.0f)) {
 		Engine->moduleCamera->Translate(translationDirection);
+	}
+	if (keyboard[SDL_SCANCODE_W]) {
+		Engine->moduleCamera->Zoom(true);
+	}
+	if (keyboard[SDL_SCANCODE_S]) {
+		Engine->moduleCamera->Zoom(false);
+	}
+	if (keyboard[SDL_SCANCODE_LSHIFT]) {
+		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED*2.0f;
+	}
+	else {
+		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED;
 	}
 }

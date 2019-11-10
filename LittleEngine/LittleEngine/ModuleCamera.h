@@ -21,7 +21,7 @@ public:
 
 	float frustumFov = 45.0f;
 	float orthoUnits = 1.0f;
-	float cameraSpeed = 0.05f;
+	float cameraSpeed = CAMERA_SPEED;
 	float farPlane = 100.0f;
 	float nearPlane = 0.1f;
 	void LoadProjection();
