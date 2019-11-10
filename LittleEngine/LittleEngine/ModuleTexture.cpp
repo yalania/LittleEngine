@@ -2,22 +2,29 @@
 #include "LittleEngine.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image/stb_image.h>
+#include "Log.h"
 
 
 unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 	std::string filename = std::string(texturePath);
-	if (directory.size() > 0) {
-
-		filename = directory + '/' + filename;
-	}
 	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-
+	LOG("Loading texture %s . Looking in path describe in fbx", texturePath);
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 
 	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+	if (!data) {
+		filename = directory + '/' + texturePath;
+		LOG("Loading texture %s . Looking in same path as fbx", texturePath);
+		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+	}
+	if (!data) {
+		filename = "Textures/" + std::string(texturePath);
+		LOG("Loading texture %s . Looking in Textures folder", texturePath);
+		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+	}
 	if (data)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture);

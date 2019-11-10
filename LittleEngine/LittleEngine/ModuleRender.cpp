@@ -9,8 +9,6 @@
 bool ModuleRender::Init() {
 	LOG("Init render system");
 	InitOpenGlOptions();
-	objects.push_back(std::make_unique<VertexBufferObject>());
-
 	return true;
 }
 

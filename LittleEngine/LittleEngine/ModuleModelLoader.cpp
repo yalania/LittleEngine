@@ -12,12 +12,12 @@ void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string co
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		LOG( "ERROR::ASSIMP::", import.GetErrorString());
+		LOG( "ERROR::ASSIMP::%s", import.GetErrorString());
 		return;
 	}
 
-
-	if (pathToTexture == "") {
+	size_t endPosition = pathToModel.find_last_of('/');
+	if (pathToTexture != "" || endPosition > pathToModel.size() || endPosition <= 0) {
 		textureDirectory = pathToTexture;
 	}
 	else {
