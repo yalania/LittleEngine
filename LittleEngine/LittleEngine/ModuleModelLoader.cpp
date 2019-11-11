@@ -7,6 +7,7 @@
 #include "LittleEngine.h"
 
 void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture) {
+	meshes.erase(meshes.begin(), meshes.end());
 	Assimp::Importer import;
 	const aiScene *scene = import.ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
 
