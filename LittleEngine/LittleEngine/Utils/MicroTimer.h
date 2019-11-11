@@ -12,7 +12,7 @@ public:
 	void Stop();
 
 private:
-	Uint64 micro = 0.0f;
+	Uint64 millis = 0.0f;
 };
 
 #endif // !_UTILS_MICROTIMER_

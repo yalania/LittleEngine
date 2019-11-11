@@ -5,10 +5,8 @@
 LittleEngine::LittleEngine()
 {
 	// Order matters: they will Init/start/update in this order
-	MsTimer timer;
-	MicroTimer timer2;
+	MicroTimer timer;
 	timer.Start();
-	timer2.Start();
 	modules.reserve(6);
 	modules.push_back(moduleWindow = std::make_shared<ModuleWindow>());
 	modules.push_back(moduleInput = std::make_shared<ModuleInput>());
@@ -19,10 +17,8 @@ LittleEngine::LittleEngine()
 	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
 	modules.push_back(moduleTexture = std::make_shared<ModuleTexture>());
 	modules.push_back(moduleGrid = std::make_shared<ModuleGrid>());
-	LOG("Time to init Engine: %f",timer.Read());
-	LOG("Time to init Engine: %f", timer2.Read());
+	LOG("Time to construct Engine: %f",timer.Read());
 	timer.Stop();
-	timer2.Stop();
 }
 
 LittleEngine::~LittleEngine()
@@ -32,6 +28,8 @@ LittleEngine::~LittleEngine()
 
 bool LittleEngine::Init()
 {
+	MsTimer timer;
+	timer.Start();
 	bool result = true;
 
 	for(auto &module : modules) {
@@ -40,12 +38,16 @@ bool LittleEngine::Init()
 			result = ret;
 		}
 	}
+	LOG("Time to init Engine: %f", timer.Read());
+	timer.Stop();
 	//moduleRenderer->AddEntity("BakerHouse.fbx"); //TODO: THIS IS FOR DEBUGGING
 	return result;
 }
 
 update_status LittleEngine::Update()
 {
+	MsTimer timer;
+	timer.Start();
 	update_status result = UPDATE_CONTINUE;
 
 	for (auto &module : modules) {
@@ -71,7 +73,8 @@ update_status LittleEngine::Update()
 			}
 		}
 	}
-
+	LOG("Frame time: %f", timer.Read());
+	timer.Stop();
 	return result;
 }
 

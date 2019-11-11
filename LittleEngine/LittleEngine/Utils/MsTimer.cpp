@@ -3,11 +3,11 @@
 
 void MsTimer::Start() {
 	LOG("Started timer");
-	millis = SDL_GetTicks() * 1000;
+	millis = SDL_GetTicks();
 }
 double MsTimer::Read() {
 	//LOG("Reading time since timer start");
-	Uint32 current = SDL_GetTicks()* 1000;
+	Uint32 current = SDL_GetTicks();
 	return static_cast<double>(current - millis);
 }
 
