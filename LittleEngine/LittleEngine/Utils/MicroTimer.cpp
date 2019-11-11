@@ -1,8 +1,6 @@
 #include "MicroTimer.h"
-#include "../Log.h"
 
 void MicroTimer::Start() {
-	LOG("Started timer");
 	millis = (SDL_GetPerformanceCounter() * 1000) / SDL_GetPerformanceFrequency();
 }
 double MicroTimer::Read() {
@@ -12,6 +10,5 @@ double MicroTimer::Read() {
 }
 
 void MicroTimer::Stop() {
-	LOG("Stop timer");
 	millis = 0.0f;
 }

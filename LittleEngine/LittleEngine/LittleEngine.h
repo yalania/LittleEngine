@@ -10,6 +10,8 @@
 #include "ModuleTexture.h"
 #include "ModuleGrid.h"
 #include "ModuleModelLoader.h"
+#include "Utils/MicroTimer.h"
+#include "Utils/MsTimer.h"
 
 #include <vector>
 #include <memory>
@@ -39,6 +41,8 @@ public:
 private:
 
 	std::vector<std::shared_ptr<Module>> modules;
+	MsTimer timer;
+	MicroTimer accurateTimer;
 
 };
 
