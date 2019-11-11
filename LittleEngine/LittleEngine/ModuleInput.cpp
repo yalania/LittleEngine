@@ -45,6 +45,14 @@ update_status ModuleInput::Update()
 			Engine->moduleWindow->WindowResized(event.window.data1, event.window.data2);
 		}
 		CameraMovementWithMouse(event);
+		if (event.type == SDL_DROPFILE) {      // In case if dropped file
+			char* dropped_filedir = event.drop.file;
+			Engine->moduleRenderer->AddEntity(dropped_filedir);
+			// Shows directory of dropped file
+			SDL_free(dropped_filedir);    // Free dropped_filedir memory
+			break;
+		}
+
 		
 
 	}

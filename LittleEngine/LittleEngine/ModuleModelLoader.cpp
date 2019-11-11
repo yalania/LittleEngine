@@ -16,12 +16,12 @@ void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string co
 		return;
 	}
 
-	size_t endPosition = pathToModel.find_last_of('/');
+	size_t endPosition = pathToModel.find_last_of('\\');
 	if (pathToTexture != "" || endPosition > pathToModel.size() || endPosition <= 0) {
 		textureDirectory = pathToTexture;
 	}
 	else {
-		textureDirectory = pathToModel.substr(0, pathToModel.find_last_of('/'));
+		textureDirectory = pathToModel.substr(0, endPosition);
 	}
 
 	ProcessNode(*scene->mRootNode, *scene);
