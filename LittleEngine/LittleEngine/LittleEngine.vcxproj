@@ -181,6 +181,8 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ModuleProgram.cpp" />
     <ClCompile Include="UI\UI.cpp" />
+    <ClCompile Include="Utils\MicroTimer.cpp" />
+    <ClCompile Include="Utils\MsTimer.cpp" />
     <ClCompile Include="VertexBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +212,8 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="ModuleProgram.h" />
     <ClInclude Include="UI\UI.h" />
+    <ClInclude Include="Utils\MicroTimer.h" />
+    <ClInclude Include="Utils\MsTimer.h" />
     <ClInclude Include="VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>

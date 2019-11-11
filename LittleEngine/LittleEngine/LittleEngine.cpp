@@ -1,8 +1,14 @@
 #include "LittleEngine.h"
-
+#include "Utils/MicroTimer.h"
+#include "Utils/MsTimer.h"
+#include "Log.h"
 LittleEngine::LittleEngine()
 {
 	// Order matters: they will Init/start/update in this order
+	MsTimer timer;
+	MicroTimer timer2;
+	timer.Start();
+	timer2.Start();
 	modules.reserve(6);
 	modules.push_back(moduleWindow = std::make_shared<ModuleWindow>());
 	modules.push_back(moduleInput = std::make_shared<ModuleInput>());
@@ -13,6 +19,10 @@ LittleEngine::LittleEngine()
 	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
 	modules.push_back(moduleTexture = std::make_shared<ModuleTexture>());
 	modules.push_back(moduleGrid = std::make_shared<ModuleGrid>());
+	LOG("Time to init Engine: %f",timer.Read());
+	LOG("Time to init Engine: %f", timer2.Read());
+	timer.Stop();
+	timer2.Stop();
 }
 
 LittleEngine::~LittleEngine()
