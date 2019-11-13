@@ -21,10 +21,10 @@ public:
 
 
 	//Timers
+	float frameRateLog[60];
 	MsTimer realTimeClock;
 	MsTimer gameTimeClock;
 	MsTimer fpsTimer;
-	float frameRateLog[60];
 
 private:
 

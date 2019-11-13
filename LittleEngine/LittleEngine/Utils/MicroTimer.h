@@ -9,6 +9,9 @@ public:
 	~MicroTimer() = default;
 	void Start() override;
 	double Read() override;
+
+	void Pause() override;
+	void Unpause() override;
 };
 
 #endif // !_UTILS_MICROTIMER_
