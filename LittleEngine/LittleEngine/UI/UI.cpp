@@ -9,11 +9,11 @@ namespace UIState {
 	bool showingDebugWindow = false;
 	bool showingAboutWindow = false;
 	bool showingPropertiesWindow = false;
+	bool showingTimeControlWindow = false;
 }
 
 namespace WindowOptions {
 	bool showingDebugWindow = false;
-	bool showingAboutWindow = false;
 	bool showingPropertiesWindow = false;
 }
 
@@ -32,7 +32,7 @@ void UI::ShowUI() {
 			if (ImGui::MenuItem("Load Default Model", NULL)) {
 				Engine->moduleRenderer->AddEntity("BakerHouse.fbx");
 			}
-
+			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
@@ -54,9 +54,8 @@ void UI::ShowUI() {
 			}
 			ImGui::EndMenu();
 		}
-
+		ImGui::MenuItem("Time Control", NULL, &UIState::showingTimeControlWindow);
 		ImGui::MenuItem("Debug", NULL, &UIState::showingDebugWindow);
-		ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 		ImGui::EndMainMenuBar();
 	}
 
@@ -152,4 +151,23 @@ void UI::UpdateState() {
 	if (UIState::showingPropertiesWindow) {
 		DrawPropertiesWindow();
 	}
+	if (UIState::showingTimeControlWindow) {
+		TimeControlButtons();
+	}
+}
+
+void UI::TimeControlButtons() {
+	ImGui::Begin("Time Control");
+	if (ImGui::Button("Play"))
+	{
+	}
+
+	if (ImGui::Button("Pause"))
+	{
+	}
+
+	if (ImGui::Button("Forward"))
+	{
+	}
+	ImGui::End();
 }

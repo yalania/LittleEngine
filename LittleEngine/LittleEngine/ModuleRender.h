@@ -25,10 +25,7 @@ public:
 private:
 	void InitOpenGlOptions() const;
 
-private:
-	std::vector<std::unique_ptr<VertexBufferObject>> objects;
 	std::vector<std::unique_ptr<Entity>> entities;
-	glm::mat4 model;
 };
 
 #endif // !_MODULE_RENDER_

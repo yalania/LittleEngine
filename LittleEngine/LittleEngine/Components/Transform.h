@@ -6,7 +6,7 @@ class Transform : public Component {
 
 public:
 	Transform(unsigned int shaderProgram);
-	void UpdateModel() const;
+	void UpdateModel();
 private:
 	glm::vec3 position = glm::vec3(1.0f);
 	glm::vec3 scale = glm::vec3(1.0f);

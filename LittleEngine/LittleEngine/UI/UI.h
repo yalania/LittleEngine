@@ -16,6 +16,7 @@ private:
 	static void DrawAboutWindow(); 
 	static void DrawPropertiesWindow();
 	static void UpdateState();
+	static void TimeControlButtons();
 };
 
 #endif // !_BOTTOM_TAB_
