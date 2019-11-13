@@ -14,22 +14,30 @@ public:
 	bool Init() override;
 	update_status Update() override;
 	update_status PostUpdate() override;
+	void LimitFrameRate();
 	void Pause();
 	void Play();
 	void AdvanceOneFrame();
-	double GetRealTimeSinceStart();
 
 
-	MsTimer deltaTime;
-	float frameRateLog[60];
-private:
+	//Timers
 	MsTimer realTimeClock;
 	MsTimer gameTimeClock;
 	MsTimer fpsTimer;
+	float frameRateLog[60];
+
+private:
 
 	//FrameRate;
-	int frameRateIndex = 0;
 	long totalNumberOfFrames = 0;
+	int frameRateIndex = 0;
+
+	//Delta
+	float deltaTime;
+	float realDeltaTime;
+	float frameStartTime;
+	float frameEndTime;
+
 };
 
 

@@ -32,7 +32,7 @@ bool LittleEngine::Init()
 			result = ret;
 		}
 	}
-	LOG("Time for init Engine %f milliseconds", moduleTimeController->GetRealTimeSinceStart());
+	LOG("Time for init Engine %f milliseconds", moduleTimeController->realTimeClock.Read());
 	//moduleRenderer->AddEntity("BakerHouse.fbx"); //TODO: THIS IS FOR DEBUGGING
 	return result;
 }
@@ -40,7 +40,6 @@ bool LittleEngine::Init()
 update_status LittleEngine::Update()
 {
 	update_status result = UPDATE_CONTINUE;
-
 	for (auto &module : modules) {
 		update_status ret = module->PreUpdate();
 		if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
@@ -64,6 +63,7 @@ update_status LittleEngine::Update()
 			}
 		}
 	}
+
 	return result;
 }
 

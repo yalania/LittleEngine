@@ -10,6 +10,7 @@ bool ModuleTimeController::Init() {
 
 
 update_status ModuleTimeController::Update() {
+	frameStartTime = gameTimeClock.Read();
 	float avgFPS = totalNumberOfFrames / (fpsTimer.Read() / 1000.f);
 	frameRateLog[frameRateIndex] = avgFPS;
 	++frameRateIndex;
@@ -19,9 +20,25 @@ update_status ModuleTimeController::Update() {
 	return UPDATE_CONTINUE;
 }
 update_status ModuleTimeController::PostUpdate() {
-	totalNumberOfFrames++;
+	++totalNumberOfFrames;
+	if (totalNumberOfFrames < 0){
+		totalNumberOfFrames = 0;
+		fpsTimer.Start();
+	}
 	return UPDATE_CONTINUE;
 }
+
+void ModuleTimeController::LimitFrameRate() {
+	frameEndTime = gameTimeClock.Read();
+	deltaTime = frameEndTime - frameStartTime;
+
+	if (LIMIT_FRAME_RATE && deltaTime * 1000 < SCREEN_TICK_PER_FRAME)
+	{
+		//Wait remaining time
+		SDL_Delay(SCREEN_TICK_PER_FRAME - deltaTime * 1000);
+	}
+}
+
 void ModuleTimeController::Pause() {
 
 }
@@ -34,6 +51,3 @@ void ModuleTimeController::AdvanceOneFrame() {
 
 }
 
-double ModuleTimeController::GetRealTimeSinceStart() {
-	return realTimeClock.Read();
-}

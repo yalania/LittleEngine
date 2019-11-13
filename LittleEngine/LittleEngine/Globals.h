@@ -16,7 +16,11 @@ enum update_status
 #define RESIZABLE true
 #define VSYNC true
 #define TITLE "LittleEngine"
+#define TIME_SCALE = 1;
+#define LIMIT_FRAME_RATE true
 
+const int  SCREEN_FPS = 60;
+const int  SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 
 // Camera Default Configuration -----------
 #define CAMERA_SPEED 0.05
