@@ -41,8 +41,6 @@ public:
 private:
 
 	std::vector<std::shared_ptr<Module>> modules;
-	MsTimer timer;
-	MicroTimer accurateTimer;
 
 };
 

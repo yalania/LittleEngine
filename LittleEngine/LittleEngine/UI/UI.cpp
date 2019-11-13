@@ -77,12 +77,17 @@ void UI::DrawConsoleWindow() {
 
 	ImGui::Begin("Debug");
 	ImGui::BeginTabBar("Debug");
-	ImGui::BeginTabItem("Console");
-	if (!getLogData()->empty()) {
-		ImGui::TextUnformatted(getLogData()->begin());
-		//ImGui::SetScrollHere(1.0f);
-	}
+	if (ImGui::BeginTabItem("Console")) {
+		if (!getLogData()->empty()) {
+			ImGui::TextUnformatted(getLogData()->begin());
+			//ImGui::SetScrollHere(1.0f);
+		}
 	ImGui::EndTabItem();
+	}
+	if (ImGui::BeginTabItem("Status")) {
+		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, "FrameRate", 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::EndTabItem();
+	}
 	ImGui::EndTabBar();
 	ImGui::End();
 }
