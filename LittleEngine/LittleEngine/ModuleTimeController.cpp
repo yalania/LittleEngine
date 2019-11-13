@@ -32,10 +32,10 @@ void ModuleTimeController::LimitFrameRate() {
 	frameEndTime = gameTimeClock.Read();
 	deltaTime = frameEndTime - frameStartTime;
 
-	if (LIMIT_FRAME_RATE && deltaTime * 1000 < SCREEN_TICK_PER_FRAME)
+	if (LIMIT_FRAME_RATE && deltaTime < SCREEN_TICK_PER_FRAME)
 	{
 		//Wait remaining time
-		SDL_Delay(SCREEN_TICK_PER_FRAME - deltaTime * 1000);
+		SDL_Delay(SCREEN_TICK_PER_FRAME - deltaTime);
 	}
 }
 

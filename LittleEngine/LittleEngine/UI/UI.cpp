@@ -88,6 +88,7 @@ void UI::DrawConsoleWindow() {
 		char title[25];
 		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
 		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
 		ImGui::EndTabItem();
 	}
 	ImGui::EndTabBar();

@@ -63,7 +63,7 @@ update_status LittleEngine::Update()
 			}
 		}
 	}
-
+	moduleTimeController->LimitFrameRate();
 	return result;
 }
 

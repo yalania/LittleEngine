@@ -26,6 +26,7 @@ public:
 	MsTimer gameTimeClock;
 	MsTimer fpsTimer;
 
+	float deltaTime;
 private:
 
 	//FrameRate;
@@ -33,7 +34,6 @@ private:
 	int frameRateIndex = 0;
 
 	//Delta
-	float deltaTime;
 	float realDeltaTime;
 	float frameStartTime;
 	float frameEndTime;
