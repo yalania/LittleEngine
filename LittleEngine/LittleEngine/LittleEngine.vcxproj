@@ -216,6 +216,7 @@
     <ClInclude Include="UI\UI.h" />
     <ClInclude Include="Utils\MicroTimer.h" />
     <ClInclude Include="Utils\MsTimer.h" />
+    <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>

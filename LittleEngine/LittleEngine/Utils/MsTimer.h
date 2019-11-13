@@ -1,17 +1,15 @@
 #ifndef _UTILS_MSTIMER_
 #define _UTILS_MSTIMER_
 #include <SDL/SDL.h>
-class MsTimer {
+#include "Timer.h"
+class MsTimer : public Timer{
 
 public:
 	MsTimer() = default;
 	~MsTimer() = default;
-	void Start();
-	double Read();
-	void Stop();
+	void Start() override;
+	double Read() override;
 
-private:
-	Uint32 millis = 0.0f;
 };
 
 #endif // !_UTILS_MSTIMER_

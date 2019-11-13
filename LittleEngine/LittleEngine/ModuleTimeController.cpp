@@ -1,8 +1,20 @@
 #include "ModuleTimeController.h"
-ModuleTimeController::ModuleTimeController()
-{
+
+
+bool ModuleTimeController::Init() {
+	realTimeClock.Start();
+	gameTimeClock.Start();
+	return true;
 }
 
-ModuleTimeController::~ModuleTimeController()
-{
+void ModuleTimeController::Pause() {
+
+}
+
+void ModuleTimeController::Play() {
+
+}
+
+void ModuleTimeController::AdvanceOneFrame() {
+
 }

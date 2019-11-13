@@ -7,11 +7,17 @@
 class ModuleTimeController : public Module
 {
 public:
-	ModuleTimeController();
-	~ModuleTimeController();
+	ModuleTimeController() = default;
+	~ModuleTimeController() = default;
+
+	bool Init() override;
+	void Pause();
+	void Play();
+	void AdvanceOneFrame();
 
 private:
-
+	MsTimer realTimeClock;
+	MsTimer gameTimeClock;
 };
 
 

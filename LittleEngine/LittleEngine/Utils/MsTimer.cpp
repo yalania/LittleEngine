@@ -1,13 +1,9 @@
 #include "MsTimer.h"
 
 void MsTimer::Start() {
-	millis = SDL_GetTicks();
+	timeInMillis = static_cast<double>(SDL_GetTicks());
 }
 double MsTimer::Read() {
-	Uint32 current = SDL_GetTicks();
-	return static_cast<double>(current - millis);
-}
-
-void MsTimer::Stop() {
-	millis = 0.0f;
+	double current = static_cast<double>(SDL_GetTicks());
+	return static_cast<double>(current - timeInMillis);
 }

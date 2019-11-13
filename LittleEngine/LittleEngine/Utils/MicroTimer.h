@@ -1,18 +1,14 @@
 #ifndef _UTILS_MICROTIMER_
 #define _UTILS_MICROTIMER_
 #include <SDL/SDL.h>
-
-class MicroTimer {
+#include "Timer.h"
+class MicroTimer : public Timer {
 
 public:
 	MicroTimer() = default;
 	~MicroTimer() = default;
-	void Start();
-	double Read();
-	void Stop();
-
-private:
-	Uint64 millis = 0.0f;
+	void Start() override;
+	double Read() override;
 };
 
 #endif // !_UTILS_MICROTIMER_
