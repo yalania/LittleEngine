@@ -1,7 +1,6 @@
 #ifndef _MODULE_RENDER_
 #define _MODULE_RENDER_
 #include "Module.h"
-#include "VertexBufferObject.h"
 #include "Components/Mesh.h"
 
 #include <vector>

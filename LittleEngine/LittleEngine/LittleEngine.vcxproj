@@ -186,7 +186,6 @@
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="Utils\MicroTimer.cpp" />
     <ClCompile Include="Utils\MsTimer.cpp" />
-    <ClCompile Include="VertexBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h" />
@@ -220,7 +219,6 @@
     <ClInclude Include="Utils\MicroTimer.h" />
     <ClInclude Include="Utils\MsTimer.h" />
     <ClInclude Include="Utils\Timer.h" />
-    <ClInclude Include="VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\fragmentShader.frag" />

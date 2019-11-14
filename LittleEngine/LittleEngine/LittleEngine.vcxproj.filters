@@ -45,9 +45,6 @@
     <ClCompile Include="ModuleInput.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBufferObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleProgram.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBufferObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ModuleProgram.h">
