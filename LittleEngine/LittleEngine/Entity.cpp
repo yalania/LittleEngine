@@ -1,7 +1,6 @@
 #include "Entity.h"
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
-#include "LittleEngine.h"
 Entity::Entity(std::vector<Mesh> entityMeshes, unsigned int  shaderProgram) : entityMeshes(entityMeshes), shaderProgram(shaderProgram){
 	entityTransform = std::make_unique<Transform>(shaderProgram);
 }

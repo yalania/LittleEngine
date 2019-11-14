@@ -23,7 +23,7 @@ const int  SCREEN_FPS = 60;
 const int  SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 
 // Camera Default Configuration -----------
-#define CAMERA_SPEED 0.05
+#define CAMERA_SPEED 0.05f
 
 
 #endif // !_GLOBALS_

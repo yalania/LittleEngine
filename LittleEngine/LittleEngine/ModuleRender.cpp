@@ -47,7 +47,7 @@ void ModuleRender::InitOpenGlOptions() const{
 		/* Problem: glewInit failed, something is seriously wrong. */
 		LOG("Error: %s\n", glewGetErrorString(err));
 	}
-	glClearColor(0.2, 0.2, 0.2, 1);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glClearDepth(1.0f);

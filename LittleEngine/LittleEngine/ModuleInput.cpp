@@ -105,8 +105,8 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 	}
 	if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
 
-		int mouseXPos = (event.motion.x - lastMousePosition.x) *mouseSensitivity;
-		int mouseYPos = (lastMousePosition.y - event.motion.y) *mouseSensitivity;
+		int mouseXPos = static_cast<int>((event.motion.x - lastMousePosition.x) *mouseSensitivity);
+		int mouseYPos = static_cast<int>((lastMousePosition.y - event.motion.y) *mouseSensitivity);
 
 		lastMousePosition.x = event.motion.x;
 		lastMousePosition.y = event.motion.y;
@@ -115,8 +115,8 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 
 	if (middleMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
 
-		int mouseXPos = (event.motion.x - lastMousePosition.x) * mouseSensitivity;
-		int mouseYPos = (event.motion.y - lastMousePosition.y) * mouseSensitivity;
+		int mouseXPos = static_cast<int>((event.motion.x - lastMousePosition.x) * mouseSensitivity);
+		int mouseYPos = static_cast<int>((event.motion.y - lastMousePosition.y) * mouseSensitivity);
 
 		glm::vec2 translationDirection = glm::vec2(0.0f);
 		lastMousePosition.x = event.motion.x;

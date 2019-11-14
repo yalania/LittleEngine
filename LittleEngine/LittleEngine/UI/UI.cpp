@@ -130,10 +130,10 @@ void UI::DrawPropertiesWindow() {
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		if (ImGui::SliderFloat("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920.0f)) {
+		if (ImGui::SliderInt("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
-		if (ImGui::SliderFloat("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100.0f)) {
+		if (ImGui::SliderInt("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
 	}

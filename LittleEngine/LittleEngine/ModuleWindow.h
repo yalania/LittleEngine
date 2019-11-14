@@ -27,8 +27,8 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface = nullptr;
 
-	float width = SCREEN_WIDTH;
-	float height = SCREEN_HEIGHT;
+	int width = SCREEN_WIDTH;
+	int height = SCREEN_HEIGHT;
 };
 
 #endif // !_MODULE_WINDOW_
