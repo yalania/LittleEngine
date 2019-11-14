@@ -63,16 +63,16 @@ void ModuleCamera::Translate(const glm::vec3 & direction) {
 void ModuleCamera::Zoom(bool zoomIn) {
 
 	if (zoomIn) {
-		orthoUnits -= 0.05f;
+		/*orthoUnits -= 0.05f;
 		--frustumFov;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
-		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;
+		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
 		cameraPosition += cameraSpeed * cameraFront;
 	}
 	else {
-		orthoUnits += 0.05;
+		/*orthoUnits += 0.05;
 		++frustumFov;
-		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;
+		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
 		cameraPosition -= cameraSpeed * cameraFront;
 	}
 	LoadProjection();
@@ -108,4 +108,10 @@ void ModuleCamera::UpdateMatricesInShaderPograms() const{
 	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
 	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
+
+void ModuleCamera::FocusOnEntity(const Entity & entity) {
+	float distance = (entity.entityModel->sphereRadius * 2) / tan(glm::radians(frustumFov) / 2);
+	cameraPosition.z = distance;
+
 }

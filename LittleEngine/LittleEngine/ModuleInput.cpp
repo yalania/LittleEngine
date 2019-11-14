@@ -157,4 +157,8 @@ void ModuleInput::CameraMovementWithKeys() const {
 	else {
 		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED;
 	}
+
+	if (keyboard[SDL_SCANCODE_F]) {
+		Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
+	}
 }

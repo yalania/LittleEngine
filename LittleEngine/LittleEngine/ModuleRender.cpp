@@ -71,3 +71,7 @@ bool ModuleRender::CleanUp() {
 	SDL_GL_DeleteContext(SDL_GL_GetCurrentContext());
 	return true;
 }
+
+const Entity& ModuleRender::GetEntity() const {
+	return *entities.front();
+}

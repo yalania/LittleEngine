@@ -20,6 +20,7 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
+	const Entity& GetEntity() const;
 
 	void AddEntity(const char * model);
 private:

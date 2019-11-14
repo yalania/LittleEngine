@@ -1,6 +1,7 @@
 #ifndef _MODULE_CAMERA_
 #define _MODULE_CAMERA_
 #include "Module.h"
+#include "Entity.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -14,6 +15,7 @@ public:
 	void MoveCameraWithMousePosition(const glm::vec2 & mouseOffset);
 	void Translate(const glm::vec3 & direction);
 	void Zoom(bool zoomIn);
+	void FocusOnEntity(const Entity & entity);
 
 	void EnablePerspective();
 	void EnableOrthographic();
