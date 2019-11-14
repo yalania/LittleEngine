@@ -1,6 +1,5 @@
 #include "ModuleTimeController.h"
 
-bool gameIsPaused = false;
 bool ModuleTimeController::Init() {
 	realTimeClock.Start();
 	gameTimeClock.Start();
@@ -8,7 +7,7 @@ bool ModuleTimeController::Init() {
 	return true;
 }
 
-update_status ModuleTimeController::Update() {
+update_status ModuleTimeController::PreUpdate() {
 	frameStartTime = fpsTimer.Read();
 	float avgFPS = static_cast<float>(totalNumberOfFrames / (fpsTimer.Read() / 1000.f));
 	frameRateLog[frameRateIndex] = avgFPS;
@@ -20,7 +19,6 @@ update_status ModuleTimeController::Update() {
 }
 update_status ModuleTimeController::PostUpdate() {
 	++totalNumberOfFrames;
-	if(advanceOnFrameActivated)
 	return UPDATE_CONTINUE;
 }
 
@@ -32,6 +30,12 @@ void ModuleTimeController::LimitFrameRate() {
 	{
 		//Wait remaining time
 		SDL_Delay(static_cast<UINT32>(SCREEN_TICK_PER_FRAME - deltaTime));
+	}
+
+	if (advanceOnFrameActivated) {
+		advanceOnFrameActivated = false;
+		gameIsPaused = true;
+		gameTimeClock.Pause();
 	}
 }
 
@@ -50,6 +54,10 @@ void ModuleTimeController::Play() {
 }
 
 void ModuleTimeController::AdvanceOneFrame() {
-	advanceOnFrameActivated = true;
+	if (gameIsPaused) {
+		advanceOnFrameActivated = true;
+		gameIsPaused = false;
+		gameTimeClock.UnPause();
+	}
 }
 

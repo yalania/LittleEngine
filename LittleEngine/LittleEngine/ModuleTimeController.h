@@ -12,7 +12,7 @@ public:
 	~ModuleTimeController() = default;
 
 	bool Init() override;
-	update_status Update() override;
+	update_status PreUpdate() override;
 	update_status PostUpdate() override;
 	void LimitFrameRate();
 	void Pause();
@@ -39,6 +39,7 @@ private:
 	double frameEndTime;
 
 	bool advanceOnFrameActivated = false;
+	int advanceOnFrameCounter = 0;
 };
 
 
