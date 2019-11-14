@@ -118,7 +118,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		float mouseXPos = static_cast<float>((event.motion.x - lastMousePosition.x) * mouseSensitivity);
 		float mouseYPos = static_cast<float>((event.motion.y - lastMousePosition.y) * mouseSensitivity);
 
-		glm::vec2 translationDirection = glm::vec2(0.0f);
+		glm::vec3 translationDirection = glm::vec3(0.0f);
 		lastMousePosition.x = static_cast<float>(event.motion.x);
 		lastMousePosition.y = static_cast<float>(event.motion.y);
 		translationDirection.x = mouseXPos;
@@ -129,7 +129,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 
 void ModuleInput::CameraMovementWithKeys() const {
 
-	glm::vec2 translationDirection = glm::vec2(0.0f);
+	glm::vec3 translationDirection = glm::vec3(0.0f);
 	if (keyboard[SDL_SCANCODE_Q]) {
 		translationDirection.y = 1.0f;
 	}
@@ -142,15 +142,15 @@ void ModuleInput::CameraMovementWithKeys() const {
 	if (keyboard[SDL_SCANCODE_D]) {
 		translationDirection.x = -1.0f;
 	}
-	if (translationDirection != glm::vec2(0.0f)) {
-		Engine->moduleCamera->Translate(translationDirection);
-	}
 	if (keyboard[SDL_SCANCODE_W]) {
-		Engine->moduleCamera->Zoom(true);
+		translationDirection.z = 1.0f;
 	}
 	if (keyboard[SDL_SCANCODE_S]) {
-		Engine->moduleCamera->Zoom(false);
+		translationDirection.z = -1.0f;
 	}
+	if (translationDirection != glm::vec3(0.0f)) {
+	}
+		Engine->moduleCamera->Translate(translationDirection);
 	if (keyboard[SDL_SCANCODE_LSHIFT]) {
 		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED*2.0f;
 	}

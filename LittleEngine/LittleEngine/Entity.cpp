@@ -8,7 +8,9 @@ Entity::Entity(std::vector<Mesh> entityMeshes, unsigned int  shaderProgram) : en
 
 update_status Entity::Update(){
 	glUseProgram(shaderProgram);
-	entityTransform->UpdateModel();
+	if (!gameIsPaused) {
+		entityTransform->UpdateModel();
+	}
 	update_status result = UPDATE_CONTINUE;
 	for (auto &mesh : entityMeshes) {
 		mesh.Update();

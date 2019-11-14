@@ -160,14 +160,17 @@ void UI::TimeControlButtons() {
 	ImGui::Begin("Time Control");
 	if (ImGui::Button("Play"))
 	{
+		Engine->moduleTimeController->Play();
 	}
 
 	if (ImGui::Button("Pause"))
 	{
+		Engine->moduleTimeController->Pause();
 	}
 
 	if (ImGui::Button("Forward"))
 	{
+		Engine->moduleTimeController->AdvanceOneFrame();
 	}
 	ImGui::End();
 }

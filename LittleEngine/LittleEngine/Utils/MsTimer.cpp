@@ -14,12 +14,12 @@ void MsTimer::Pause() {
 	if (started && !paused)
 	{
 		paused = true;
-		pausedTimeInMillis = SDL_GetTicks() - pausedTimeInMillis;
+		pausedTimeInMillis = SDL_GetTicks() - timeInMillis;
 		timeInMillis = 0;
 	}
 }
 
-void MsTimer::Unpause(){
+void MsTimer::UnPause(){
 	if (started && paused)
 	{
 		paused = false;

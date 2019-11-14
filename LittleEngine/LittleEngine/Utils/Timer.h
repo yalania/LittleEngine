@@ -10,7 +10,7 @@ public:
 	virtual double Read() { return timeInMillis; }
 
 	virtual void Pause(){}
-	virtual void Unpause(){}
+	virtual void UnPause(){}
 	virtual bool IsPaused() { return paused; };
 
 	virtual double Stop() {

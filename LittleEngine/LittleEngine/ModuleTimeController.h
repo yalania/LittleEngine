@@ -26,18 +26,19 @@ public:
 	MsTimer gameTimeClock;
 	MsTimer fpsTimer;
 
-	float deltaTime;
+	double deltaTime;
 private:
 
 	//FrameRate;
-	long totalNumberOfFrames = 0;
+	uint64_t totalNumberOfFrames = 0;
 	int frameRateIndex = 0;
 
 	//Delta
-	float realDeltaTime;
-	float frameStartTime;
-	float frameEndTime;
+	double realDeltaTime;
+	double frameStartTime;
+	double frameEndTime;
 
+	bool advanceOnFrameActivated = false;
 };
 
 

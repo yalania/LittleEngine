@@ -12,8 +12,9 @@ public:
 	bool Init() override;
 	update_status PreUpdate() override;
 	void MoveCameraWithMousePosition(const glm::vec2 & mouseOffset);
-	void Translate(const glm::vec2 & direction);
+	void Translate(const glm::vec3 & direction);
 	void Zoom(bool zoomIn);
+
 	void EnablePerspective();
 	void EnableOrthographic();
 

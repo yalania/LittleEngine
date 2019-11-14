@@ -61,10 +61,10 @@ void ModuleRender::InitOpenGlOptions() const{
 	// Enable the debug callback
 	glEnable(GL_DEBUG_OUTPUT);
 	//glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); Disable for now as it blocks mouse buttons events
-	glDebugMessageCallback(OurOpenGLErrorFunction, nullptr);
+	/*glDebugMessageCallback(OurOpenGLErrorFunction, nullptr);
 	glDebugMessageControl(
 		GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, true
-	);
+	);*/
 }
 
 bool ModuleRender::CleanUp() {

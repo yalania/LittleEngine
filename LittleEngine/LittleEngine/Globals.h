@@ -19,8 +19,10 @@ enum update_status
 #define TIME_SCALE = 1;
 #define LIMIT_FRAME_RATE true
 
+// Time and Frame Configuration
 const int  SCREEN_FPS = 60;
 const int  SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
+extern bool gameIsPaused;
 
 // Camera Default Configuration -----------
 #define CAMERA_SPEED 0.05f

@@ -44,7 +44,7 @@ void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 		std::vector<GLchar> vertShaderError((logLength > 1) ? logLength : 1);
 		glGetShaderInfoLog(shader, logLength, NULL, &vertShaderError[0]);
-		LOG("Shader coudn't be compiled : %s\n", &vertShaderError[0]);
+		LOG("Shader %s coudn't be compiled : %s\n", shaderFile,&vertShaderError[0]);
 	}
 
 	

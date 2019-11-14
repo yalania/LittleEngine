@@ -11,7 +11,7 @@ public:
 	double Read() override;
 
 	void Pause() override;
-	void Unpause() override;
+	void UnPause() override;
 };
 
 #endif // !_UTILS_MSTIMER_

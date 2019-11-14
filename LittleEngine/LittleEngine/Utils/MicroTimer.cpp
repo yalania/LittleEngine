@@ -19,7 +19,7 @@ void MicroTimer::Pause() {
 	}
 }
 
-void MicroTimer::Unpause() {
+void MicroTimer::UnPause() {
 	if (started && paused)
 	{
 		paused = false;
