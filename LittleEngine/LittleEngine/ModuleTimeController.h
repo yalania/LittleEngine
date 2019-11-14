@@ -18,6 +18,7 @@ public:
 	void Pause();
 	void Play();
 	void AdvanceOneFrame();
+	void AdvanceFrames(int numberOfFramesToAdvance);
 
 
 	//Timers

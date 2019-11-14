@@ -21,6 +21,9 @@ namespace CameraOptions {
 	bool frustumCulling = true;
 	bool isActiveCamera = true;
 }
+namespace FrameOptions {
+	int numberOfFramesToAdvance = SCREEN_FPS;
+}
 
 void UI::ShowUI() {
 	if (ImGui::BeginMainMenuBar())
@@ -168,9 +171,12 @@ void UI::TimeControlButtons() {
 		Engine->moduleTimeController->Pause();
 	}
 
-	if (ImGui::Button("Forward"))
+	char title[35];
+	sprintf_s(title, 25, "Forward %d frames",FrameOptions::numberOfFramesToAdvance);
+	if (ImGui::Button(title))
 	{
-		Engine->moduleTimeController->AdvanceOneFrame();
+		Engine->moduleTimeController->AdvanceFrames(FrameOptions::numberOfFramesToAdvance);
 	}
+	ImGui::SliderInt("Frames to advance", &FrameOptions::numberOfFramesToAdvance, 1, 100);
 	ImGui::End();
 }

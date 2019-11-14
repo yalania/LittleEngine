@@ -19,6 +19,7 @@ update_status ModuleTimeController::PreUpdate() {
 }
 update_status ModuleTimeController::PostUpdate() {
 	++totalNumberOfFrames;
+	--advanceOnFrameCounter;
 	return UPDATE_CONTINUE;
 }
 
@@ -32,7 +33,7 @@ void ModuleTimeController::LimitFrameRate() {
 		SDL_Delay(static_cast<UINT32>(SCREEN_TICK_PER_FRAME - deltaTime));
 	}
 
-	if (advanceOnFrameActivated) {
+	if (advanceOnFrameActivated && advanceOnFrameCounter <= 0) {
 		advanceOnFrameActivated = false;
 		gameIsPaused = true;
 		gameTimeClock.Pause();
@@ -54,10 +55,14 @@ void ModuleTimeController::Play() {
 }
 
 void ModuleTimeController::AdvanceOneFrame() {
+	AdvanceFrames(1);
+}
+
+void ModuleTimeController::AdvanceFrames(int numberOfFramesToAdvance) {
 	if (gameIsPaused) {
 		advanceOnFrameActivated = true;
 		gameIsPaused = false;
 		gameTimeClock.UnPause();
+		advanceOnFrameCounter = numberOfFramesToAdvance;
 	}
 }
-
