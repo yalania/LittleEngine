@@ -28,6 +28,12 @@ class Mesh : public Component {
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(Mesh && mesh) = default;
+	Mesh(const Mesh & mesh) = default;
+
+	Mesh& operator = (Mesh && mesh) = default;
+	Mesh& operator = (const Mesh & mesh) = default;
+
 	update_status Update() override;
 
 private:

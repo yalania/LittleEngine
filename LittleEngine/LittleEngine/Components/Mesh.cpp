@@ -11,6 +11,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	setupMesh();
 }
+
 update_status Mesh::Update() {
 
 	unsigned int diffuseNr = 1;
@@ -30,6 +31,7 @@ update_status Mesh::Update() {
 	glActiveTexture(GL_TEXTURE0);
 	return UPDATE_CONTINUE;
 }
+
 void Mesh::setupMesh()
 {
 	// create buffers/arrays

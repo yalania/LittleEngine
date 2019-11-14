@@ -7,7 +7,7 @@
 #include "LittleEngine.h"
 
 Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture) {
-	meshes.erase(meshes.begin(), meshes.end());
+	std::vector<Mesh> meshes;
 	Assimp::Importer import;
 	const aiScene *scene = import.ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -25,12 +25,11 @@ Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string c
 		textureDirectory = pathToModel.substr(0, endPosition);
 	}
 
-	ProcessNode(*scene->mRootNode, *scene);
-	return Model(meshes);
-
+	ProcessNode(*scene->mRootNode, *scene, meshes);
+	return Model(std::move(meshes));
 }
 
-void ModuleModelLoader::ProcessNode(const aiNode &node, const aiScene &scene)
+void ModuleModelLoader::ProcessNode(const aiNode &node, const aiScene &scene, std::vector<Mesh> & meshes)
 {
 	// process each mesh located at the current node
 	for (unsigned int i = 0; i < node.mNumMeshes; i++)
@@ -38,12 +37,12 @@ void ModuleModelLoader::ProcessNode(const aiNode &node, const aiScene &scene)
 		// the node object only contains indices to index the actual objects in the scene. 
 		// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 		aiMesh* mesh = scene.mMeshes[node.mMeshes[i]];
-		meshes.push_back(ProcessMesh(*mesh, scene));
+		meshes.emplace_back(ProcessMesh(*mesh, scene));
 	}
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node.mNumChildren; i++)
 	{
-		ProcessNode(*node.mChildren[i], scene);
+		ProcessNode(*node.mChildren[i], scene, meshes);
 	}
 
 }
