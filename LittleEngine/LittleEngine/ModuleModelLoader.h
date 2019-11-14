@@ -4,9 +4,10 @@
 #include <string>
 #include <assimp/scene.h>
 #include "Components/Mesh.h"
+#include "Components/Model.h"
 class ModuleModelLoader : public Module {
 public:
-	void LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
+	Model LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
 	std::vector<Mesh> meshes;
 private:
 	void ProcessNode(const aiNode &node, const aiScene &scene);

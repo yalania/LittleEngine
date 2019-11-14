@@ -6,7 +6,7 @@
 #include <assimp/postprocess.h>
 #include "LittleEngine.h"
 
-void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture) {
+Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture) {
 	meshes.erase(meshes.begin(), meshes.end());
 	Assimp::Importer import;
 	const aiScene *scene = import.ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -14,7 +14,7 @@ void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string co
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		LOG( "ERROR::ASSIMP::%s", import.GetErrorString());
-		return;
+		return Model(meshes);
 	}
 
 	size_t endPosition = pathToModel.find_last_of('\\');
@@ -26,6 +26,7 @@ void ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string co
 	}
 
 	ProcessNode(*scene->mRootNode, *scene);
+	return Model(meshes);
 
 }
 

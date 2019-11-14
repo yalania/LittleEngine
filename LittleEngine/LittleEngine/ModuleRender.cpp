@@ -13,9 +13,9 @@ bool ModuleRender::Init() {
 }
 
 void ModuleRender::AddEntity(const char * model) {
-	Engine->moduleModelLoader->LoadModel(model);
+	Model newModel = Engine->moduleModelLoader->LoadModel(model);
 	entities.erase(entities.begin(), entities.end()); //ASSIMENT: For now because the assiment requirements
-	entities.push_back(std::make_unique<Entity>(Engine->moduleModelLoader->meshes, Engine->moduleShaderProgram->defaultProgram));
+	entities.push_back(std::make_unique<Entity>(newModel, Engine->moduleShaderProgram->defaultProgram));
 }
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
