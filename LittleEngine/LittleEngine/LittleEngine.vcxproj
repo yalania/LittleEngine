@@ -74,7 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)LittleEngine\Dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)LittleEngine\Dependencies\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)LittleEngine\Engine</OutDir>
+    <OutDir>$(SolutionDir)LittleEngine\Engine\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
