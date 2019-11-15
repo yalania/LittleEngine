@@ -7,15 +7,15 @@
 
 struct Vertex {
 	// position
-	glm::vec3 Position;
+	glm::vec3 Position{};
 	// normal
-	glm::vec3 Normal;
+	glm::vec3 Normal{};
 	// texCoords
-	glm::vec2 TexCoords;
+	glm::vec2 TexCoords{};
 	// tangent
-	glm::vec3 Tangent;
+	glm::vec3 Tangent{};
 	// bitangent
-	glm::vec3 Bitangent;
+	glm::vec3 Bitangent{};
 };
 
 struct Texture {
@@ -27,6 +27,7 @@ struct Texture {
 class Mesh : public Component {
 
 public:
+	Mesh() = default;
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
 	Mesh(Mesh && mesh) = default;
 	Mesh(const Mesh & mesh) = default;
