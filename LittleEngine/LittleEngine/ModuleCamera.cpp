@@ -7,7 +7,6 @@ bool ModuleCamera::Init() {
 
 	// note that we're translating the scene in the reverse direction of where we want to move
 	UpdateMatricesInShaderPograms();
-
 	LoadProjection();
 	return true;
 }
@@ -79,7 +78,7 @@ void ModuleCamera::EnableOrthographic() {
 }
 
 void ModuleCamera::LoadProjection() {
-	aspect = static_cast<float>(Engine->moduleWindow->width / Engine->moduleWindow->height);
+	aspect = static_cast<float>(Engine->moduleWindow->width) / static_cast<float>(Engine->moduleWindow->height);
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);
 	}
@@ -103,8 +102,7 @@ void ModuleCamera::UpdateMatricesInShaderPograms(){
 void ModuleCamera::FocusOnEntity(const Entity & entity) {
 	transform.position = entity.entityModel->sphereCenter;
 	float distance = entity.entityModel->sphereRadius / tan(glm::radians(frustumFov / 2));
-	transform.position.z += distance;
-	view = glm::inverse(transform.CalculateTransformMatrix());
+	transform.position.z += distance;;
 	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
 	transform.rotation = glm::quat(glm::inverse(view));
 

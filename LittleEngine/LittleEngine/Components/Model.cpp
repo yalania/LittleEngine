@@ -21,7 +21,7 @@ void Model::CalculateSphere() {
 	sphereCenter = CalculateCenter();
 	for (auto & mesh : meshes) {
 		for (auto & vector : mesh.vertices) {
-			float distanceFromCenter = (vector.Position - sphereCenter).length();
+			float distanceFromCenter = glm::length(vector.Position - sphereCenter);
 			if (distanceFromCenter > sphereRadius) {
 				sphereRadius = distanceFromCenter;
 			}
