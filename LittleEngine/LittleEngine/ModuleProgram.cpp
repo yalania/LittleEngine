@@ -91,10 +91,10 @@ void ModuleProgram::SetUpUniformSBuffer() {
 	glGenBuffers(1, &uniformsBuffer);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, uniformsBuffer);
-	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 3 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uniformsBuffer, 0, 2 * sizeof(glm::mat4));
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, uniformsBuffer, 0, 3 * sizeof(glm::mat4));
 }
 bool ModuleProgram::CleanUp() {
 	glDeleteProgram(defaultProgram);

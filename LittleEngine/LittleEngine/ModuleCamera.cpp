@@ -6,77 +6,66 @@ bool ModuleCamera::Init() {
 	LOG("Init Camera System");
 
 	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
+	UpdateMatricesInShaderPograms();
 
 	LoadProjection();
 	return true;
 }
 
 update_status ModuleCamera::PreUpdate() {
-	view = glm::lookAt(cameraPosition, cameraPosition + cameraFront, cameraUp);
 	UpdateMatricesInShaderPograms();
 	return UPDATE_CONTINUE;
 }
 
 void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
-
-	yaw += mouseOffset.x;
-	pitch += mouseOffset.y;
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-	cameraFront = glm::normalize(front);
-
-	cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront));
-
+	
+	glm::mat4 model = transform.CalculateTransformMatrix();
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(model[0]));
+	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	transform.rotation = rotY * rotX* transform.rotation;
 }
 
 void ModuleCamera::Translate(const glm::vec3 & direction) {
 
+	glm::mat4 model = transform.CalculateTransformMatrix();
+
 	if (direction.y > 0) {
-		cameraPosition -= cameraSpeed * cameraUp;
+		transform.position -= cameraSpeed * glm::vec3(model[1]);
 	}
 	if (direction.y < 0) {
-		cameraPosition += cameraSpeed * cameraUp;
+		transform.position += cameraSpeed * glm::vec3(model[1]);
 	}
 	if (direction.x > 0) {
-		cameraPosition +=  cameraSpeed * cameraRight;
+		transform.position -= cameraSpeed * glm::vec3(model[0]);
 	}
 	if (direction.x < 0) {
-		cameraPosition -= cameraSpeed * cameraRight;
+		transform.position += cameraSpeed * glm::vec3(model[0]);
 	}
 	if (direction.z > 0) {
-		cameraPosition += cameraSpeed * cameraFront;
+		transform.position -= cameraSpeed * glm::vec3(model[2]);
 	}
 	if (direction.z < 0) {
-		cameraPosition -= cameraSpeed * cameraFront;
+		transform.position += cameraSpeed * glm::vec3(model[2]);
 	}
+
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
 
+	glm::mat4 model = transform.CalculateTransformMatrix();
 	if (zoomIn) {
 		/*orthoUnits -= 0.05f;
 		--frustumFov;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
 		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
-		cameraPosition += cameraSpeed * cameraFront;
+		transform.position += cameraSpeed * glm::vec3(model[2]);
 	}
 	else {
 		/*orthoUnits += 0.05;
 		++frustumFov;
 		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
-		cameraPosition -= cameraSpeed * cameraFront;
+		transform.position -= cameraSpeed * glm::vec3(model[2]);
 	}
-	LoadProjection();
-
 }
 
 void ModuleCamera::EnablePerspective() {
@@ -99,8 +88,9 @@ void ModuleCamera::LoadProjection() {
 	}
 }
 
-void ModuleCamera::UpdateMatricesInShaderPograms() const{
+void ModuleCamera::UpdateMatricesInShaderPograms(){
 
+	view = glm::inverse(transform.CalculateTransformMatrix());
 	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
@@ -111,7 +101,11 @@ void ModuleCamera::UpdateMatricesInShaderPograms() const{
 }
 
 void ModuleCamera::FocusOnEntity(const Entity & entity) {
-	float distance = (entity.entityModel->sphereRadius * 2) / tan(glm::radians(frustumFov) / 2);
-	cameraPosition.z = distance;
+	transform.position = entity.entityModel->sphereCenter;
+	float distance = entity.entityModel->sphereRadius / tan(glm::radians(frustumFov / 2));
+	transform.position.z += distance;
+	view = glm::inverse(transform.CalculateTransformMatrix());
+	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
+	transform.rotation = glm::quat(glm::inverse(view));
 
 }

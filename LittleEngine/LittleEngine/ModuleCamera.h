@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include "Components/Transform.h"
 
 class ModuleCamera : public Module {
 
@@ -29,14 +30,10 @@ public:
 	float nearPlane = 0.1f;
 	void LoadProjection();
 private:
-	void UpdateMatricesInShaderPograms() const;
-
-	glm::mat4 view = glm::mat4(1.0f);
+	void UpdateMatricesInShaderPograms();
 	glm::mat4 projection = glm::mat4(1.0f);
-	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f); // Z position
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //Up position
-	glm::vec3 cameraRight = glm::normalize(glm::cross(cameraUp, cameraFront)); //Right camera vector
+	glm::mat4 view;
+	Transform transform;
 	float yaw = -90.0f;
 	float pitch = 0;
 

@@ -17,7 +17,7 @@ enum update_status
 #define VSYNC true
 #define TITLE "LittleEngine"
 #define TIME_SCALE = 1;
-#define LIMIT_FRAME_RATE false
+#define LIMIT_FRAME_RATE true
 
 // Time and Frame Configuration
 const int  SCREEN_FPS = 60;

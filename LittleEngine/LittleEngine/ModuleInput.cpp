@@ -50,11 +50,9 @@ update_status ModuleInput::Update()
 			Engine->moduleRenderer->AddEntity(dropped_filedir);
 			// Shows directory of dropped file
 			SDL_free(dropped_filedir);    // Free dropped_filedir memory
+			Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
 			break;
 		}
-
-		
-
 	}
 	keyboard = SDL_GetKeyboardState(NULL);
 	CameraMovementWithKeys();
@@ -105,7 +103,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 	}
 	if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
 
-		float mouseXPos = static_cast<float>((event.motion.x - lastMousePosition.x) *mouseSensitivity);
+		float mouseXPos = static_cast<float>((lastMousePosition.x - event.motion.x) *mouseSensitivity);
 		float mouseYPos = static_cast<float>((lastMousePosition.y - event.motion.y) *mouseSensitivity);
 
 		lastMousePosition.x = static_cast<float>(event.motion.x);
