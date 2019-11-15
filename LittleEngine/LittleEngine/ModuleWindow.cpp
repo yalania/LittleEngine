@@ -69,7 +69,7 @@ void ModuleWindow::WindowResized(unsigned width, unsigned height)
 {
 	this->width = static_cast<int>(width);
 	this->height = static_cast<int>(height);
-	Engine->moduleCamera->LoadProjection();
+	Engine->moduleCamera->UpdateProjection();
 	SDL_SetWindowSize(window, width, height);
 	glViewport(0, 0, width, height);
 }

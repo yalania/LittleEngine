@@ -26,9 +26,9 @@ public:
 	float frustumFov = 45.0f;
 	float orthoUnits = 1.0f;
 	float cameraSpeed = CAMERA_SPEED;
-	float farPlane = 100.0f;
+	float farPlane = 1000.0f;
 	float nearPlane = 0.1f;
-	void LoadProjection();
+	void UpdateProjection();
 private:
 	void UpdateMatricesInShaderPograms();
 	glm::mat4 projection = glm::mat4(1.0f);

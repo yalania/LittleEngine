@@ -7,7 +7,7 @@ bool ModuleCamera::Init() {
 
 	// note that we're translating the scene in the reverse direction of where we want to move
 	UpdateMatricesInShaderPograms();
-	LoadProjection();
+	UpdateProjection();
 	return true;
 }
 
@@ -17,67 +17,45 @@ update_status ModuleCamera::PreUpdate() {
 }
 
 void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
-	
-	glm::mat4 model = transform.CalculateTransformMatrix();
-	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(model[0]));
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(transform.GetRightAxis()));
 	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 	transform.rotation = rotY * rotX* transform.rotation;
 }
 
 void ModuleCamera::Translate(const glm::vec3 & direction) {
-
-	glm::mat4 model = transform.CalculateTransformMatrix();
-
-	if (direction.y > 0) {
-		transform.position -= cameraSpeed * glm::vec3(model[1]);
-	}
-	if (direction.y < 0) {
-		transform.position += cameraSpeed * glm::vec3(model[1]);
-	}
-	if (direction.x > 0) {
-		transform.position -= cameraSpeed * glm::vec3(model[0]);
-	}
-	if (direction.x < 0) {
-		transform.position += cameraSpeed * glm::vec3(model[0]);
-	}
-	if (direction.z > 0) {
-		transform.position -= cameraSpeed * glm::vec3(model[2]);
-	}
-	if (direction.z < 0) {
-		transform.position += cameraSpeed * glm::vec3(model[2]);
-	}
-
+	transform.TranslateLocal(direction * cameraSpeed);
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
 
-	glm::mat4 model = transform.CalculateTransformMatrix();
+	glm::vec3 direction = glm::vec3(0.0f, 0.0f, 1.0f);
 	if (zoomIn) {
 		/*orthoUnits -= 0.05f;
 		--frustumFov;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
 		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
-		transform.position += cameraSpeed * glm::vec3(model[2]);
+		direction *= cameraSpeed;
 	}
 	else {
 		/*orthoUnits += 0.05;
 		++frustumFov;
 		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
-		transform.position -= cameraSpeed * glm::vec3(model[2]);
+		direction *= -cameraSpeed;
 	}
+	transform.TranslateLocal(direction);
 }
 
 void ModuleCamera::EnablePerspective() {
 		perspectiveEnable = true;
-		LoadProjection();
+		UpdateProjection();
 }
 
 void ModuleCamera::EnableOrthographic() {
 		perspectiveEnable = false;
-		LoadProjection();
+		UpdateProjection();
 }
 
-void ModuleCamera::LoadProjection() {
+void ModuleCamera::UpdateProjection() {
 	aspect = static_cast<float>(Engine->moduleWindow->width) / static_cast<float>(Engine->moduleWindow->height);
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);

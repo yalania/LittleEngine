@@ -118,16 +118,16 @@ void UI::DrawPropertiesWindow() {
 		ImGui::Checkbox("Active", &CameraOptions::isActiveCamera);
 		ImGui::SliderFloat("Mov.Speed", &Engine->moduleCamera->cameraSpeed, 0.05f, 2.0f);
 		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, 200.0f)) {
-			Engine->moduleCamera->LoadProjection();
+			Engine->moduleCamera->UpdateProjection();
 		}
 		if (ImGui::SliderFloat("Far Plane", &Engine->moduleCamera->farPlane, 0.0f, 200.0f)) {
-			Engine->moduleCamera->LoadProjection();
+			Engine->moduleCamera->UpdateProjection();
 		}
 		if(ImGui::SliderFloat("Aspect ratio", &Engine->moduleCamera->aspect, -10.0f, 10.0f) ){
-			Engine->moduleCamera->LoadProjection();
+			Engine->moduleCamera->UpdateProjection();
 		}
 		if (ImGui::SliderFloat("Fov ratio", &Engine->moduleCamera->frustumFov, 0.0f, 179.9f)) {
-			Engine->moduleCamera->LoadProjection();
+			Engine->moduleCamera->UpdateProjection();
 		}
 		ImGui::Checkbox("Frustum Culling", &CameraOptions::frustumCulling);
 	}
