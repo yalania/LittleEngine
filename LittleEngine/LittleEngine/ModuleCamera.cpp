@@ -4,8 +4,6 @@
 
 bool ModuleCamera::Init() {
 	LOG("Init Camera System");
-
-	// note that we're translating the scene in the reverse direction of where we want to move
 	UpdateMatricesInShaderPograms();
 	UpdateProjection();
 	return true;
@@ -23,7 +21,8 @@ void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
 }
 
 void ModuleCamera::Translate(const glm::vec3 & direction) {
-	transform.TranslateLocal(direction * cameraSpeed);
+	glm::vec3 translationDirection = glm::vec3(direction.x, -direction.y, direction.z);
+	transform.TranslateLocal(translationDirection * cameraSpeed);
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
@@ -80,19 +79,14 @@ void ModuleCamera::UpdateMatricesInShaderPograms(){
 void ModuleCamera::FocusOnEntity(const Entity & entity) {
 	transform.position = entity.entityModel->sphereCenter;
 	float distance = entity.entityModel->sphereRadius / tan(glm::radians(frustumFov / 2));
-	transform.position.z += distance;;
+	transform.position.z += distance;
 	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
 	transform.rotation = glm::quat(glm::inverse(view));
 
 }
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
-	MoveCameraWithMousePosition(mouseOffset);
-	glm::vec3 translationDirection = glm::vec3(0.0f);
-	translationDirection.x = mouseOffset.x > 0 ? 1.0f : -1.0f;
-	translationDirection.y = mouseOffset.y > 0 ? 1.0f : -1.0f;
-	Translate(translationDirection);
-	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
+	Translate(glm::vec3(mouseOffset, 0.0f));
+	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter,transform.GetUptAxis());
 	transform.rotation = glm::quat(glm::inverse(view));
-
 }

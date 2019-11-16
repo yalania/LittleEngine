@@ -116,9 +116,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 				Engine->moduleCamera->MoveCameraWithMousePosition(currentMousePositionOffset);
 			}
 			if (middleMouseButtonIsDown) {
-				glm::vec3 translationDirection = glm::vec3(-currentMousePositionOffset,0.0f);
-				translationDirection.x = -translationDirection.x;
-				Engine->moduleCamera->Translate(translationDirection);
+				Engine->moduleCamera->Translate(glm::vec3(currentMousePositionOffset,0.0f));
 			}
 	}
 }
