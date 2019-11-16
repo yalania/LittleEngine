@@ -19,6 +19,7 @@ namespace WindowOptions {
 	bool fullScreenDesktop = FULLSCREEN_DESKTOP;
 	bool rezisable = RESIZABLE;
 	bool borderless = BORDERLESS;
+	float brightness = BRIGHTNESS;
 }
 
 namespace CameraOptions {
@@ -196,8 +197,8 @@ void UI::CameraPropertiesTab() {
 void UI::WindowPropertiesTab() {
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		if (ImGui::SliderInt("Brightness", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
-			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
+		if (ImGui::SliderFloat("Brightness", &WindowOptions::brightness, 0.0f, 5.0f)) {
+			Engine->moduleWindow->SetBrightness(WindowOptions::brightness);
 		}
 		if (ImGui::SliderInt("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);

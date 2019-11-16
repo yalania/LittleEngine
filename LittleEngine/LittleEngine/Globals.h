@@ -10,12 +10,9 @@ enum update_status
 };
 
 // Configuration -----------
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define FULLSCREEN false
-#define FULLSCREEN_DESKTOP false
-#define RESIZABLE true
-#define BORDERLESS false
+
+
+
 #define VSYNC true
 #define TITLE "LittleEngine"
 #define TIME_SCALE = 1;
@@ -25,6 +22,15 @@ enum update_status
 const int  SCREEN_FPS = 60;
 const int  SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 extern bool gameIsPaused;
+
+//Window Default Configuration
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+#define FULLSCREEN false
+#define FULLSCREEN_DESKTOP false
+#define RESIZABLE true
+#define BORDERLESS false
+#define BRIGHTNESS 1.0f
 
 // Camera Default Configuration -----------
 #define CAMERA_SPEED 0.05f

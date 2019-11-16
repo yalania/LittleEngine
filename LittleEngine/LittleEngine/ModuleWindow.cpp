@@ -82,28 +82,24 @@ void ModuleWindow::WindowResized(unsigned width, unsigned height)
 }
 
 void ModuleWindow::SetFullScreen(bool fullScreen) {
-	SDL_SetWindowFullscreen(window, 0);
 	this->fullScreenEnabled = fullScreen;
 	if (fullScreenEnabled) {
 		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-		WindowResized(width, height);
 		fullScreenDesktopEnabled = false;
 	}
 	else {
-		WindowResized(SCREEN_WIDTH, SCREEN_HEIGHT);
+		SDL_SetWindowFullscreen(window, 0);
 	}
 }
 
 void ModuleWindow::SetFullScreenDesktop(bool fullScreenDesktop) {
-	SDL_SetWindowFullscreen(window, 0);
 	this->fullScreenDesktopEnabled = fullScreenDesktop;
 	if (fullScreenDesktopEnabled) {
 		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		WindowResized(width, height);
 		fullScreenEnabled = false;
 	}
 	else {
-		WindowResized(SCREEN_WIDTH, SCREEN_HEIGHT);
+		SDL_SetWindowFullscreen(window, 0);
 	}
 }
 void ModuleWindow::SetResizable(bool resizable) {
@@ -116,6 +112,11 @@ void ModuleWindow::SetBorderless(bool borderless) {
 	this->borderlessEnabled = borderless;
 	SDL_bool sdlborderer = borderlessEnabled ? SDL_TRUE : SDL_FALSE;
 	SDL_SetWindowBordered(window, sdlborderer);
+}
+
+void ModuleWindow::SetBrightness(float brightness) {
+	this->brightness = brightness;
+	SDL_SetWindowBrightness(window, brightness);
 }
 
 void ModuleWindow::InitOpenGLAttributes() {
