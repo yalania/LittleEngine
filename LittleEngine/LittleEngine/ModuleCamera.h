@@ -17,6 +17,7 @@ public:
 	void Translate(const glm::vec3 & direction);
 	void Zoom(bool zoomIn);
 	void FocusOnEntity(const Entity & entity);
+	void OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset);
 
 	void EnablePerspective();
 	void EnableOrthographic();

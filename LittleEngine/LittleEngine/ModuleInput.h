@@ -24,7 +24,9 @@ private:
 	const float mouseSensitivity = 0.5f;
 	bool rightMouseButtonIsDown = false;
 	bool middleMouseButtonIsDown = false;
+	bool leftMouseButtonIsDown = false;
 	glm::vec2 lastMousePosition = glm::vec2(0.0f);
+	glm::vec2 currentMousePositionOffset = glm::vec2(0.0f);
 };
 
 #endif // !_MODULE_RENDER_

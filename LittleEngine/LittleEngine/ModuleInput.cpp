@@ -80,6 +80,9 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		if (event.button.button == SDL_BUTTON_MIDDLE) {
 			middleMouseButtonIsDown = true;
 		}
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			leftMouseButtonIsDown = true;
+		}
 	}
 	if (event.type == SDL_MOUSEBUTTONUP)
 	{
@@ -88,6 +91,9 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		}
 		if (event.button.button == SDL_BUTTON_MIDDLE) {
 			middleMouseButtonIsDown = false;
+		}
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			leftMouseButtonIsDown = false;
 		}
 	}
 	if (event.type == SDL_MOUSEWHEEL) {
@@ -99,29 +105,21 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		{
 			Engine->moduleCamera->Zoom(false);
 		}
-
 	}
-	if (rightMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
+	if (event.type == SDL_MOUSEMOTION) {
+			currentMousePositionOffset.x = static_cast<float>((lastMousePosition.x - event.motion.x) *mouseSensitivity);
+			currentMousePositionOffset.y = static_cast<float>((lastMousePosition.y - event.motion.y) *mouseSensitivity);
 
-		float mouseXPos = static_cast<float>((lastMousePosition.x - event.motion.x) *mouseSensitivity);
-		float mouseYPos = static_cast<float>((lastMousePosition.y - event.motion.y) *mouseSensitivity);
-
-		lastMousePosition.x = static_cast<float>(event.motion.x);
-		lastMousePosition.y = static_cast<float>(event.motion.y);
-		Engine->moduleCamera->MoveCameraWithMousePosition(glm::vec2(mouseXPos, mouseYPos));
-	}
-
-	if (middleMouseButtonIsDown && event.type == SDL_MOUSEMOTION) {
-
-		float mouseXPos = static_cast<float>((event.motion.x - lastMousePosition.x) * mouseSensitivity);
-		float mouseYPos = static_cast<float>((event.motion.y - lastMousePosition.y) * mouseSensitivity);
-
-		glm::vec3 translationDirection = glm::vec3(0.0f);
-		lastMousePosition.x = static_cast<float>(event.motion.x);
-		lastMousePosition.y = static_cast<float>(event.motion.y);
-		translationDirection.x = mouseXPos;
-		translationDirection.y = mouseYPos;
-		Engine->moduleCamera->Translate(translationDirection);
+			lastMousePosition.x = static_cast<float>(event.motion.x);
+			lastMousePosition.y = static_cast<float>(event.motion.y);
+			if (rightMouseButtonIsDown) {
+				Engine->moduleCamera->MoveCameraWithMousePosition(currentMousePositionOffset);
+			}
+			if (middleMouseButtonIsDown) {
+				glm::vec3 translationDirection = glm::vec3(-currentMousePositionOffset,0.0f);
+				translationDirection.x = -translationDirection.x;
+				Engine->moduleCamera->Translate(translationDirection);
+			}
 	}
 }
 
@@ -158,5 +156,9 @@ void ModuleInput::CameraMovementWithKeys() const {
 
 	if (keyboard[SDL_SCANCODE_F]) {
 		Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
+	}
+
+	if ((keyboard[SDL_SCANCODE_LALT] || keyboard[SDL_SCANCODE_RALT]) && leftMouseButtonIsDown) {
+		Engine->moduleCamera->OrbitAroundEntity(Engine->moduleRenderer->GetEntity(), currentMousePositionOffset);
 	}
 }
