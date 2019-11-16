@@ -1,11 +1,11 @@
 #ifndef _BOTTOM_TAB_
 #define _BOTTOM_TAB_
-
+#include "../LittleEngine.h"
 
 class UI {
 
 public:
-	static void ShowUI();
+	static update_status ShowUI();
 
 private:
 	UI() = default;

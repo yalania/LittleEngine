@@ -1,7 +1,6 @@
 #include "UI.h"
 #include "../imgui/imgui.h"
 #include "../Log.h"
-#include "../LittleEngine.h"
 #include "../imgui/imgui_internal.h"
 #include "../Utils/SystemProperties.h"
 
@@ -35,7 +34,8 @@ namespace System{
 	SystemProperties systemProperties;
 }
 
-void UI::ShowUI() {
+update_status UI::ShowUI() {
+	update_status updateStatus = UPDATE_CONTINUE;
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("LittleEngine"))
@@ -46,6 +46,9 @@ void UI::ShowUI() {
 				Engine->moduleRenderer->AddEntity("BakerHouse.fbx");
 			}
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
+			if (ImGui::MenuItem("Quit")) {
+				updateStatus = UPDATE_STOP;
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
@@ -73,6 +76,7 @@ void UI::ShowUI() {
 	}
 
 	UpdateState();
+	return updateStatus;
 }
 
 
