@@ -33,10 +33,11 @@ update_status ModuleInput::Update()
 
 	SDL_Event event;
 	bool done = true;
+	keyboard = SDL_GetKeyboardState(NULL);
 	while (SDL_PollEvent(&event))
 	{
 		//ImGui_ImplSDL2_ProcessEvent(&event);
-		if (event.type == SDL_QUIT) 
+		if (event.type == SDL_QUIT || keyboard[SDL_SCANCODE_ESCAPE])
 		{
 			return UPDATE_STOP;
 		}
@@ -54,7 +55,6 @@ update_status ModuleInput::Update()
 			break;
 		}
 	}
-	keyboard = SDL_GetKeyboardState(NULL);
 	CameraMovementWithKeys();
 
 	return UPDATE_CONTINUE;
@@ -121,7 +121,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 	}
 }
 
-void ModuleInput::CameraMovementWithKeys() const {
+void ModuleInput::CameraMovementWithKeys() {
 
 	glm::vec3 translationDirection = glm::vec3(0.0f);
 	if (keyboard[SDL_SCANCODE_Q]) {
@@ -145,11 +145,14 @@ void ModuleInput::CameraMovementWithKeys() const {
 	if (translationDirection != glm::vec3(0.0f)) {
 		Engine->moduleCamera->Translate(translationDirection);
 	}
-	if (keyboard[SDL_SCANCODE_LSHIFT]) {
-		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED*2.0f;
+	if (keyboard[SDL_SCANCODE_LSHIFT] && !shiftButtonIsDown) {
+		cameraPreviousSpeed = Engine->moduleCamera->cameraSpeed;
+		Engine->moduleCamera->cameraSpeed *= 2.0f;
+		shiftButtonIsDown = true;
 	}
-	else {
-		Engine->moduleCamera->cameraSpeed = CAMERA_SPEED;
+	else if(shiftButtonIsDown) {
+		shiftButtonIsDown = false;
+		Engine->moduleCamera->cameraSpeed = cameraPreviousSpeed;
 	}
 
 	if (keyboard[SDL_SCANCODE_F]) {

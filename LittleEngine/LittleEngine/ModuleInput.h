@@ -18,15 +18,17 @@ public:
 
 private:
 	void CameraMovementWithMouse(const SDL_Event & event);
-	void CameraMovementWithKeys() const;
+	void CameraMovementWithKeys();
 private:
+	glm::vec2 lastMousePosition = glm::vec2(0.0f);
+	glm::vec2 currentMousePositionOffset = glm::vec2(0.0f);
 	const UINT8 *keyboard = NULL;
 	const float mouseSensitivity = 0.5f;
 	bool rightMouseButtonIsDown = false;
 	bool middleMouseButtonIsDown = false;
 	bool leftMouseButtonIsDown = false;
-	glm::vec2 lastMousePosition = glm::vec2(0.0f);
-	glm::vec2 currentMousePositionOffset = glm::vec2(0.0f);
+	bool shiftButtonIsDown = false;
+	float cameraPreviousSpeed;
 };
 
 #endif // !_MODULE_RENDER_

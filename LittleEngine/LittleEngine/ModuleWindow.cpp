@@ -22,14 +22,20 @@ bool ModuleWindow::Init()
 		//Create window
 		Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 
-		if (FULLSCREEN == true)
+		if (fullScreenDesktopEnabled)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
-
-		if (RESIZABLE == true)
+		else if (fullScreenEnabled) {
+			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		}
+		if (resizableEnabled)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
+		}
+		if (borderlessEnabled)
+		{
+			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
 		InitOpenGLAttributes();
@@ -69,9 +75,47 @@ void ModuleWindow::WindowResized(unsigned width, unsigned height)
 {
 	this->width = static_cast<int>(width);
 	this->height = static_cast<int>(height);
-	Engine->moduleCamera->UpdateProjection();
+	float aspect = static_cast<float>(width) / static_cast<float>(height);
+	Engine->moduleCamera->SetAspectRatio(aspect);
 	SDL_SetWindowSize(window, width, height);
 	glViewport(0, 0, width, height);
+}
+
+void ModuleWindow::SetFullScreen(bool fullScreen) {
+	SDL_SetWindowFullscreen(window, 0);
+	this->fullScreenEnabled = fullScreen;
+	if (fullScreenEnabled) {
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+		WindowResized(width, height);
+		fullScreenDesktopEnabled = false;
+	}
+	else {
+		WindowResized(SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
+}
+
+void ModuleWindow::SetFullScreenDesktop(bool fullScreenDesktop) {
+	SDL_SetWindowFullscreen(window, 0);
+	this->fullScreenDesktopEnabled = fullScreenDesktop;
+	if (fullScreenDesktopEnabled) {
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		WindowResized(width, height);
+		fullScreenEnabled = false;
+	}
+	else {
+		WindowResized(SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
+}
+void ModuleWindow::SetResizable(bool resizable) {
+	this->resizableEnabled = resizable;
+	SDL_bool sdlResizable = resizableEnabled ? SDL_TRUE : SDL_FALSE;
+	SDL_SetWindowResizable(window, sdlResizable);
+
+}
+void ModuleWindow::SetBorderless(bool borderless) {
+	this->borderlessEnabled = borderless;
+	SDL_bool sdlborderer = borderlessEnabled ? SDL_TRUE : SDL_FALSE;
+	SDL_SetWindowBordered(window, sdlborderer);
 }
 
 void ModuleWindow::InitOpenGLAttributes() {

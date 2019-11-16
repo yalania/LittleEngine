@@ -17,6 +17,8 @@ private:
 	static void DrawPropertiesWindow();
 	static void UpdateState();
 	static void TimeControlButtons();
+	static void CameraPropertiesTab();
+	static void WindowPropertiesTab();
 };
 
 #endif // !_BOTTOM_TAB_

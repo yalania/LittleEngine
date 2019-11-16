@@ -16,9 +16,17 @@ public:
 	bool CleanUp() override;
 
 	void WindowResized(unsigned width, unsigned height);
+	void SetFullScreen(bool fullScreen);
+	void SetFullScreenDesktop(bool fullScreenDesktop);
+	void SetResizable(bool resizable);
+	void SetBorderless(bool borderless);
 
 private:
 	void InitOpenGLAttributes();
+	bool fullScreenEnabled = FULLSCREEN;
+	bool fullScreenDesktopEnabled = FULLSCREEN_DESKTOP;
+	bool resizableEnabled = RESIZABLE;
+	bool borderlessEnabled = BORDERLESS;
 
 public:
 	//The window we'll be rendering to

@@ -13,7 +13,9 @@ enum update_status
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define FULLSCREEN false
+#define FULLSCREEN_DESKTOP false
 #define RESIZABLE true
+#define BORDERLESS false
 #define VSYNC true
 #define TITLE "LittleEngine"
 #define TIME_SCALE = 1;
@@ -26,6 +28,9 @@ extern bool gameIsPaused;
 
 // Camera Default Configuration -----------
 #define CAMERA_SPEED 0.05f
+#define CAMERA_MAX_SPEED 10.0f
+#define MAX_PLANE 1000.0f
+#define MIN_PLANE -1000.0f
 
 
 #endif // !_GLOBALS_

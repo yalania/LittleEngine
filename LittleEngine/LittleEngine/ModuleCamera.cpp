@@ -54,8 +54,12 @@ void ModuleCamera::EnableOrthographic() {
 		UpdateProjection();
 }
 
+void ModuleCamera::SetAspectRatio(float newAspectRatio) {
+	this->aspect = newAspectRatio;
+	UpdateProjection();
+}
+
 void ModuleCamera::UpdateProjection() {
-	aspect = static_cast<float>(Engine->moduleWindow->width) / static_cast<float>(Engine->moduleWindow->height);
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);
 	}

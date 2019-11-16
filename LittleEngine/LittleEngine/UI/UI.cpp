@@ -15,11 +15,16 @@ namespace UIState {
 namespace WindowOptions {
 	bool showingDebugWindow = false;
 	bool showingPropertiesWindow = false;
+	bool fullScreen = FULLSCREEN;
+	bool fullScreenDesktop = FULLSCREEN_DESKTOP;
+	bool rezisable = RESIZABLE;
+	bool borderless = BORDERLESS;
 }
 
 namespace CameraOptions {
 	bool frustumCulling = true;
 	bool isActiveCamera = true;
+	float verticalFov;
 }
 namespace FrameOptions {
 	int numberOfFramesToAdvance = SCREEN_FPS;
@@ -86,13 +91,6 @@ void UI::DrawConsoleWindow() {
 		}
 	ImGui::EndTabItem();
 	}
-	if (ImGui::BeginTabItem("Status")) {
-		char title[25];
-		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
-		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
-		ImGui::EndTabItem();
-	}
 	ImGui::EndTabBar();
 	ImGui::End();
 }
@@ -112,26 +110,10 @@ void UI::DrawAboutWindow() {
 }
 
 void UI::DrawPropertiesWindow() {
-	ImGui::Begin("Properties");
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-		ImGui::Checkbox("Active", &CameraOptions::isActiveCamera);
-		ImGui::SliderFloat("Mov.Speed", &Engine->moduleCamera->cameraSpeed, 0.05f, 2.0f);
-		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, 200.0f)) {
-			Engine->moduleCamera->UpdateProjection();
-		}
-		if (ImGui::SliderFloat("Far Plane", &Engine->moduleCamera->farPlane, 0.0f, 200.0f)) {
-			Engine->moduleCamera->UpdateProjection();
-		}
-		if(ImGui::SliderFloat("Aspect ratio", &Engine->moduleCamera->aspect, -10.0f, 10.0f) ){
-			Engine->moduleCamera->UpdateProjection();
-		}
-		if (ImGui::SliderFloat("Fov ratio", &Engine->moduleCamera->frustumFov, 0.0f, 179.9f)) {
-			Engine->moduleCamera->UpdateProjection();
-		}
-		ImGui::Checkbox("Frustum Culling", &CameraOptions::frustumCulling);
-	}
-	if (ImGui::CollapsingHeader("Window"))
+	ImGui::Begin("Configuration");
+	CameraPropertiesTab();
+	WindowPropertiesTab();
+	if (ImGui::CollapsingHeader("Input"))
 	{
 		if (ImGui::SliderInt("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
@@ -139,6 +121,13 @@ void UI::DrawPropertiesWindow() {
 		if (ImGui::SliderInt("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
+	}
+	if (ImGui::CollapsingHeader("System"))
+	{
+		char title[25];
+		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
+		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
 	}
 	ImGui::End();
 }
@@ -179,4 +168,58 @@ void UI::TimeControlButtons() {
 	}
 	ImGui::SliderInt("Frames to advance", &FrameOptions::numberOfFramesToAdvance, 1, 100);
 	ImGui::End();
+}
+
+void UI::CameraPropertiesTab() {
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		ImGui::SliderFloat("Mov.Speed", &Engine->moduleCamera->cameraSpeed, CAMERA_SPEED, CAMERA_MAX_SPEED);
+		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, MAX_PLANE)) {
+			Engine->moduleCamera->UpdateProjection();
+		}
+		if (ImGui::SliderFloat("Far Plane", &Engine->moduleCamera->farPlane, 0.0f, MAX_PLANE)) {
+			Engine->moduleCamera->UpdateProjection();
+		}
+		if (ImGui::SliderFloat("Aspect ratio", &Engine->moduleCamera->aspect, -10.0f, 10.0f)) {
+			Engine->moduleCamera->UpdateProjection();
+		}
+		if (ImGui::SliderFloat("Horizontal Fov ratio", &Engine->moduleCamera->frustumFov, 0.0f, 179.9f)) {
+			Engine->moduleCamera->UpdateProjection();
+		}
+		if (ImGui::Checkbox("Perspective enable", &Engine->moduleCamera->perspectiveEnable)) {
+			Engine->moduleCamera->UpdateProjection();
+		}
+
+	}
+}
+
+void UI::WindowPropertiesTab() {
+	if (ImGui::CollapsingHeader("Window"))
+	{
+		if (ImGui::SliderInt("Brightness", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
+			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
+		}
+		if (ImGui::SliderInt("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
+			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
+		}
+		if (ImGui::SliderInt("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100)) {
+			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
+		}
+		if (ImGui::Checkbox("FullScreen", &WindowOptions::fullScreen)) {
+			Engine->moduleWindow->SetFullScreen(WindowOptions::fullScreen);
+			WindowOptions::fullScreenDesktop = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Full desktop", &WindowOptions::fullScreenDesktop)) {
+			Engine->moduleWindow->SetFullScreenDesktop(WindowOptions::fullScreenDesktop);
+			WindowOptions::fullScreen = false;
+		}
+		if (ImGui::Checkbox("Borderless", &WindowOptions::borderless)) {
+			Engine->moduleWindow->SetBorderless(WindowOptions::borderless);
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Resizable", &WindowOptions::rezisable)) {
+			Engine->moduleWindow->SetResizable(WindowOptions::rezisable);
+		}
+	}
 }
