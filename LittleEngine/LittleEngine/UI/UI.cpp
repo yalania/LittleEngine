@@ -114,22 +114,8 @@ void UI::DrawPropertiesWindow() {
 	ImGui::Begin("Configuration");
 	CameraPropertiesTab();
 	WindowPropertiesTab();
-	if (ImGui::CollapsingHeader("Input"))
-	{
-		if (ImGui::SliderInt("Width", &Engine->moduleWindow->width, SCREEN_WIDTH, 1920)) {
-			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
-		}
-		if (ImGui::SliderInt("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100)) {
-			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
-		}
-	}
-	if (ImGui::CollapsingHeader("System"))
-	{
-		char title[25];
-		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
-		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
-	}
+	SystemPropertiesTab();
+
 	ImGui::End();
 }
 
@@ -222,5 +208,15 @@ void UI::WindowPropertiesTab() {
 		if (ImGui::Checkbox("Resizable", &WindowOptions::rezisable)) {
 			Engine->moduleWindow->SetResizable(WindowOptions::rezisable);
 		}
+	}
+}
+
+void UI::SystemPropertiesTab() {
+	if (ImGui::CollapsingHeader("System information"))
+	{
+		char title[25];
+		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
+		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
 	}
 }

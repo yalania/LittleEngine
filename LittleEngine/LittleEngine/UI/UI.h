@@ -19,6 +19,7 @@ private:
 	static void TimeControlButtons();
 	static void CameraPropertiesTab();
 	static void WindowPropertiesTab();
+	static void SystemPropertiesTab();
 };
 
 #endif // !_BOTTOM_TAB_

@@ -111,6 +111,9 @@
     <ClCompile Include="Components\Model.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\SystemProperties.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LittleEngine.h">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="Components\Model.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\SystemProperties.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
