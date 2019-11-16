@@ -38,5 +38,8 @@ extern bool gameIsPaused;
 #define MAX_PLANE 1000.0f
 #define MIN_PLANE -1000.0f
 
+//Render options
+#define OPENGL_MAJOR_VERSION 3
+#define OPENGL_MINOR_VERSION 3
 
 #endif // !_GLOBALS_

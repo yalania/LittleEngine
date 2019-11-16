@@ -16,6 +16,10 @@ public:
 	float GetVRAMAvailable();
 	float GetVRAMReserved();
 
+	std::string GetOpenGLAvailableVersion();
+	std::string GetSDLVersion();
+	std::string GetOpenGLCurrentVersion();
+
 };
 
 #endif // !_SYSTEM_PROPERTIES_

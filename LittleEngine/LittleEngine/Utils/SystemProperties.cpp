@@ -79,3 +79,20 @@ float SystemProperties::GetVRAMAvailable(){
 float SystemProperties::GetVRAMReserved(){
 	return 0;
 }
+
+std::string SystemProperties::GetOpenGLAvailableVersion() {
+	return std::string(reinterpret_cast<char const*>(glGetString(GL_VERSION)));
+}
+std::string SystemProperties::GetSDLVersion() {
+	SDL_version compiled;
+	SDL_VERSION(&compiled);
+	return std::string(std::to_string(compiled.major)+ "."+ std::to_string(compiled.minor) + "."+ std::to_string(compiled.patch));
+}
+
+std::string SystemProperties::GetOpenGLCurrentVersion() {
+	int majorVersion;
+	int minorVersion;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &majorVersion);
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minorVersion);
+	return std::string(std::to_string(majorVersion) + "." + std::to_string(minorVersion));
+}

@@ -91,6 +91,6 @@ void ModuleCamera::FocusOnEntity(const Entity & entity) {
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
 	Translate(glm::vec3(mouseOffset, 0.0f));
-	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter,transform.GetUptAxis());
+	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
 	transform.rotation = glm::quat(glm::inverse(view));
 }
