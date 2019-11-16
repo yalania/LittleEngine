@@ -5,11 +5,11 @@
 class UI {
 
 public:
-	UI() = default;
-	~UI() = default;
 	static void ShowUI();
 
 private:
+	UI() = default;
+	~UI() = default;
 
 	static void TabExample();
 	static void DrawConsoleWindow();

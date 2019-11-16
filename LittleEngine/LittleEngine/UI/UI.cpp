@@ -3,6 +3,7 @@
 #include "../Log.h"
 #include "../LittleEngine.h"
 #include "../imgui/imgui_internal.h"
+#include "../Utils/SystemProperties.h"
 
 
 namespace UIState {
@@ -29,6 +30,9 @@ namespace CameraOptions {
 }
 namespace FrameOptions {
 	int numberOfFramesToAdvance = SCREEN_FPS;
+}
+namespace System{
+	SystemProperties systemProperties;
 }
 
 void UI::ShowUI() {
@@ -69,7 +73,6 @@ void UI::ShowUI() {
 	}
 
 	UpdateState();
-	//ImGui::ShowDemoWindow();
 }
 
 
@@ -214,6 +217,19 @@ void UI::WindowPropertiesTab() {
 void UI::SystemPropertiesTab() {
 	if (ImGui::CollapsingHeader("System information"))
 	{
+		ImGui::Text("CPUs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), System::systemProperties.GetSystemCPUs().c_str());
+		ImGui::Text("System RAM:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), (std::to_string(System::systemProperties.GetSystemRam()) + " Gb").c_str());
+		ImGui::Text("Caps:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), System::systemProperties.GetSystemCaps().c_str());
+		ImGui::Separator();
+		ImGui::Text("GPU:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), System::systemProperties.GetSystemGPU().c_str());
+		ImGui::Text("GPU Vendor:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), System::systemProperties.GetSystemGPUBrand().c_str());
+		ImGui::Text("VRAM Budget:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), (std::to_string(System::systemProperties.GetVRAMBudget()) + " Mb").c_str());
+		ImGui::Text("VRAM Usage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), (std::to_string(System::systemProperties.GetVRAMUsage()) + " Mb").c_str());
+		ImGui::Text("VRAM Available:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), (std::to_string(System::systemProperties.GetVRAMAvailable()) + " Mb").c_str());
+		ImGui::Text("VRAM Reserved:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 1, 0, 1), (std::to_string(System::systemProperties.GetVRAMReserved()) + " Mb").c_str());
+
+		ImGui::Separator();
+
 		char title[25];
 		sprintf_s(title, 25, "Framerate %1.f", Engine->moduleTimeController->frameRateLog[60]);
 		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 60, 0, title, 0.0f, 100.0f, ImVec2(310, 100));

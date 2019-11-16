@@ -6,7 +6,7 @@
 std::string SystemProperties::GetSystemCPUs() {
 	std::string cpuCount = std::to_string(SDL_GetCPUCacheLineSize());
 	std::string cpuCache = std::to_string(SDL_GetCPUCount());
-	return cpuCount + "(Cache: "+ cpuCache + "kb)";
+	return cpuCount + " (Cache: "+ cpuCache + " kb)";
 }
 
 
@@ -66,13 +66,15 @@ float SystemProperties::GetSystemRam(){
 	return SDL_GetSystemRAM() / 1000.0f;
 }
 float SystemProperties::GetVRAMBudget(){
-	return 0;
+	int totalAvailableMemoryKB;
+	glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &totalAvailableMemoryKB);
+	return totalAvailableMemoryKB / 1000.0f;
 }
-float SystemProperties::GetVRAMUsage() { return 0; }
+float SystemProperties::GetVRAMUsage() { return GetVRAMBudget() - GetVRAMAvailable(); }
 float SystemProperties::GetVRAMAvailable(){
-	int availableKB[4];
-	glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &availableKB[0]);
-	return 0;
+	int availableMemoryKB;
+	glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &availableMemoryKB);
+	return availableMemoryKB / 1000.0f;
 }
 float SystemProperties::GetVRAMReserved(){
 	return 0;
