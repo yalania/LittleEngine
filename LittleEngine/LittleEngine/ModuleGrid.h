@@ -12,9 +12,8 @@ public:
 private:
 	void ShowGrid() const;
 	void ShowDirectionArrows() const;
-	GLuint gridShaderProgram;
 	glm::mat4 model;
-
+	GLuint gridShaderProgram;
 };
 
 #endif // !_MODULE_GRID_

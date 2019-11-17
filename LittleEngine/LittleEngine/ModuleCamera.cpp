@@ -44,16 +44,6 @@ void ModuleCamera::Zoom(bool zoomIn) {
 	transform.TranslateLocal(direction);
 }
 
-void ModuleCamera::EnablePerspective() {
-		perspectiveEnable = true;
-		UpdateProjection();
-}
-
-void ModuleCamera::EnableOrthographic() {
-		perspectiveEnable = false;
-		UpdateProjection();
-}
-
 void ModuleCamera::SetAspectRatio(float newAspectRatio) {
 	this->aspect = newAspectRatio;
 	UpdateProjection();

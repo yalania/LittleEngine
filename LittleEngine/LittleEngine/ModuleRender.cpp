@@ -3,7 +3,6 @@
 
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <cmath>
 
 bool ModuleRender::Init() {
@@ -35,9 +34,7 @@ update_status ModuleRender::Update() {
 update_status ModuleRender::PostUpdate() {
 	SDL_GL_SwapWindow(Engine->moduleWindow->window);
 	return UPDATE_CONTINUE;
-
 }
-
 
 void ModuleRender::InitOpenGlOptions() const{
 
@@ -60,9 +57,9 @@ void ModuleRender::InitOpenGlOptions() const{
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Enable the debug callback
-	glEnable(GL_DEBUG_OUTPUT);
-	//glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); Disable for now as it blocks mouse buttons events
-	/*glDebugMessageCallback(OurOpenGLErrorFunction, nullptr);
+	/*glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); Disable for now as it blocks mouse buttons events
+	glDebugMessageCallback(OurOpenGLErrorFunction, nullptr);
 	glDebugMessageControl(
 		GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, true
 	);*/
@@ -80,4 +77,8 @@ const Entity& ModuleRender::GetEntity() const {
 	else {
 		return missingEntity;
 	}
+}
+
+ModuleRender::~ModuleRender() {
+	CleanUp();
 }

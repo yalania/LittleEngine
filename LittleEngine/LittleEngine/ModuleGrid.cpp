@@ -1,7 +1,6 @@
 #include "ModuleGrid.h"
 #include "LittleEngine.h"
 
-
 bool ModuleGrid::Init() {
 	LOG("Init render system");
 	gridShaderProgram = Engine->moduleShaderProgram->LoadShaderProgram("gridShader.vert", "gridShader.frag");

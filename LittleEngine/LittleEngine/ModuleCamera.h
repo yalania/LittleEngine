@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include "Components/Transform.h"
+#include <memory>
 
 class ModuleCamera : public Module {
 
@@ -19,14 +20,14 @@ public:
 	void FocusOnEntity(const Entity & entity);
 	void OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset);
 	void UpdateProjection();
-
-	void EnablePerspective();
-	void EnableOrthographic();
 	void SetAspectRatio(float newAspectRatio);
 
 private:
 	void UpdateMatricesInShaderPograms();
 
+	Transform transform;
+	glm::mat4 projection = glm::mat4(1.0f);
+	glm::mat4 view;
 public:
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	float frustumFov = 45.0f;
@@ -35,11 +36,6 @@ public:
 	float farPlane = 1000.0f;
 	float nearPlane = 0.1f;
 	bool perspectiveEnable = true;
-
-private:
-	glm::mat4 projection = glm::mat4(1.0f);
-	glm::mat4 view;
-	Transform transform;
 };
 #endif // !_MODULE_CAMERA_
 

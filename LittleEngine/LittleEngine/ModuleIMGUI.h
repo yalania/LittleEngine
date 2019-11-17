@@ -10,10 +10,6 @@ public:
 	update_status Update() override;
 	update_status PreUpdate() override;
 	update_status PostUpdate() override;
-
-private:
-
-
 };
 #endif // _MODULE_IMGUI_
 

@@ -10,6 +10,7 @@ namespace UIState {
 	bool showingAboutWindow = false;
 	bool showingPropertiesWindow = false;
 	bool showingTimeControlWindow = false;
+	bool showingTextureInfo = false;
 }
 
 namespace WindowOptions {
@@ -20,12 +21,6 @@ namespace WindowOptions {
 	bool rezisable = RESIZABLE;
 	bool borderless = BORDERLESS;
 	float brightness = BRIGHTNESS;
-}
-
-namespace CameraOptions {
-	bool frustumCulling = true;
-	bool isActiveCamera = true;
-	float verticalFov;
 }
 namespace FrameOptions {
 	int numberOfFramesToAdvance = SCREEN_FPS;
@@ -40,11 +35,11 @@ update_status UI::ShowUI() {
 	{
 		if (ImGui::BeginMenu("LittleEngine"))
 		{
-			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 
 			if (ImGui::MenuItem("Load Default Model", NULL)) {
 				Engine->moduleRenderer->AddEntity("BakerHouse.fbx");
 			}
+			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 			if (ImGui::MenuItem("Quit")) {
 				updateStatus = UPDATE_STOP;
@@ -53,30 +48,18 @@ update_status UI::ShowUI() {
 		}
 		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::BeginMenu("Projection..."))
-			{
-				bool perspectiveEnable = Engine->moduleCamera->perspectiveEnable;
-				if (ImGui::MenuItem("Orthographic ", nullptr, !perspectiveEnable, perspectiveEnable))
-				{
-					Engine->moduleCamera->EnableOrthographic();
-
-				}
-				if (ImGui::MenuItem("perspective", nullptr, perspectiveEnable, !perspectiveEnable))
-				{
-					Engine->moduleCamera->EnablePerspective();
-
-				}
-				ImGui::EndMenu();
-			}
+			ImGui::MenuItem("Show Texture Properties Window", NULL, &UIState::showingTextureInfo);
+			ImGui::MenuItem("Show Time Control Window", NULL, &UIState::showingTimeControlWindow);
+			ImGui::MenuItem("Show Debug Window", NULL, &UIState::showingDebugWindow);
 			ImGui::EndMenu();
 		}
-		ImGui::MenuItem("Time Control", NULL, &UIState::showingTimeControlWindow);
-		ImGui::MenuItem("Debug", NULL, &UIState::showingDebugWindow);
 		ImGui::EndMainMenuBar();
 	}
 
+	if (UIState::showingTextureInfo) {
+		GeometryPropertiesTab();
+	}
 	UpdateState();
-	GeometryPropertiesTab();
 	return updateStatus;
 }
 
@@ -157,13 +140,13 @@ void UI::TimeControlButtons() {
 		Engine->moduleTimeController->Pause();
 	}
 
+	ImGui::SliderInt("", &FrameOptions::numberOfFramesToAdvance, 1, 100);
 	char title[35];
 	sprintf_s(title, 25, "Forward %d frames",FrameOptions::numberOfFramesToAdvance);
 	if (ImGui::Button(title))
 	{
 		Engine->moduleTimeController->AdvanceFrames(FrameOptions::numberOfFramesToAdvance);
 	}
-	ImGui::SliderInt("Frames to advance", &FrameOptions::numberOfFramesToAdvance, 1, 100);
 	ImGui::End();
 }
 
@@ -248,9 +231,10 @@ void UI::SystemPropertiesTab() {
 }
 
 void UI::GeometryPropertiesTab() {
+	ImGui::Begin("Model properties");
 	const Entity &entity = Engine->moduleRenderer->GetEntity();
 	ImGui::Text("Position: ");
-	ImGui::PushItemWidth(100);
+	ImGui::PushItemWidth(50);
 	ImGui::DragFloat("pX", &entity.entityTransform->position.x, 0.005f, -100.0f, 100.0f, "%.2f");
 	ImGui::SameLine();
 	ImGui::DragFloat("pY", &entity.entityTransform->position.y, 0.005f, -100.0f, 100.0f, "%.2f");
@@ -258,7 +242,7 @@ void UI::GeometryPropertiesTab() {
 	ImGui::DragFloat("pZ", &entity.entityTransform->position.z, 0.005f, -100.0f, 100.0f, "%.2f");
 
 	ImGui::Text("Rotation: ");
-	ImGui::PushItemWidth(100);
+	ImGui::PushItemWidth(50);
 	ImGui::DragFloat("rX", &entity.entityTransform->rotation.x, 0.005f, -100.0f, 100.0f, "%.2f");
 	ImGui::SameLine();
 	ImGui::DragFloat("rY", &entity.entityTransform->rotation.y, 0.005f, -100.0f, 100.0f, "%.2f");
@@ -266,7 +250,7 @@ void UI::GeometryPropertiesTab() {
 	ImGui::DragFloat("rZ", &entity.entityTransform->rotation.z, 0.005f, -100.0f, 100.0f, "%.2f");
 
 	ImGui::Text("Scale: ");
-	ImGui::PushItemWidth(100);
+	ImGui::PushItemWidth(50);
 	ImGui::DragFloat("sX", &entity.entityTransform->scale.x, 0.005f, -100.0f, 100.0f, "%.2f");
 	ImGui::SameLine();
 	ImGui::DragFloat("sY", &entity.entityTransform->scale.y, 0.005f, -100.0f, 100.0f, "%.2f");
@@ -282,7 +266,8 @@ void UI::GeometryPropertiesTab() {
 	for (auto & texture : entity.entityModel->GetTextureInfo()) {
 		ImGui::Text("Texture name:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
 		ImGui::Text("Texture type:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->type.c_str());
-		ImGui::Text("Texture size:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
+		ImGui::Text("Texture storage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
 	}
 	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
+	ImGui::End();
 }

@@ -12,7 +12,7 @@
 class ModuleRender : public Module {
 public:
 	ModuleRender() = default;
-	~ModuleRender() = default;
+	~ModuleRender();
 
 	bool Init() override;
 	update_status PreUpdate() override;

@@ -39,7 +39,11 @@ bool ModuleWindow::Init()
 		}
 
 		InitOpenGLAttributes();
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width,height, flags);
+		SDL_DisplayMode DM;
+		SDL_GetDesktopDisplayMode(0, &DM);
+		auto Width = DM.w;
+		auto Height = DM.h;
+		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Width, Height, flags);
 
 		if (window == NULL)
 		{
