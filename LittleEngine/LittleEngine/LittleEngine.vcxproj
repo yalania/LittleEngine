@@ -83,6 +83,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)LittleEngine\Dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)LittleEngine\Dependencies\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)LittleEngine\Engine</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
