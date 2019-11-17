@@ -7,6 +7,7 @@
 
 class Entity {
 public:
+	Entity();
 	Entity(Model entityModel, unsigned int shaderProgram);
 	~Entity() = default;
 

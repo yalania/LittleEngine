@@ -24,7 +24,7 @@ public:
 	void AddEntity(const char * model);
 private:
 	void InitOpenGlOptions() const;
-
+	Entity missingEntity;
 	std::vector<std::unique_ptr<Entity>> entities;
 };
 

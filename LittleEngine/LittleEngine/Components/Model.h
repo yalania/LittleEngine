@@ -7,17 +7,25 @@
 class Model : public Component {
 
 public:
+	Model() = default;
 	Model(std::vector<Mesh> entityMeshes);
 	update_status Update() override;
-	float sphereRadius = 0.0f;
-	glm::vec3 sphereCenter;
+
 private:
 	glm::vec3 CalculateCenter();
 	void CalculateSphere();
 	void CalculateAxisAlignBoudingBox();
 
-	std::vector<Mesh> meshes;
+private:
 	Mesh boundingBox;
+
+public:
+	float sphereRadius = 0.0f;
+	glm::vec3 sphereCenter = glm::vec3(0.0f);
+	std::vector<Mesh> meshes;
+	bool activateBoudingBox = false;
+	int totalVertexCount = 0;
+	int totalTriangleCount = 0;
 };
 #endif // !_MODEL_COMPONENT_
 

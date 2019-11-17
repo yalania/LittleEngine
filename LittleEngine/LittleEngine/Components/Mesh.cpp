@@ -2,16 +2,14 @@
 #include <GL/glew.h>
 #include "../LittleEngine.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures) : vertices(vertices), indices(indices), textures(textures)
 {
-	this->vertices = vertices;
-	this->indices = indices;
-	this->textures = textures;
-
-	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	setupMesh();
 }
 
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo) {
+	setupMesh();
+}
 update_status Mesh::Update() {
 
 	for (unsigned int i = 0; i < textures.size(); i++)

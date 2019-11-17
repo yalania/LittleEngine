@@ -8,12 +8,15 @@ Model::Model(std::vector<Mesh> meshes) : meshes(meshes){
 }
 update_status Model::Update() {
 	update_status result = UPDATE_CONTINUE;
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	for (auto &mesh : meshes) {
 		mesh.Update();
 	}
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	boundingBox.Update();
+	if (activateBoudingBox) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		boundingBox.Update();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	};
 	return result;
 }
 
@@ -31,14 +34,16 @@ void Model::CalculateSphere() {
 
 glm::vec3 Model::CalculateCenter() {
 	glm::vec3 vectorAddition = glm::vec3(0.0f);
-	float totalVectorSize = 0.0f;
+	totalVertexCount = 0.0f;
+	totalTriangleCount = 0.0f;
 	for (auto & mesh : meshes) {
 		for (auto & vector : mesh.vertices) {
 			vectorAddition += vector.Position;
 		}
-		totalVectorSize+=mesh.vertices.size();
+		totalVertexCount +=mesh.vertices.size();
+		totalTriangleCount += mesh.meshInfo.numberOfTriangles;
 	}
-	return vectorAddition / totalVectorSize;
+	return vectorAddition / static_cast<float>(totalVertexCount);
 }
 
 void Model::CalculateAxisAlignBoudingBox(){

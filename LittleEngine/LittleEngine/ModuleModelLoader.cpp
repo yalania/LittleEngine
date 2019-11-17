@@ -1,10 +1,10 @@
 #include "ModuleModelLoader.h"
 
 #include "Log.h"
+#include "LittleEngine.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include "LittleEngine.h"
 
 Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture) {
 	std::vector<Mesh> meshes;
@@ -103,7 +103,7 @@ Mesh ModuleModelLoader::ProcessMesh(const aiMesh &mesh, const aiScene &scene)
 	ProcessMaterial(textures, mesh, scene);
 
 	// return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices, textures, MeshInfo{ mesh.mNumVertices, mesh.mNumFaces, mesh.mName.C_Str()});
 }
 
 void ModuleModelLoader::ProcessMaterial(std::vector<Texture> &textures, const aiMesh &mesh, const aiScene &scene) {

@@ -24,11 +24,18 @@ struct Texture {
 	std::string path;
 };
 
+struct MeshInfo {
+	unsigned int numberOfVertex = 0;
+	unsigned int numberOfTriangles = 0;
+	std::string meshName;
+};
+
 class Mesh : public Component {
 
 public:
 	Mesh() = default;
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo);
 	Mesh(Mesh && mesh) = default;
 	Mesh(const Mesh & mesh) = default;
 
@@ -44,6 +51,8 @@ public:
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	
+	MeshInfo meshInfo;
+private:
 	unsigned int VBO = 0;
 	unsigned int EBO = 0;
 	unsigned int VAO = 0;

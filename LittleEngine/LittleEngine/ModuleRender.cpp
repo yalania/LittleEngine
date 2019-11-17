@@ -74,5 +74,10 @@ bool ModuleRender::CleanUp() {
 }
 
 const Entity& ModuleRender::GetEntity() const {
-	return *entities.front();
+	if (entities.size() > 0) {
+		return *entities.front();
+	}
+	else {
+		return missingEntity;
+	}
 }

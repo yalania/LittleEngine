@@ -76,6 +76,7 @@ update_status UI::ShowUI() {
 	}
 
 	UpdateState();
+	GeometryPropertiesTab();
 	return updateStatus;
 }
 
@@ -106,13 +107,15 @@ void UI::DrawConsoleWindow() {
 void UI::DrawAboutWindow() {
 	ImGui::Begin("About");
 	ImGui::Text("LittleEngine");
-	ImGui::Text("An Engine done for learning");
+	ImGui::Text("An Engine done for UPC Videogames Master");
 	ImGui::Text("Author: Anabel Hernández Barrera");
 	ImGui::Text("Libraries:");
-	ImGui::Text("\t* GLM v0.9.9.6 ");
-	ImGui::Text("\t* IMGUI v1.73 ");
-	ImGui::Text("\t* stb_image v2.23 ");
+	ImGui::BulletText("GLM v0.9.9.6 ");
+	ImGui::BulletText("IMGUI v1.73 ");
+	ImGui::BulletText("stb_image v2.23 ");
 	ImGui::Text("License: MIT License");
+	ImGui::Text("For more information visit:");
+	ImGui::Text("https://github.com/yalania/LittleEngine");
 	ImGui::End();
 
 }
@@ -242,4 +245,37 @@ void UI::SystemPropertiesTab() {
 		ImGui::PlotHistogram("##frameRate", &Engine->moduleTimeController->frameRateLog[0], 59, 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		ImGui::Text("Delta time value: %f ", Engine->moduleTimeController->deltaTime);
 	}
+}
+
+void UI::GeometryPropertiesTab() {
+	const Entity &entity = Engine->moduleRenderer->GetEntity();
+	ImGui::Text("Position: ");
+	ImGui::PushItemWidth(100);
+	ImGui::DragFloat("pX", &entity.entityTransform->position.x, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("pY", &entity.entityTransform->position.y, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("pZ", &entity.entityTransform->position.z, 0.005f, -100.0f, 100.0f, "%.2f");
+
+	ImGui::Text("Rotation: ");
+	ImGui::PushItemWidth(100);
+	ImGui::DragFloat("rX", &entity.entityTransform->rotation.x, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("rY", &entity.entityTransform->rotation.y, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("rZ", &entity.entityTransform->rotation.z, 0.005f, -100.0f, 100.0f, "%.2f");
+
+	ImGui::Text("Scale: ");
+	ImGui::PushItemWidth(100);
+	ImGui::DragFloat("sX", &entity.entityTransform->scale.x, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("sY", &entity.entityTransform->scale.y, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::SameLine();
+	ImGui::DragFloat("sZ", &entity.entityTransform->scale.z, 0.005f, -100.0f, 100.0f, "%.2f");
+
+	ImGui::Separator();
+	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());
+	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalVertexCount).c_str());
+	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->meshes.size()).c_str());
+	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
 }

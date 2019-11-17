@@ -20,6 +20,7 @@ private:
 	static void CameraPropertiesTab();
 	static void WindowPropertiesTab();
 	static void SystemPropertiesTab();
+	static void GeometryPropertiesTab();
 };
 
 #endif // !_BOTTOM_TAB_
