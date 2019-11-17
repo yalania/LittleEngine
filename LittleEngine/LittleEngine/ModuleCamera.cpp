@@ -29,14 +29,15 @@ void ModuleCamera::Zoom(bool zoomIn) {
 
 	glm::vec3 direction = glm::vec3(0.0f, 0.0f, 1.0f);
 	if (zoomIn) {
-		/*orthoUnits -= 0.05f;
-		--frustumFov;
+		orthoUnits -= 0.05f;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
-		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
+		--frustumFov;
+		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;
 		direction *= cameraSpeed;
 	}
 	else {
-		/*orthoUnits += 0.05;
+		/*
+		orthoUnits += 0.05;
 		++frustumFov;
 		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
 		direction *= -cameraSpeed;
@@ -76,7 +77,8 @@ void ModuleCamera::FocusOnEntity(const Entity & entity) {
 	transform->position.z += distance;
 	view = glm::lookAt(transform->position, entity.entityModel->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
 	transform->rotation = glm::quat(glm::inverse(view));
-
+	orthoUnits = entity.entityModel->sphereRadius;
+	UpdateProjection();
 }
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
