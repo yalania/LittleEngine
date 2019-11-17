@@ -4,6 +4,10 @@
 #include <stb_image/stb_image.h>
 #include "Log.h"
 
+bool ModuleTexture::Init() {
+	GetCheckerboardTexture();
+	return true;
+}
 
 unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 	std::string filename = std::string(texturePath);
@@ -87,4 +91,32 @@ std::vector<Texture> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiText
 		}
 	}
 	return textures;
+}
+
+void ModuleTexture::GetCheckerboardTexture() {
+	const static int checkerHeight = 64;
+	const static int checkWidth = 64;
+
+	static GLubyte checkImage[checkerHeight][checkWidth][4];
+	int i, j, c;
+
+	for (i = 0; i < checkerHeight; i++) {
+		for (j = 0; j < checkWidth; j++) {
+			c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glGenTextures(1, &checkerboardTextureId);
+	glBindTexture(GL_TEXTURE_2D, checkerboardTextureId);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkerHeight,checkWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE,checkImage);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

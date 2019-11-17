@@ -274,7 +274,7 @@ void UI::GeometryPropertiesTab() {
 	}
 	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
 	ImGui::SameLine();
-	if (ImGui::Checkbox("Checker Texture", &Geometry::showCheckerboardTexture)) {
+	if (ImGui::Checkbox("CheckerTexture", &Geometry::showCheckerboardTexture)) {
 		entity.entityModel->ShowCheckerBoardTexture(Geometry::showCheckerboardTexture);
 	}
 	ImGui::End();

@@ -34,7 +34,7 @@ extern bool gameIsPaused;
 
 // Camera Default Configuration -----------
 #define CAMERA_SPEED 0.05f
-#define CAMERA_MAX_SPEED 10.0f
+#define CAMERA_MAX_SPEED 2.0f
 #define MAX_PLANE 1000.0f
 #define MIN_PLANE -1000.0f
 

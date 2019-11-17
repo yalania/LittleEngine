@@ -52,13 +52,12 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
-	
 	MeshInfo meshInfo;
+	bool showCheckerboardTexture = false;
 private:
 	unsigned int VBO = 0;
 	unsigned int EBO = 0;
 	unsigned int VAO = 0;
-
  };
 
 #endif // !_MESH_COMPONENT_

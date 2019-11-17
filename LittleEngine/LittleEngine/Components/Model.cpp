@@ -112,3 +112,9 @@ std::vector<const Texture *> Model::GetTextureInfo() {
 
 	return textureInfo;
 }
+
+void Model::ShowCheckerBoardTexture(bool enable) {
+	for (auto & mesh : meshes) {
+		mesh.showCheckerboardTexture = enable;
+	}
+}

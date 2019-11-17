@@ -16,10 +16,15 @@ Mesh::~Mesh() {
 }
 update_status Mesh::Update() {
 
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	if (!showCheckerboardTexture) {
+		for (unsigned int i = 0; i < textures.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		}
+	}
+	else {
+		glBindTexture(GL_TEXTURE_2D, Engine->moduleTexture->checkerboardTextureId);
 	}
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
