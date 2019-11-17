@@ -2,12 +2,12 @@
 #include <GL/glew.h>
 #include "../LittleEngine.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures) : vertices(vertices), indices(indices), textures(textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures) : vertices(vertices), indices(indices), textures(textures)
 {
 	setupMesh();
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo) {
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo) {
 	setupMesh();
 }
 
@@ -20,7 +20,7 @@ update_status Mesh::Update() {
 		for (unsigned int i = 0; i < textures.size(); i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			glBindTexture(GL_TEXTURE_2D, textures[i]->id);
 		}
 	}
 	else {

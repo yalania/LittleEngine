@@ -98,14 +98,14 @@ void Model::CalculateAxisAlignBoudingBox(){
 }
 
 
-std::vector<const Texture *> Model::GetTextureInfo() {
-	std::vector<const Texture *> textureInfo;
+std::vector<std::shared_ptr<Texture>> Model::GetTextureInfo() {
+	std::vector<std::shared_ptr<Texture>> textureInfo;
 
 	for (auto & mesh : meshes) {
 		for (auto & texture : mesh.textures) {
-			auto it = find_if(textureInfo.begin(), textureInfo.end(), [texture](const Texture* vectorTexture) { return vectorTexture->path == texture.path; });
+			auto it = find_if(textureInfo.begin(), textureInfo.end(), [texture](std::shared_ptr<Texture> vectorTexture) { return vectorTexture->path == texture->path; });
 			if (it == textureInfo.end()) {
-				textureInfo.push_back(&texture);
+				textureInfo.push_back(texture);
 			}
 		}
 	}

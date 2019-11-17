@@ -35,8 +35,8 @@ class Mesh : public Component {
 
 public:
 	Mesh() = default;
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo);
 	Mesh(Mesh && mesh) = default;
 	Mesh(const Mesh & mesh) = default;
 	~Mesh();
@@ -51,7 +51,7 @@ private:
 public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
+	std::vector<std::shared_ptr<Texture>> textures;
 	MeshInfo meshInfo;
 	bool showCheckerboardTexture = false;
 private:

@@ -10,10 +10,10 @@ class ModuleTexture : public Module {
 public:
 	bool Init() override;
 	unsigned int LoadTexture(const char *texturePath, const std::string &directory = "");
-	std::vector<Texture> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string directory);
+	std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string directory);
 private:
 	void GetCheckerboardTexture();
-	std::vector<Texture> texturesLoaded;
+	std::vector<std::shared_ptr<Texture>> texturesLoaded;
 public:
 	unsigned int checkerboardTextureId;
 };

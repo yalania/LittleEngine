@@ -6,8 +6,10 @@
 class ModuleGrid : public Module {
 
 public:
+	~ModuleGrid();
 	bool Init() override;
 	update_status Update() override;
+	bool CleanUp() override;
 
 private:
 	void ShowGrid() const;

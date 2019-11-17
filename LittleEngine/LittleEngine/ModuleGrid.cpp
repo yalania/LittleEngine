@@ -1,6 +1,11 @@
 #include "ModuleGrid.h"
 #include "LittleEngine.h"
 
+ModuleGrid::~ModuleGrid()
+{
+	CleanUp();
+}
+
 bool ModuleGrid::Init() {
 	LOG("Init render system");
 	gridShaderProgram = Engine->moduleShaderProgram->LoadShaderProgram("gridShader.vert", "gridShader.frag");
@@ -19,6 +24,10 @@ update_status ModuleGrid::Update() {
 
 }
 
+bool ModuleGrid::CleanUp() {
+	glDeleteProgram(gridShaderProgram);
+	return true;
+}
 void ModuleGrid::ShowGrid() const {
 	glLineWidth(1.0f);
 	float d = 200.0f;

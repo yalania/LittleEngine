@@ -11,7 +11,7 @@ public:
 	Model(std::vector<Mesh> entityMeshes);
 	update_status Update() override;
 
-	std::vector<const Texture *> GetTextureInfo();
+	std::vector<std::shared_ptr<Texture>> GetTextureInfo();
 	void ShowCheckerBoardTexture(bool enable);
 private:
 	glm::vec3 CalculateCenter();

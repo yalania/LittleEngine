@@ -9,9 +9,9 @@ class ModuleModelLoader : public Module {
 public:
 	Model LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
 private:
-	void ProcessNode(const aiNode &node, const aiScene &scene, std::vector<Mesh> & meshes);
-	Mesh ProcessMesh(const aiMesh &mesh, const aiScene &scene);
-	void ProcessMaterial(std::vector<Texture> &textures, const aiMesh &mesh, const aiScene &scene);
+	void ProcessNode(const aiNode &node, const aiScene &scene, std::vector<Mesh> & meshes) const;
+	Mesh ProcessMesh(const aiMesh &mesh, const aiScene &scene) const;
+	void ProcessMaterial(std::vector<std::shared_ptr<Texture>> &textures, const aiMesh &mesh, const aiScene &scene) const;
 
 	std::string textureDirectory;
 };

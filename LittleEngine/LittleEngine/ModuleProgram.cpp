@@ -11,7 +11,7 @@ ModuleProgram::~ModuleProgram() {
 bool ModuleProgram::Init() {
 	LOG("Init Shader program");
 	defaultProgram = LoadShaderProgram("vertexShader.vert", "fragmentShader.frag");
-	SetUpUniformSBuffer();
+	SetUpUniformsBuffer();
 	return true;
 }
 
@@ -87,7 +87,7 @@ GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fra
 	return program;
 }
 
-void ModuleProgram::SetUpUniformSBuffer() {
+void ModuleProgram::SetUpUniformsBuffer() {
 	glGenBuffers(1, &uniformsBuffer);
 
 	glBindBuffer(GL_UNIFORM_BUFFER, uniformsBuffer);

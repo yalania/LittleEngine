@@ -75,7 +75,7 @@ const Entity& ModuleRender::GetEntity() const {
 		return *entities.front();
 	}
 	else {
-		return missingEntity;
+		return *missingEntity.get();
 	}
 }
 

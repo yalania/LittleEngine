@@ -62,9 +62,9 @@ unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::stri
 }
 
 
-std::vector<Texture> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string directory)
+std::vector<std::shared_ptr<Texture>> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName, std::string directory)
 {
-	std::vector<Texture> textures;
+	std::vector<std::shared_ptr<Texture>> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString str;
@@ -72,7 +72,7 @@ std::vector<Texture> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiText
 		bool skip = false;
 		for (unsigned int j = 0; j < texturesLoaded.size(); j++)
 		{
-			if (std::strcmp(texturesLoaded[j].path.data(), str.C_Str()) == 0)
+			if (std::strcmp(texturesLoaded[j]->path.data(), str.C_Str()) == 0)
 			{
 				textures.push_back(texturesLoaded[j]);
 				skip = true;
@@ -81,11 +81,11 @@ std::vector<Texture> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiText
 		}
 		if (!skip)
 		{   // if texture hasn't been loaded already, load it
-			Texture texture;
-			texture.id = LoadTexture(str.C_Str(), directory);
-			texture.type = typeName;
-			texture.path = str.C_Str();
-			texture.textureSize = mat->mNumAllocated;
+			std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+			texture->id = LoadTexture(str.C_Str(), directory);
+			texture->type = typeName;
+			texture->path = str.C_Str();
+			texture->textureSize = mat->mNumAllocated;
 			textures.push_back(texture);
 			texturesLoaded.push_back(texture); // add to loaded textures
 		}
