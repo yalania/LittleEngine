@@ -1,6 +1,6 @@
 #include "Model.h"
 #include <gl/GL.h>
-
+#include <algorithm>
 
 Model::Model(std::vector<Mesh> meshes) : meshes(meshes){
 	CalculateSphere();
@@ -95,4 +95,20 @@ void Model::CalculateAxisAlignBoudingBox(){
 	};
 
 	boundingBox = Mesh(axisAlignBoudingBox, axisAlignBoudingBoxIndex, {});
+}
+
+
+std::vector<const Texture *> Model::GetTextureInfo() {
+	std::vector<const Texture *> textureInfo;
+
+	for (auto & mesh : meshes) {
+		for (auto & texture : mesh.textures) {
+			auto it = find_if(textureInfo.begin(), textureInfo.end(), [texture](const Texture* vectorTexture) { return vectorTexture->path == texture.path; });
+			if (it == textureInfo.end()) {
+				textureInfo.push_back(&texture);
+			}
+		}
+	}
+
+	return textureInfo;
 }

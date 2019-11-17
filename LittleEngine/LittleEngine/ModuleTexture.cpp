@@ -81,6 +81,7 @@ std::vector<Texture> ModuleTexture::LoadMaterialTextures(aiMaterial *mat, aiText
 			texture.id = LoadTexture(str.C_Str(), directory);
 			texture.type = typeName;
 			texture.path = str.C_Str();
+			texture.textureSize = mat->mNumAllocated;
 			textures.push_back(texture);
 			texturesLoaded.push_back(texture); // add to loaded textures
 		}

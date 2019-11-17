@@ -11,6 +11,7 @@ public:
 	Model(std::vector<Mesh> entityMeshes);
 	update_status Update() override;
 
+	std::vector<const Texture *> GetTextureInfo();
 private:
 	glm::vec3 CalculateCenter();
 	void CalculateSphere();

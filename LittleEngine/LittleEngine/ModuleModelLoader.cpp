@@ -102,6 +102,7 @@ Mesh ModuleModelLoader::ProcessMesh(const aiMesh &mesh, const aiScene &scene)
 	}
 	ProcessMaterial(textures, mesh, scene);
 
+	scene.mMaterials[mesh.mMaterialIndex];
 	// return a mesh object created from the extracted mesh data
 	return Mesh(vertices, indices, textures, MeshInfo{ mesh.mNumVertices, mesh.mNumFaces, mesh.mName.C_Str()});
 }
