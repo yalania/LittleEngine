@@ -39,6 +39,7 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo);
 	Mesh(Mesh && mesh) = default;
 	Mesh(const Mesh & mesh) = default;
+	~Mesh();
 
 	Mesh& operator = (Mesh && mesh) = default;
 	Mesh& operator = (const Mesh & mesh) = default;

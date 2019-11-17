@@ -10,6 +10,10 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo) {
 	setupMesh();
 }
+
+Mesh::~Mesh() {
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 update_status Mesh::Update() {
 
 	for (unsigned int i = 0; i < textures.size(); i++)
