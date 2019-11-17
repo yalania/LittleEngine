@@ -7,7 +7,7 @@ ModuleGrid::~ModuleGrid()
 }
 
 bool ModuleGrid::Init() {
-	LOG("Init render system");
+	LOG("Init Grid system");
 	gridShaderProgram = Engine->moduleShaderProgram->LoadShaderProgram("gridShader.vert", "gridShader.frag");
 	model = glm::mat4(1.0f);
 	return true;

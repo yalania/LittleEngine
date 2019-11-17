@@ -2,7 +2,7 @@
 #define _LOG_
 #include <GL/glew.h>
 #include "imgui/imgui.h"
-
+#include <assimp/LogStream.hpp>
 
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
@@ -15,6 +15,14 @@ void __stdcall OurOpenGLErrorFunction(GLenum source, GLenum type, GLuint id, GLe
 
 const ImVector<char> * getLogData();
 bool clearLogData();
+
+class AssimpLog : public Assimp::LogStream
+{
+public:
+	AssimpLog() = default;
+	~AssimpLog() = default;
+	void write(const char* message) override;
+};
 #endif // !_LOG_
 
 

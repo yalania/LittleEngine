@@ -6,7 +6,7 @@
 #include <cmath>
 
 bool ModuleRender::Init() {
-	LOG("Init render system");
+	LOG("Init Render system");
 	InitOpenGlOptions();
 	return true;
 }

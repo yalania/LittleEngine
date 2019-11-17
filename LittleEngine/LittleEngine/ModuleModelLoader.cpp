@@ -4,11 +4,13 @@
 #include "LittleEngine.h"
 
 #include <assimp/Importer.hpp>
+#include <assimp/DefaultLogger.hpp>
 #include <assimp/postprocess.h>
 
 Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture){
 	std::vector<Mesh> meshes;
 	Assimp::Importer import;
+	Assimp::DefaultLogger::get()->attachStream( new AssimpLog(), Assimp::Logger::LogSeverity::VERBOSE);
 	const aiScene *scene = import.ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
