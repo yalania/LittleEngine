@@ -16,3 +16,5 @@ Ana Isabel Hernández Barrera:
 Just execute LittleEngine.exe. You can load different FBX models just by draging it to the screen.
 Check the view menu option to select which windows you want to see.
 You can move the camera with WASD and similar Unity mouse controls.
+
+[MIT License](https://github.com/yalania/LittleEngine/blob/master/LICENSE.md)
