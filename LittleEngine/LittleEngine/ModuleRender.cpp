@@ -82,3 +82,31 @@ const Entity& ModuleRender::GetEntity() const {
 ModuleRender::~ModuleRender() {
 	CleanUp();
 }
+
+void ModuleRender::EnableFaceCulling(bool faceCullingEnabled){
+	if (faceCullingEnabled) {
+		glEnable(GL_CULL_FACE);
+	}
+	else {
+		glDisable(GL_CULL_FACE);
+	}
+
+}
+
+void ModuleRender::EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled) {
+	if (clockwiseFaceCullingEnabled) {
+		glFrontFace(GL_CW);
+	}
+	else {
+		glFrontFace(GL_CCW);
+	}
+}
+
+void ModuleRender::EnableFillTriangles(bool enableFillTriangles) {
+	if (enableFillTriangles) {
+		glPolygonMode(GL_FRONT,GL_FILL);
+	}
+	else {
+		glPolygonMode(GL_FRONT, GL_LINE);
+	}
+}

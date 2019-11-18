@@ -8,7 +8,6 @@
 #include <glm/glm.hpp>
 #include "Entity.h"
 
-
 class ModuleRender : public Module {
 public:
 	ModuleRender() = default;
@@ -22,6 +21,10 @@ public:
 	const Entity& GetEntity() const;
 
 	void AddEntity(const char * model);
+
+	void EnableFaceCulling(bool faceCullingEnabled);
+	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
+	void EnableFillTriangles(bool enableFillTriangles);
 private:
 	void InitOpenGlOptions() const;
 	std::unique_ptr<Entity> missingEntity = std::make_unique<Entity>();

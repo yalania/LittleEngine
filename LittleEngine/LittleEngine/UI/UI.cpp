@@ -32,6 +32,11 @@ namespace Geometry {
 	bool showCheckerboardTexture = false;
 }
 
+namespace Renderer {
+	bool faceCullingEnabled = true;
+	bool clockwisefaceCullingEnabled = false;
+	bool showTriangles = true;
+}
 update_status UI::ShowUI() {
 	update_status updateStatus = UPDATE_CONTINUE;
 	if (ImGui::BeginMainMenuBar())
@@ -115,6 +120,7 @@ void UI::DrawPropertiesWindow() {
 	WindowPropertiesTab();
 	SystemPropertiesTab();
 	InputPropertiesTab();
+	RenderPropertiesTab();
 
 	ImGui::End();
 }
@@ -286,5 +292,20 @@ void UI::InputPropertiesTab() {
 		ImGui::Text("Keys pressed:");   for (int i = 0; i < IM_ARRAYSIZE(io.KeysDown); i++) if (ImGui::IsKeyPressed(i)) { ImGui::SameLine(); ImGui::Text("%d (0x%X)", i, i); }
 		ImGui::Text("Keys release:");   for (int i = 0; i < IM_ARRAYSIZE(io.KeysDown); i++) if (ImGui::IsKeyReleased(i)) { ImGui::SameLine(); ImGui::Text("%d (0x%X)", i, i); }
 		ImGui::Text("Chars queue:");    for (int i = 0; i < io.InputQueueCharacters.Size; i++) { ImWchar c = io.InputQueueCharacters[i]; ImGui::SameLine();  ImGui::Text("\'%c\' (0x%04X)", (c > ' ' && c <= 255) ? (char)c : '?', c); } // FIXME: We should convert 'c' to UTF-8 here but the functions are not public.
+	}
+}
+
+void UI::RenderPropertiesTab() {
+	if (ImGui::CollapsingHeader("Render properties"))
+	{
+		if (ImGui::Checkbox("Enable Face culling", &Renderer::faceCullingEnabled)) {
+			Engine->moduleRenderer->EnableFaceCulling(Renderer::faceCullingEnabled);
+		}
+		if (ImGui::Checkbox("Enable Clockwise Face culling", &Renderer::clockwisefaceCullingEnabled)) {
+			Engine->moduleRenderer->EnableClockwiseFaceCulling(Renderer::clockwisefaceCullingEnabled);
+		}
+		if (ImGui::Checkbox("Show Triangles", &Renderer::showTriangles)) {
+			Engine->moduleRenderer->EnableFillTriangles(Renderer::showTriangles);
+		}
 	}
 }

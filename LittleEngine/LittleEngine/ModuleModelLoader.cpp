@@ -29,6 +29,7 @@ Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string c
 	}
 
 	ProcessNode(*scene->mRootNode, *scene, meshes);
+	Assimp::DefaultLogger::kill();
 	return Model(std::move(meshes));
 }
 
