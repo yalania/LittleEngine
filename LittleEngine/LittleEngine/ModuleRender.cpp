@@ -102,11 +102,14 @@ void ModuleRender::EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled) 
 	}
 }
 
-void ModuleRender::EnableFillTriangles(bool enableFillTriangles) {
-	if (enableFillTriangles) {
+void ModuleRender::SelectFillingMode(int mode) {
+	if (mode == 0) {
 		glPolygonMode(GL_FRONT,GL_FILL);
 	}
-	else {
+	if(mode == 1){
 		glPolygonMode(GL_FRONT, GL_LINE);
+	}
+	if (mode == 2) {
+		glPolygonMode(GL_FRONT, GL_POINT);
 	}
 }

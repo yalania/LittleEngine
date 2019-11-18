@@ -9,9 +9,10 @@
 
 Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture){
 	std::vector<Mesh> meshes;
-	Assimp::Importer import;
-	Assimp::DefaultLogger::create("", Assimp::Logger::NORMAL);
-	Assimp::DefaultLogger::get()->attachStream( new AssimpLog(), Assimp::Logger::LogSeverity::NORMAL);
+	static Assimp::Importer import;
+	static unsigned int flags = Assimp::Logger::VERBOSE | Assimp::Logger::Err | Assimp::Logger::Warn | Assimp::Logger::Debugging;
+	Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
+	Assimp::DefaultLogger::get()->attachStream( new AssimpLog(), flags);
 	const aiScene *scene = import.ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)

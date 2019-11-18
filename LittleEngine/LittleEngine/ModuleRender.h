@@ -24,7 +24,7 @@ public:
 
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
-	void EnableFillTriangles(bool enableFillTriangles);
+	void SelectFillingMode(int mode);
 private:
 	void InitOpenGlOptions() const;
 	std::unique_ptr<Entity> missingEntity = std::make_unique<Entity>();

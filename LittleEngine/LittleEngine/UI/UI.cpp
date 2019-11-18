@@ -35,7 +35,6 @@ namespace Geometry {
 namespace Renderer {
 	bool faceCullingEnabled = true;
 	bool clockwisefaceCullingEnabled = false;
-	bool showTriangles = true;
 }
 update_status UI::ShowUI() {
 	update_status updateStatus = UPDATE_CONTINUE;
@@ -258,10 +257,15 @@ void UI::GeometryPropertiesTab() {
 	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->meshes.size()).c_str());
 
 	ImGui::Separator();
+
 	for (auto & texture : entity.entityModel->GetTextureInfo()) {
 		ImGui::Text("Texture name:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
 		ImGui::Text("Texture type:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->type.c_str());
 		ImGui::Text("Texture storage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
+		ImGui::Separator();
+		ImGui::SetCursorPosX((ImGui::GetWindowWidth() / 2) - 125);
+		ImGui::Image((void*)texture->id, ImVec2(250, 250));
+		ImGui::Separator();
 	}
 	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
 	ImGui::SameLine();
@@ -298,14 +302,15 @@ void UI::InputPropertiesTab() {
 void UI::RenderPropertiesTab() {
 	if (ImGui::CollapsingHeader("Render properties"))
 	{
+		static int selectedMode = 0;
+		if(ImGui::Combo("Filling mode",&selectedMode,"Fill\0Lines\0Points")){
+			Engine->moduleRenderer->SelectFillingMode(selectedMode);
+		}
 		if (ImGui::Checkbox("Enable Face culling", &Renderer::faceCullingEnabled)) {
 			Engine->moduleRenderer->EnableFaceCulling(Renderer::faceCullingEnabled);
 		}
 		if (ImGui::Checkbox("Enable Clockwise Face culling", &Renderer::clockwisefaceCullingEnabled)) {
 			Engine->moduleRenderer->EnableClockwiseFaceCulling(Renderer::clockwisefaceCullingEnabled);
-		}
-		if (ImGui::Checkbox("Show Triangles", &Renderer::showTriangles)) {
-			Engine->moduleRenderer->EnableFillTriangles(Renderer::showTriangles);
 		}
 	}
 }
