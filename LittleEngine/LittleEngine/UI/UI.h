@@ -21,6 +21,7 @@ private:
 	static void WindowPropertiesTab();
 	static void SystemPropertiesTab();
 	static void GeometryPropertiesTab();
+	static void InputPropertiesTab();
 };
 
 #endif // !_BOTTOM_TAB_
