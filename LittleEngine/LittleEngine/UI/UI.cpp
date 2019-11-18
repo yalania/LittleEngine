@@ -236,30 +236,12 @@ void UI::SystemPropertiesTab() {
 
 void UI::GeometryPropertiesTab() {
 	ImGui::Begin("Model properties");
+
 	const Entity &entity = Engine->moduleRenderer->GetEntity();
-	ImGui::Text("Position: ");
-	ImGui::PushItemWidth(50);
-	ImGui::DragFloat("pX", &entity.entityTransform->position.x, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("pY", &entity.entityTransform->position.y, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("pZ", &entity.entityTransform->position.z, 0.005f, -100.0f, 100.0f, "%.2f");
-
-	ImGui::Text("Rotation: ");
-	ImGui::PushItemWidth(50);
-	ImGui::DragFloat("rX", &entity.entityTransform->rotation.x, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("rY", &entity.entityTransform->rotation.y, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("rZ", &entity.entityTransform->rotation.z, 0.005f, -100.0f, 100.0f, "%.2f");
-
-	ImGui::Text("Scale: ");
-	ImGui::PushItemWidth(50);
-	ImGui::DragFloat("sX", &entity.entityTransform->scale.x, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("sY", &entity.entityTransform->scale.y, 0.005f, -100.0f, 100.0f, "%.2f");
-	ImGui::SameLine();
-	ImGui::DragFloat("sZ", &entity.entityTransform->scale.z, 0.005f, -100.0f, 100.0f, "%.2f");
+	ImGui::Text("Transform:");
+	ImGui::DragFloat3("Position",  &entity.entityTransform->position[0],NULL, NULL, NULL);
+	ImGui::DragFloat3("Rotation", &entity.entityTransform->rotation[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Scale", &entity.entityTransform->scale[0], NULL, NULL, NULL);
 
 	ImGui::Separator();
 	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());
