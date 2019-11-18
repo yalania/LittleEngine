@@ -52,6 +52,5 @@ void AssimpLog::write(const char* message) {
 	va_start(ap, message);
 	vsprintf_s(tmp_string, 4096, message, ap);
 	logData.appendfv(tmp_string, ap);
-	logData.append("\n");
 	va_end(ap);
 }
