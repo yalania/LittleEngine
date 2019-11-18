@@ -16,8 +16,6 @@ namespace UIState {
 namespace WindowOptions {
 	bool showingDebugWindow = false;
 	bool showingPropertiesWindow = false;
-	bool fullScreen = FULLSCREEN;
-	bool fullScreenDesktop = FULLSCREEN_DESKTOP;
 	bool rezisable = RESIZABLE;
 	bool borderless = BORDERLESS;
 	float brightness = BRIGHTNESS;
@@ -197,14 +195,9 @@ void UI::WindowPropertiesTab() {
 		if (ImGui::SliderInt("Heigth", &Engine->moduleWindow->height, SCREEN_HEIGHT, 100)) {
 			Engine->moduleWindow->WindowResized(Engine->moduleWindow->width, Engine->moduleWindow->height);
 		}
-		if (ImGui::Checkbox("FullScreen", &WindowOptions::fullScreen)) {
-			Engine->moduleWindow->SetFullScreen(WindowOptions::fullScreen);
-			WindowOptions::fullScreenDesktop = false;
-		}
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Full desktop", &WindowOptions::fullScreenDesktop)) {
-			Engine->moduleWindow->SetFullScreenDesktop(WindowOptions::fullScreenDesktop);
-			WindowOptions::fullScreen = false;
+		static int selectedMode = 0;
+		if (ImGui::Combo("Filling mode", &selectedMode, "Windowed\0FullScreen\0Full Desktop")) {
+			Engine->moduleWindow->SetWindowMode(selectedMode);
 		}
 		if (ImGui::Checkbox("Borderless", &WindowOptions::borderless)) {
 			Engine->moduleWindow->SetBorderless(WindowOptions::borderless);
@@ -286,12 +279,13 @@ void UI::InputPropertiesTab() {
 			ImGui::Text("Mouse pos: <INVALID>");
 
 		ImGui::Text("Mouse delta: (%g, %g)", io.MouseDelta.x, io.MouseDelta.y);
+		ImGui::Separator();
 		ImGui::Text("Mouse down:");     for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (io.MouseDownDuration[i] >= 0.0f) { ImGui::SameLine(); ImGui::Text("b%d (%.02f secs)", i, io.MouseDownDuration[i]); }
 		ImGui::Text("Mouse clicked:");  for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 		ImGui::Text("Mouse dbl-clicked:"); for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseDoubleClicked(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 		ImGui::Text("Mouse released:"); for (int i = 0; i < IM_ARRAYSIZE(io.MouseDown); i++) if (ImGui::IsMouseReleased(i)) { ImGui::SameLine(); ImGui::Text("b%d", i); }
 		ImGui::Text("Mouse wheel: %.1f", io.MouseWheel);
-
+		ImGui::Separator();
 		ImGui::Text("Keys down:");      for (int i = 0; i < IM_ARRAYSIZE(io.KeysDown); i++) if (io.KeysDownDuration[i] >= 0.0f) { ImGui::SameLine(); ImGui::Text("%d (0x%X) (%.02f secs)", i, i, io.KeysDownDuration[i]); }
 		ImGui::Text("Keys pressed:");   for (int i = 0; i < IM_ARRAYSIZE(io.KeysDown); i++) if (ImGui::IsKeyPressed(i)) { ImGui::SameLine(); ImGui::Text("%d (0x%X)", i, i); }
 		ImGui::Text("Keys release:");   for (int i = 0; i < IM_ARRAYSIZE(io.KeysDown); i++) if (ImGui::IsKeyReleased(i)) { ImGui::SameLine(); ImGui::Text("%d (0x%X)", i, i); }

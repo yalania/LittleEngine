@@ -17,16 +17,13 @@ public:
 
 	void WindowResized(unsigned width, unsigned height);
 
-	void SetFullScreen(bool fullScreen);
-	void SetFullScreenDesktop(bool fullScreenDesktop);
+	void SetWindowMode(int windowMode);
 	void SetResizable(bool resizable);
 	void SetBorderless(bool borderless);
 	void SetBrightness(float brightness);
 
 private:
 	void InitOpenGLAttributes();
-	bool fullScreenEnabled = FULLSCREEN;
-	bool fullScreenDesktopEnabled = FULLSCREEN_DESKTOP;
 	bool resizableEnabled = RESIZABLE;
 	bool borderlessEnabled = BORDERLESS;
 	float brightness = BRIGHTNESS;

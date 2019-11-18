@@ -22,11 +22,11 @@ bool ModuleWindow::Init()
 		//Create window
 		Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 
-		if (fullScreenDesktopEnabled)
+		if (FULLSCREEN_DESKTOP)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
-		else if (fullScreenEnabled) {
+		else if (FULLSCREEN) {
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 		if (resizableEnabled)
@@ -85,27 +85,19 @@ void ModuleWindow::WindowResized(unsigned width, unsigned height)
 	glViewport(0, 0, width, height);
 }
 
-void ModuleWindow::SetFullScreen(bool fullScreen) {
-	this->fullScreenEnabled = fullScreen;
-	if (fullScreenEnabled) {
-		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-		fullScreenDesktopEnabled = false;
-	}
-	else {
+
+void ModuleWindow::SetWindowMode(int windowMode) {
+	if (windowMode == 0) {
 		SDL_SetWindowFullscreen(window, 0);
+	}
+	if (windowMode == 1) {
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	}
+	if (windowMode == 2) {
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 }
 
-void ModuleWindow::SetFullScreenDesktop(bool fullScreenDesktop) {
-	this->fullScreenDesktopEnabled = fullScreenDesktop;
-	if (fullScreenDesktopEnabled) {
-		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		fullScreenEnabled = false;
-	}
-	else {
-		SDL_SetWindowFullscreen(window, 0);
-	}
-}
 void ModuleWindow::SetResizable(bool resizable) {
 	this->resizableEnabled = resizable;
 	SDL_bool sdlResizable = resizableEnabled ? SDL_TRUE : SDL_FALSE;
