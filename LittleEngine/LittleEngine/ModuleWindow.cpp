@@ -54,7 +54,7 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 
-			screen_surface = SDL_GetWindowSurface(window);
+			screenSurface = SDL_GetWindowSurface(window);
 		}
 	}
 	return ret;
@@ -113,6 +113,12 @@ void ModuleWindow::SetBorderless(bool borderless) {
 void ModuleWindow::SetBrightness(float brightness) {
 	this->brightness = brightness;
 	SDL_SetWindowBrightness(window, brightness);
+}
+
+void ModuleWindow::SetWindowSize(int width, int height) {
+	this->width = width;
+	this->height = height;
+	WindowResized(width,height);
 }
 
 void ModuleWindow::InitOpenGLAttributes() {

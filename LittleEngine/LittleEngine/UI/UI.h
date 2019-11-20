@@ -1,6 +1,7 @@
 #ifndef _BOTTOM_TAB_
 #define _BOTTOM_TAB_
 #include "../LittleEngine.h"
+#include "../imgui/imgui.h"
 
 class UI {
 
