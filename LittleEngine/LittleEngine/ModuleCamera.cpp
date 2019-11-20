@@ -50,6 +50,23 @@ void ModuleCamera::SetAspectRatio(float newAspectRatio) {
 	UpdateProjection();
 }
 
+void ModuleCamera::SetFarPlane(float newFarPlane){
+	this->farPlane = newFarPlane;
+	UpdateProjection();
+}
+void ModuleCamera::SetNearPlane(float newNearPlane){
+	this->nearPlane = newNearPlane;
+	UpdateProjection();
+}
+void ModuleCamera::SetPerspectiveEnable(bool perspective) {
+	this->perspectiveEnable = perspective;
+	UpdateProjection();
+}
+
+void ModuleCamera::SetHorizontalFov(float horizontalFov) {
+	this->frustumFov = horizontalFov;
+	UpdateProjection();
+}
 void ModuleCamera::UpdateProjection() {
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);

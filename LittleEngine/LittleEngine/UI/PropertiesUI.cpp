@@ -20,25 +20,44 @@ namespace Renderer {
 	bool faceCullingEnabled = true;
 	bool clockwisefaceCullingEnabled = false;
 }
+
+void UI::DrawPropertiesWindow() {
+	ImGui::Begin("Configuration");
+	CameraPropertiesTab();
+	WindowPropertiesTab();
+	SystemPropertiesTab();
+	InputPropertiesTab();
+	RenderPropertiesTab();
+
+	ImGui::End();
+}
+
 void UI::CameraPropertiesTab() {
+
+		float nearPlane = Engine->moduleCamera->GetNearPlane();
+		float aspect = Engine->moduleCamera->GetAspectRatio();
+		float farPlane = Engine->moduleCamera->GetFarPlane();
+		float horizontalFov = Engine->moduleCamera->GetHorizontalFov();
+		bool perspectiveEnable = Engine->moduleCamera->GetPerspectiveEnable();
+
 	if (ImGui::CollapsingHeader("Camera"))
 	{
 		ImGui::SliderFloat("Keys Mov. Speed", &Engine->moduleCamera->cameraSpeedKeys, CAMERA_SPEED, CAMERA_MAX_SPEED);
 		ImGui::SliderFloat("Mouse Mov. Speed", &Engine->moduleCamera->cameraSpeedMouse, CAMERA_SPEED, CAMERA_MAX_SPEED);
-		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, MAX_PLANE)) {
-			Engine->moduleCamera->UpdateProjection();
+		if (ImGui::SliderFloat("Near Plane", &nearPlane, 0.0f, MAX_PLANE)) {
+			Engine->moduleCamera->SetNearPlane(nearPlane);
 		}
-		if (ImGui::SliderFloat("Far Plane", &Engine->moduleCamera->farPlane, 0.0f, MAX_PLANE)) {
-			Engine->moduleCamera->UpdateProjection();
+		if (ImGui::SliderFloat("Far Plane", &farPlane, 0.0f, MAX_PLANE)) {
+			Engine->moduleCamera->SetFarPlane(farPlane);
 		}
-		if (ImGui::SliderFloat("Aspect ratio", &Engine->moduleCamera->aspect, -10.0f, 10.0f)) {
-			Engine->moduleCamera->UpdateProjection();
+		if (ImGui::SliderFloat("Aspect ratio", &aspect, -10.0f, 10.0f)) {
+			Engine->moduleCamera->SetAspectRatio(aspect);
 		}
-		if (ImGui::SliderFloat("Horizontal Fov ratio", &Engine->moduleCamera->frustumFov, 0.0f, 179.9f)) {
-			Engine->moduleCamera->UpdateProjection();
+		if (ImGui::SliderFloat("Horizontal Fov ratio", &horizontalFov, 0.0f, 179.9f)) {
+			Engine->moduleCamera->SetHorizontalFov(horizontalFov);
 		}
-		if (ImGui::Checkbox("Perspective enable", &Engine->moduleCamera->perspectiveEnable)) {
-			Engine->moduleCamera->UpdateProjection();
+		if (ImGui::Checkbox("Perspective enable", &perspectiveEnable)) {
+			Engine->moduleCamera->SetPerspectiveEnable(perspectiveEnable);
 		}
 
 	}

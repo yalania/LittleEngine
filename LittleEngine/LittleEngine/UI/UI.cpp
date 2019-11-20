@@ -90,17 +90,6 @@ void UI::DrawAboutWindow() {
 
 }
 
-void UI::DrawPropertiesWindow() {
-	ImGui::Begin("Configuration");
-	CameraPropertiesTab();
-	WindowPropertiesTab();
-	SystemPropertiesTab();
-	InputPropertiesTab();
-	RenderPropertiesTab();
-
-	ImGui::End();
-}
-
 void UI::UpdateState() {
 
 	if (UIState::showingAboutWindow) {

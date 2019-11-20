@@ -20,7 +20,18 @@ public:
 	void FocusOnEntity(const Entity & entity);
 	void OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset);
 	void UpdateProjection();
+
 	void SetAspectRatio(float newAspectRatio);
+	void SetFarPlane(float newFarPlane);
+	void SetNearPlane(float newNearPlane);
+	void SetPerspectiveEnable(bool perspective);
+	void SetHorizontalFov(float horizontalFov);
+
+	float GetAspectRatio()const { return aspect;}
+	float GetFarPlane() const { return farPlane;}
+	float GetNearPlane() const { return nearPlane;}
+	bool GetPerspectiveEnable() const { return perspectiveEnable;}
+	float GetHorizontalFov() const { return frustumFov;}
 
 private:
 	void UpdateMatricesInShaderPograms();
