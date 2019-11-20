@@ -19,14 +19,23 @@ unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::stri
 	int width, height, nrChannels;
 
 	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+
+	size_t endPosition = filename.find_last_of('\\');
+	std::string textureName;
+	if (endPosition > filename.size() || endPosition <= 0) {
+		textureName = filename;
+	}
+	else {
+		textureName = filename.substr(endPosition, -1);
+	}
 	if (!data) {
-		filename = directory + '/' + texturePath;
-		LOG("Loading texture %s . Looking in same path as fbx", texturePath);
+		filename = directory + '\\' + textureName;
+		LOG("Loading texture %s . Looking in same path as fbx", textureName);
 		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (!data) {
-		filename = "Textures/" + std::string(texturePath);
-		LOG("Loading texture %s . Looking in Textures folder", texturePath);
+		filename = "Textures\\" + textureName;
+		LOG("Loading texture %s . Looking in Textures folder", textureName);
 		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (data)
