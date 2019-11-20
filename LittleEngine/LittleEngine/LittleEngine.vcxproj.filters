@@ -215,6 +215,9 @@
     <ClInclude Include="Utils\SystemProperties.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="UI\PropertiesUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\fragmentShader.frag">

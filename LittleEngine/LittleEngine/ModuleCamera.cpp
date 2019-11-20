@@ -4,7 +4,6 @@
 
 bool ModuleCamera::Init() {
 	LOG("Init Camera System");
-	UpdateMatricesInShaderPograms();
 	UpdateProjection();
 	return true;
 }
@@ -45,28 +44,7 @@ void ModuleCamera::Zoom(bool zoomIn) {
 	transform->TranslateLocal(direction);
 }
 
-void ModuleCamera::SetAspectRatio(float newAspectRatio) {
-	this->aspect = newAspectRatio;
-	UpdateProjection();
-}
 
-void ModuleCamera::SetFarPlane(float newFarPlane){
-	this->farPlane = newFarPlane;
-	UpdateProjection();
-}
-void ModuleCamera::SetNearPlane(float newNearPlane){
-	this->nearPlane = newNearPlane;
-	UpdateProjection();
-}
-void ModuleCamera::SetPerspectiveEnable(bool perspective) {
-	this->perspectiveEnable = perspective;
-	UpdateProjection();
-}
-
-void ModuleCamera::SetHorizontalFov(float horizontalFov) {
-	this->frustumFov = horizontalFov;
-	UpdateProjection();
-}
 void ModuleCamera::UpdateProjection() {
 	if (perspectiveEnable) {
 		projection = glm::perspective(glm::radians(frustumFov), aspect, nearPlane, farPlane);
@@ -99,11 +77,43 @@ void ModuleCamera::FocusOnEntity(const Entity & entity) {
 }
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
+
 	glm::vec3 vector = transform->position - entity.entityModel->sphereCenter;
+
+	float amountInDifferentDirection = glm::dot(glm::normalize(vector),entity.entityTransform->GetFrontAxis());
+	//If -1 looking they are looking in opposite directions
+	if (amountInDifferentDirection < 0.0f) {
+		view = glm::lookAt(transform->position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
+		transform->rotation = glm::quat(glm::inverse(view));
+	}
 	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(transform->GetRightAxis()));
 	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeedMouse, glm::vec3(0.0f, 1.0f, 0.0f));
 	vector = rotX * vector;
 	vector = rotY * vector;
 	transform->position = entity.entityModel->sphereCenter + vector;
 	MoveCameraWithMousePosition(mouseOffset);
+}
+
+//Setters
+void ModuleCamera::SetAspectRatio(float newAspectRatio) {
+	this->aspect = newAspectRatio;
+	UpdateProjection();
+}
+
+void ModuleCamera::SetFarPlane(float newFarPlane) {
+	this->farPlane = newFarPlane;
+	UpdateProjection();
+}
+void ModuleCamera::SetNearPlane(float newNearPlane) {
+	this->nearPlane = newNearPlane;
+	UpdateProjection();
+}
+void ModuleCamera::SetPerspectiveEnable(bool perspective) {
+	this->perspectiveEnable = perspective;
+	UpdateProjection();
+}
+
+void ModuleCamera::SetHorizontalFov(float horizontalFov) {
+	this->frustumFov = horizontalFov;
+	UpdateProjection();
 }

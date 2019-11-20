@@ -1,30 +1,25 @@
-#ifndef _BOTTOM_TAB_
-#define _BOTTOM_TAB_
-#include "../LittleEngine.h"
-#include "../imgui/imgui.h"
-
+#ifndef _UI_
+#define _UI_
+#include "PropertiesUI.h"
+#include "../Globals.h"
 class UI {
 
 public:
-	static update_status ShowUI();
-
-private:
+	update_status ShowUI();
 	UI() = default;
 	~UI() = default;
 
-	static void TabExample();
-	static void DrawConsoleWindow();
-	static void DrawAboutWindow(); 
-	static void DrawPropertiesWindow();
-	static void UpdateState();
-	static void TimeControlButtons();
-	static void CameraPropertiesTab();
-	static void WindowPropertiesTab();
-	static void SystemPropertiesTab();
-	static void GeometryPropertiesTab();
-	static void InputPropertiesTab();
-	static void RenderPropertiesTab();
+
+private:
+	void DrawConsoleWindow();
+	void DrawAboutWindow(); 
+	void UpdateState();
+	void TimeControlButtons();
+	void GeometryPropertiesTab();
+	
+	PropertiesUI PropertiesUI;
+
 };
 
-#endif // !_BOTTOM_TAB_
+#endif // !_UI_
 

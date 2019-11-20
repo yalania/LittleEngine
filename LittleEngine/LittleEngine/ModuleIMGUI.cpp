@@ -8,7 +8,6 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_sdl.h"
 
-#include "ModuleWindow.h"
 #include "LittleEngine.h"
 #include "UI/UI.h"
 
@@ -28,7 +27,7 @@ update_status ModuleIMGUI::PreUpdate() {
 }
 
 update_status ModuleIMGUI::Update() {	
-	return UI::ShowUI();
+	return generalUi.ShowUI();
 }
 
 

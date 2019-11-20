@@ -97,16 +97,14 @@ void ModuleTexture::GetCheckerboardTexture() {
 	const static int checkerHeight = 64;
 	const static int checkWidth = 64;
 
-	static GLubyte checkImage[checkerHeight][checkWidth][4];
-	int i, j, c;
-
+	static GLubyte checkImage[checkerHeight][checkWidth][3];
+	int i, j, color;
 	for (i = 0; i < checkerHeight; i++) {
 		for (j = 0; j < checkWidth; j++) {
-			c = ((((i & 0x8) == 0) ^ ((j & 0x8)) == 0)) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
+			color = ((((i & 0x4) == 0) ^ ((j & 0x4)) == 0)) * 255; // 0 -> black or 255 white
+			checkImage[i][j][0] = (GLubyte)color; //R
+			checkImage[i][j][1] = (GLubyte)color; //G
+			checkImage[i][j][2] = (GLubyte)color; //B
 		}
 	}
 
@@ -117,6 +115,6 @@ void ModuleTexture::GetCheckerboardTexture() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, checkerHeight,checkWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE,checkImage);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, checkerHeight,checkWidth, 0, GL_RGB, GL_UNSIGNED_BYTE,checkImage);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

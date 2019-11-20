@@ -39,15 +39,16 @@ private:
 	std::unique_ptr<Transform> transform = std::make_unique<Transform>();
 	glm::mat4 projection = glm::mat4(1.0f);
 	glm::mat4 view;
-public:
+private:
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	float frustumFov = 45.0f;
 	float orthoUnits = 1.0f;
-	float cameraSpeedKeys = CAMERA_SPEED;
-	float cameraSpeedMouse = CAMERA_SPEED;
 	float farPlane = 1000.0f;
 	float nearPlane = 0.1f;
 	bool perspectiveEnable = true;
+public:
+	float cameraSpeedKeys = CAMERA_SPEED;
+	float cameraSpeedMouse = CAMERA_SPEED;
 };
 #endif // !_MODULE_CAMERA_
 

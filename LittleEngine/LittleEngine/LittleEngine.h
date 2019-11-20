@@ -27,20 +27,20 @@ public:
 	bool CleanUp();
 
 public:
-	std::shared_ptr<ModuleRender> moduleRenderer;
-	std::shared_ptr<ModuleWindow> moduleWindow;
-	std::shared_ptr<ModuleInput> moduleInput;
-	std::shared_ptr<ModuleProgram> moduleShaderProgram;
-	std::shared_ptr<ModuleIMGUI> moduleImgui;
-	std::shared_ptr<ModuleCamera> moduleCamera;
-	std::shared_ptr<ModuleTexture> moduleTexture;
-	std::shared_ptr<ModuleGrid> moduleGrid;
-	std::shared_ptr<ModuleModelLoader> moduleModelLoader;
-	std::shared_ptr<ModuleTimeController> moduleTimeController;
+	std::unique_ptr<ModuleRender> moduleRenderer;
+	std::unique_ptr<ModuleWindow> moduleWindow;
+	std::unique_ptr<ModuleInput> moduleInput;
+	std::unique_ptr<ModuleProgram> moduleShaderProgram;
+	std::unique_ptr<ModuleIMGUI> moduleImgui;
+	std::unique_ptr<ModuleCamera> moduleCamera;
+	std::unique_ptr<ModuleTexture> moduleTexture;
+	std::unique_ptr<ModuleGrid> moduleGrid;
+	std::unique_ptr<ModuleModelLoader> moduleModelLoader;
+	std::unique_ptr<ModuleTimeController> moduleTimeController;
 
 private:
 
-	std::vector<std::shared_ptr<Module>> modules;
+	std::vector<Module *> modules;
 
 };
 

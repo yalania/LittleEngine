@@ -219,6 +219,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="ModuleProgram.h" />
     <ClInclude Include="UI\UI.h" />
+    <ClInclude Include="UI\PropertiesUI.h" />
     <ClInclude Include="Utils\MicroTimer.h" />
     <ClInclude Include="Utils\MsTimer.h" />
     <ClInclude Include="Utils\SystemProperties.h" />

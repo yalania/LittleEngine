@@ -17,8 +17,8 @@ bool ModuleModelLoader::CleanUp() {
 Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture){
 	std::vector<Mesh> meshes;
 
-	std::string fileExtensionModel = pathToModel.substr(pathToModel.find_last_of('.'),-1 );
-	assert(fileExtensionModel == ".fbx"); // Only FBX
+	std::string fileExtension = pathToModel.substr(pathToModel.find_last_of('.'),-1 );
+	assert(fileExtension == ".fbx");
 
 	const aiScene *scene = import->ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
 

@@ -1,5 +1,7 @@
-#include "UI.h"
+#include "PropertiesUI.h"
 #include "../Utils/SystemProperties.h"
+#include "../imgui/imgui.h"
+#include "../LittleEngine.h"
 
 namespace WindowOptions {
 	bool showingDebugWindow = false;
@@ -12,16 +14,13 @@ namespace WindowOptions {
 namespace System {
 	SystemProperties systemProperties;
 }
-namespace Geometry {
-	bool showCheckerboardTexture = false;
-}
 
 namespace Renderer {
 	bool faceCullingEnabled = true;
 	bool clockwisefaceCullingEnabled = false;
 }
 
-void UI::DrawPropertiesWindow() {
+void PropertiesUI::DrawPropertiesWindow() {
 	ImGui::Begin("Configuration");
 	CameraPropertiesTab();
 	WindowPropertiesTab();
@@ -32,7 +31,7 @@ void UI::DrawPropertiesWindow() {
 	ImGui::End();
 }
 
-void UI::CameraPropertiesTab() {
+void PropertiesUI::CameraPropertiesTab() {
 
 		float nearPlane = Engine->moduleCamera->GetNearPlane();
 		float aspect = Engine->moduleCamera->GetAspectRatio();
@@ -63,7 +62,7 @@ void UI::CameraPropertiesTab() {
 	}
 }
 
-void UI::WindowPropertiesTab() {
+void PropertiesUI::WindowPropertiesTab() {
 	if (ImGui::CollapsingHeader("Window"))
 	{
 		if (ImGui::SliderFloat("Brightness", &WindowOptions::brightness, 0.0f, 5.0f)) {
@@ -91,7 +90,7 @@ void UI::WindowPropertiesTab() {
 	}
 }
 
-void UI::SystemPropertiesTab() {
+void PropertiesUI::SystemPropertiesTab() {
 	if (ImGui::CollapsingHeader("System information"))
 	{
 
@@ -117,40 +116,7 @@ void UI::SystemPropertiesTab() {
 	}
 }
 
-void UI::GeometryPropertiesTab() {
-	ImGui::Begin("Model properties");
-
-	const Entity &entity = Engine->moduleRenderer->GetEntity();
-	ImGui::Text("Transform:");
-	ImGui::DragFloat3("Position", &entity.entityTransform->position[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Rotation", &entity.entityTransform->rotation[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Scale", &entity.entityTransform->scale[0], NULL, NULL, NULL);
-
-	ImGui::Separator();
-	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());
-	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalVertexCount).c_str());
-	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->meshes.size()).c_str());
-
-	ImGui::Separator();
-
-	for (auto & texture : entity.entityModel->GetTextureInfo()) {
-		ImGui::Text("Texture name:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
-		ImGui::Text("Texture type:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->type.c_str());
-		ImGui::Text("Texture storage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
-		ImGui::Separator();
-		ImGui::SetCursorPosX((ImGui::GetWindowWidth() / 2) - 125);
-		ImGui::Image((void*)texture->id, ImVec2(250, 250));
-		ImGui::Separator();
-	}
-	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
-	ImGui::SameLine();
-	if (ImGui::Checkbox("Checker Texture", &Geometry::showCheckerboardTexture)) {
-		entity.entityModel->ShowCheckerBoardTexture(Geometry::showCheckerboardTexture);
-	}
-	ImGui::End();
-}
-
-void UI::InputPropertiesTab() {
+void PropertiesUI::InputPropertiesTab() {
 
 	if (ImGui::CollapsingHeader("Input"))
 	{
@@ -174,7 +140,7 @@ void UI::InputPropertiesTab() {
 	}
 }
 
-void UI::RenderPropertiesTab() {
+void PropertiesUI::RenderPropertiesTab() {
 	if (ImGui::CollapsingHeader("Render properties"))
 	{
 		static int selectedMode = 0;

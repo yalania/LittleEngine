@@ -1,16 +1,21 @@
 #include "UI.h"
 #include "../Log.h"
 #include "../imgui/imgui_internal.h"
-
+#include "../imgui/imgui.h"
+#include "../LittleEngine.h"
 namespace UIState {
 	bool showingDebugWindow = false;
 	bool showingAboutWindow = false;
 	bool showingPropertiesWindow = false;
 	bool showingTimeControlWindow = false;
-	bool showingTextureInfo = false;
+	bool showingTextureInfo = true;
 }
 namespace FrameOptions {
 	int numberOfFramesToAdvance = SCREEN_FPS;
+}
+
+namespace Geometry {
+	bool showCheckerboardTexture = false;
 }
 
 update_status UI::ShowUI() {
@@ -46,15 +51,6 @@ update_status UI::ShowUI() {
 	UpdateState();
 	return updateStatus;
 }
-
-
-void UI::TabExample() {
-	ImGui::BeginTabBar("Tab Bar");
-	DrawConsoleWindow();
-	DrawAboutWindow();
-	ImGui::EndTabBar();
-}
-
 
 void UI::DrawConsoleWindow() {
 
@@ -99,7 +95,7 @@ void UI::UpdateState() {
 		DrawConsoleWindow();
 	}
 	if (UIState::showingPropertiesWindow) {
-		DrawPropertiesWindow();
+		PropertiesUI.DrawPropertiesWindow();
 	}
 	if (UIState::showingTimeControlWindow) {
 		TimeControlButtons();
@@ -124,6 +120,40 @@ void UI::TimeControlButtons() {
 	if (ImGui::Button(title))
 	{
 		Engine->moduleTimeController->AdvanceFrames(FrameOptions::numberOfFramesToAdvance);
+	}
+	ImGui::End();
+}
+
+
+void UI::GeometryPropertiesTab() {
+	ImGui::Begin("Model properties");
+
+	const Entity &entity = Engine->moduleRenderer->GetEntity();
+	ImGui::Text("Transform:");
+	ImGui::DragFloat3("Position", &entity.entityTransform->position[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Rotation", &entity.entityTransform->rotation[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Scale", &entity.entityTransform->scale[0], NULL, NULL, NULL);
+
+	ImGui::Separator();
+	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());
+	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalVertexCount).c_str());
+	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->meshes.size()).c_str());
+
+	ImGui::Separator();
+
+	for (auto & texture : entity.entityModel->GetTextureInfo()) {
+		ImGui::Text("Texture name:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
+		ImGui::Text("Texture type:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->type.c_str());
+		ImGui::Text("Texture storage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
+		ImGui::Separator();
+		ImGui::SetCursorPosX((ImGui::GetWindowWidth() / 2) - 125);
+		ImGui::Image((void*)texture->id, ImVec2(250, 250));
+		ImGui::Separator();
+	}
+	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Checker Texture", &Geometry::showCheckerboardTexture)) {
+		entity.entityModel->ShowCheckerBoardTexture(Geometry::showCheckerboardTexture);
 	}
 	ImGui::End();
 }

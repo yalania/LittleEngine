@@ -5,16 +5,16 @@ LittleEngine::LittleEngine()
 	// Order matters: they will Init/start/update in this order
 
 	modules.reserve(15);
-	modules.push_back(moduleWindow = std::make_shared<ModuleWindow>());
-	modules.push_back(moduleTimeController = std::make_shared<ModuleTimeController>());
-	modules.push_back(moduleInput = std::make_shared<ModuleInput>());
-	modules.push_back(moduleImgui = std::make_shared<ModuleIMGUI>());
-	modules.push_back(moduleModelLoader = std::make_shared<ModuleModelLoader>());
-	modules.push_back(moduleRenderer = std::make_shared<ModuleRender>());
-	modules.push_back(moduleShaderProgram = std::make_shared<ModuleProgram>());
-	modules.push_back(moduleCamera = std::make_shared<ModuleCamera>());
-	modules.push_back(moduleTexture = std::make_shared<ModuleTexture>());
-	modules.push_back(moduleGrid = std::make_shared<ModuleGrid>());
+	modules.push_back((moduleWindow = std::make_unique<ModuleWindow>()).get());
+	modules.push_back((moduleTimeController = std::make_unique<ModuleTimeController>()).get());
+	modules.push_back((moduleInput = std::make_unique<ModuleInput>()).get());
+	modules.push_back((moduleImgui = std::make_unique<ModuleIMGUI>()).get());
+	modules.push_back((moduleModelLoader = std::make_unique<ModuleModelLoader>()).get());
+	modules.push_back((moduleRenderer = std::make_unique<ModuleRender>()).get());
+	modules.push_back((moduleShaderProgram = std::make_unique<ModuleProgram>()).get());
+	modules.push_back((moduleCamera = std::make_unique<ModuleCamera>()).get());
+	modules.push_back((moduleTexture = std::make_unique<ModuleTexture>()).get());
+	modules.push_back((moduleGrid = std::make_unique<ModuleGrid>()).get());
 }
 
 LittleEngine::~LittleEngine()
@@ -33,7 +33,6 @@ bool LittleEngine::Init()
 		}
 	}
 	LOG("Time for init Engine %f milliseconds", moduleTimeController->realTimeClock.Read());
-	//moduleRenderer->AddEntity("BakerHouse.fbx"); //TODO: THIS IS FOR DEBUGGING
 	return result;
 }
 

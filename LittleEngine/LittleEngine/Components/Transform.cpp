@@ -16,7 +16,7 @@ void Transform::UpdateModel(){
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
-glm::mat4 Transform::CalculateTransformMatrix() {
+glm::mat4 & Transform::CalculateTransformMatrix()  {
 	model = glm::mat4(1.0f);
 	rotation = glm::normalize(rotation);
 	model = glm::mat4_cast(rotation);
@@ -34,12 +34,12 @@ void Transform::TranslateLocal(glm::vec3 translation) {
 		position += translation.z * glm::vec3(model[2]);
 }
 
-glm::vec3 Transform::GetRightAxis() {
+glm::vec3 Transform::GetRightAxis() const {
 	return model[0];
 }
-glm::vec3 Transform::GetUptAxis() {
+glm::vec3 Transform::GetUptAxis() const{
 	return model[1];
 }
-glm::vec3 Transform::GetFrontAxis() {
+glm::vec3 Transform::GetFrontAxis() const{
 	return model[2];
 }
