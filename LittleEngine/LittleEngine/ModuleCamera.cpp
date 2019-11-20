@@ -82,7 +82,20 @@ void ModuleCamera::FocusOnEntity(const Entity & entity) {
 }
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
-	Translate(glm::vec3(mouseOffset, 0.0f));
-	view = glm::lookAt(transform->position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform->rotation = glm::quat(glm::inverse(view));
+
+	glm::vec3 vector = transform->position - entity.entityModel->sphereCenter;
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(transform->GetRightAxis()));
+	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	vector = rotX * vector;
+
+	float newAngle = std::abs(glm::dot(glm::vec3(0.0f, 1.0f, 0.0f), glm::normalize(vector)));
+	float oldAngle = std::abs(glm::dot(glm::vec3(0.0f, 1.0f, 0.0f), transform->GetFrontAxis()));
+
+	if (newAngle < 0.99f || oldAngle > newAngle) {
+		vector = rotY * vector;
+		transform->position = entity.entityModel->sphereCenter + vector;
+		view = glm::lookAt(transform->position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
+		transform->rotation = glm::quat(glm::inverse(view));
+	}
+	
 }
