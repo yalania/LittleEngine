@@ -107,16 +107,15 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		}
 	}
 	if (event.type == SDL_MOUSEMOTION) {
-			currentMousePositionOffset.x = static_cast<float>((lastMousePosition.x - event.motion.x) *mouseSensitivity);
-			currentMousePositionOffset.y = static_cast<float>((lastMousePosition.y - event.motion.y) *mouseSensitivity);
 
-			lastMousePosition.x = static_cast<float>(event.motion.x);
-			lastMousePosition.y = static_cast<float>(event.motion.y);
 			if (rightMouseButtonIsDown) {
-				Engine->moduleCamera->MoveCameraWithMousePosition(currentMousePositionOffset);
+				Engine->moduleCamera->MoveCameraWithMousePosition(CalculateCurrentMousePosition(event.motion));
 			}
 			if (middleMouseButtonIsDown) {
-				Engine->moduleCamera->Translate(glm::vec3(currentMousePositionOffset,0.0f));
+				Engine->moduleCamera->Translate(glm::vec3(CalculateCurrentMousePosition(event.motion),0.0f));
+			}
+			if ((keyboard[SDL_SCANCODE_LALT] || keyboard[SDL_SCANCODE_RALT]) && leftMouseButtonIsDown) {
+				Engine->moduleCamera->OrbitAroundEntity(Engine->moduleRenderer->GetEntity(), CalculateCurrentMousePosition(event.motion));
 			}
 	}
 }
@@ -146,20 +145,27 @@ void ModuleInput::CameraMovementWithKeys() {
 		Engine->moduleCamera->Translate(translationDirection);
 	}
 	if (keyboard[SDL_SCANCODE_LSHIFT] && !shiftButtonIsDown) {
-		cameraPreviousSpeed = Engine->moduleCamera->cameraSpeed;
-		Engine->moduleCamera->cameraSpeed *= 2.0f;
+		cameraPreviousSpeed = Engine->moduleCamera->cameraSpeedKeys;
+		Engine->moduleCamera->cameraSpeedKeys *= 2.0f;
 		shiftButtonIsDown = true;
 	}
 	else if(shiftButtonIsDown) {
 		shiftButtonIsDown = false;
-		Engine->moduleCamera->cameraSpeed = cameraPreviousSpeed;
+		Engine->moduleCamera->cameraSpeedKeys = cameraPreviousSpeed;
 	}
 
 	if (keyboard[SDL_SCANCODE_F]) {
 		Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
 	}
 
-	if ((keyboard[SDL_SCANCODE_LALT] || keyboard[SDL_SCANCODE_RALT]) && leftMouseButtonIsDown) {
-		Engine->moduleCamera->OrbitAroundEntity(Engine->moduleRenderer->GetEntity(), currentMousePositionOffset);
-	}
+}
+
+glm::vec2  ModuleInput::CalculateCurrentMousePosition(const SDL_MouseMotionEvent & motion) {
+	glm::vec2 currentMousePositionOffset;
+	currentMousePositionOffset.x = static_cast<float>((lastMousePosition.x - motion.x) *mouseSensitivity);
+	currentMousePositionOffset.y = static_cast<float>((lastMousePosition.y - motion.y) *mouseSensitivity);
+
+	lastMousePosition.x = static_cast<float>(motion.x);
+	lastMousePosition.y = static_cast<float>(motion.y);
+	return currentMousePositionOffset;
 }

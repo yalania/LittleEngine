@@ -163,7 +163,8 @@ void UI::TimeControlButtons() {
 void UI::CameraPropertiesTab() {
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		ImGui::SliderFloat("Mov.Speed", &Engine->moduleCamera->cameraSpeed, CAMERA_SPEED, CAMERA_MAX_SPEED);
+		ImGui::SliderFloat("Keys Mov. Speed", &Engine->moduleCamera->cameraSpeedKeys, CAMERA_SPEED, CAMERA_MAX_SPEED);
+		ImGui::SliderFloat("Mouse Mov. Speed", &Engine->moduleCamera->cameraSpeedMouse, CAMERA_SPEED, CAMERA_MAX_SPEED);
 		if (ImGui::SliderFloat("Near Plane", &Engine->moduleCamera->nearPlane, 0.0f, MAX_PLANE)) {
 			Engine->moduleCamera->UpdateProjection();
 		}

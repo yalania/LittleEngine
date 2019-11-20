@@ -15,32 +15,32 @@ update_status ModuleCamera::PreUpdate() {
 }
 
 void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
-	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(transform->GetRightAxis()));
-	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(transform->GetRightAxis()));
+	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeedMouse, glm::vec3(0.0f, 1.0f, 0.0f));
 	transform->rotation = rotY * rotX* transform->rotation;
 }
 
 void ModuleCamera::Translate(const glm::vec3 & direction) {
 	glm::vec3 translationDirection = glm::vec3(direction.x, -direction.y, direction.z);
-	transform->TranslateLocal(translationDirection * cameraSpeed);
+	transform->TranslateLocal(translationDirection * cameraSpeedKeys);
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
 
 	glm::vec3 direction = glm::vec3(0.0f, 0.0f, 1.0f);
 	if (zoomIn) {
-		orthoUnits -= 0.05f;
+		/*orthoUnits -= 0.05f;
 		orthoUnits = orthoUnits <= 0 ? 0.0f : orthoUnits;
 		--frustumFov;
-		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;
-		direction *= cameraSpeed;
+		frustumFov = frustumFov <= 0 ? 0.0f : frustumFov;*/
+		direction *= -cameraSpeedKeys;
 	}
 	else {
 		/*
 		orthoUnits += 0.05;
 		++frustumFov;
 		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
-		direction *= -cameraSpeed;
+		direction *= cameraSpeedKeys;
 	}
 	transform->TranslateLocal(direction);
 }
@@ -82,20 +82,11 @@ void ModuleCamera::FocusOnEntity(const Entity & entity) {
 }
 
 void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
-
 	glm::vec3 vector = transform->position - entity.entityModel->sphereCenter;
-	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeed, glm::vec3(transform->GetRightAxis()));
-	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(transform->GetRightAxis()));
+	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeedMouse, glm::vec3(0.0f, 1.0f, 0.0f));
 	vector = rotX * vector;
-
-	float newAngle = std::abs(glm::dot(glm::vec3(0.0f, 1.0f, 0.0f), glm::normalize(vector)));
-	float oldAngle = std::abs(glm::dot(glm::vec3(0.0f, 1.0f, 0.0f), transform->GetFrontAxis()));
-
-	if (newAngle < 0.99f || oldAngle > newAngle) {
-		vector = rotY * vector;
-		transform->position = entity.entityModel->sphereCenter + vector;
-		view = glm::lookAt(transform->position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
-		transform->rotation = glm::quat(glm::inverse(view));
-	}
-	
+	vector = rotY * vector;
+	transform->position = entity.entityModel->sphereCenter + vector;
+	MoveCameraWithMousePosition(mouseOffset);
 }

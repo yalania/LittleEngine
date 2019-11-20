@@ -32,7 +32,8 @@ public:
 	float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	float frustumFov = 45.0f;
 	float orthoUnits = 1.0f;
-	float cameraSpeed = CAMERA_SPEED;
+	float cameraSpeedKeys = CAMERA_SPEED;
+	float cameraSpeedMouse = CAMERA_SPEED;
 	float farPlane = 1000.0f;
 	float nearPlane = 0.1f;
 	bool perspectiveEnable = true;

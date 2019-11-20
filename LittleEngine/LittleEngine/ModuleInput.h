@@ -19,9 +19,9 @@ public:
 private:
 	void CameraMovementWithMouse(const SDL_Event & event);
 	void CameraMovementWithKeys();
+	glm::vec2 CalculateCurrentMousePosition(const SDL_MouseMotionEvent & motion);
 private:
 	glm::vec2 lastMousePosition = glm::vec2(0.0f);
-	glm::vec2 currentMousePositionOffset = glm::vec2(0.0f);
 	const UINT8 *keyboard = NULL;
 	const float mouseSensitivity = 0.5f;
 	bool rightMouseButtonIsDown = false;
