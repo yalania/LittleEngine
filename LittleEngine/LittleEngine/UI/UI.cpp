@@ -128,11 +128,11 @@ void UI::TimeControlButtons() {
 void UI::GeometryPropertiesTab() {
 	ImGui::Begin("Model properties");
 
-	const Entity &entity = Engine->moduleRenderer->GetEntity();
+	Entity &entity = Engine->moduleRenderer->GetEntity();
 	ImGui::Text("Transform:");
-	ImGui::DragFloat3("Position", &entity.entityTransform->position[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Rotation", &entity.entityTransform->rotation[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Scale", &entity.entityTransform->scale[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Position", &entity.entityTransform.position[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Rotation", &entity.entityTransform.rotation[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Scale", &entity.entityTransform.scale[0], NULL, NULL, NULL);
 
 	ImGui::Separator();
 	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());

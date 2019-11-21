@@ -18,13 +18,14 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
-	const Entity& GetEntity() const;
+	Entity& GetEntity() const;
 
 	void AddEntity(const char * model);
 
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
 	void SelectFillingMode(int mode);
+	void ProcessFile(const char * file);
 private:
 	void InitOpenGlOptions() const;
 	std::unique_ptr<Entity> missingEntity = std::make_unique<Entity>();

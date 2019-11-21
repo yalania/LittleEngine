@@ -13,7 +13,7 @@ public:
 
 	update_status Update();
 
-	std::unique_ptr<Transform> entityTransform;
+	Transform entityTransform;
 	std::unique_ptr<Model> entityModel;
 private:
 	unsigned int shaderProgram;

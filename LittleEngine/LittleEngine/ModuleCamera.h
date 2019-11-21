@@ -36,7 +36,7 @@ public:
 private:
 	void UpdateMatricesInShaderPograms();
 
-	std::unique_ptr<Transform> transform = std::make_unique<Transform>();
+	Transform transform;
 	glm::mat4 projection = glm::mat4(1.0f);
 	glm::mat4 view;
 private:

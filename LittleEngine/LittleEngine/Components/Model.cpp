@@ -118,3 +118,13 @@ void Model::ShowCheckerBoardTexture(bool enable) {
 		mesh.showCheckerboardTexture = enable;
 	}
 }
+
+
+void Model::ChangeTexture(const Texture & newTexture) {
+	for (auto & mesh : meshes) {
+		for (auto & texture : mesh.textures) {
+			texture->id = newTexture.id;
+			texture->path = newTexture.path;
+		}
+	}
+}

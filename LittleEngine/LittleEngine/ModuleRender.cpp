@@ -70,7 +70,7 @@ bool ModuleRender::CleanUp() {
 	return true;
 }
 
-const Entity& ModuleRender::GetEntity() const {
+Entity& ModuleRender::GetEntity() const {
 	if (entities.size() > 0) {
 		return *entities.front();
 	}
@@ -111,5 +111,20 @@ void ModuleRender::SelectFillingMode(int mode) {
 	}
 	if (mode == 2) {
 		glPolygonMode(GL_FRONT, GL_POINT);
+	}
+}
+
+void ModuleRender::ProcessFile(const char * file) {
+	std::string fileExtension = std::string(file).substr(std::string(file).find_last_of('.'), -1);
+	std::transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(),::tolower);
+	if (fileExtension == ".fbx") {
+		AddEntity(file);
+		Engine->moduleCamera->FocusOnEntity(GetEntity());
+	}
+	else {
+		unsigned int textureId = Engine->moduleTexture->LoadTexture(file);
+		Texture texture{ textureId,"",file, 0.0f };
+		GetEntity().entityModel->ChangeTexture(texture);
+
 	}
 }

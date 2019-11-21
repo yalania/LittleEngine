@@ -48,14 +48,14 @@ update_status ModuleInput::Update()
 		CameraMovementWithMouse(event);
 		if (event.type == SDL_DROPFILE) {      // In case if dropped file
 			char* dropped_filedir = event.drop.file;
-			Engine->moduleRenderer->AddEntity(dropped_filedir);
+			Engine->moduleRenderer->ProcessFile(dropped_filedir);
 			// Shows directory of dropped file
 			SDL_free(dropped_filedir);    // Free dropped_filedir memory
-			Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
+			
 			break;
 		}
 	}
-	CameraMovementWithKeys();
+
 
 	return UPDATE_CONTINUE;
 }
@@ -76,6 +76,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		lastMousePosition = glm::vec2(event.button.x, event.button.y);
 		if (event.button.button == SDL_BUTTON_RIGHT) {
 			rightMouseButtonIsDown = true;
+			CameraMovementWithKeys();
 		}
 		if (event.button.button == SDL_BUTTON_MIDDLE) {
 			middleMouseButtonIsDown = true;
