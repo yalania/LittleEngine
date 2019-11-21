@@ -145,6 +145,8 @@ void UI::GeometryPropertiesTab() {
 		ImGui::Text("Texture name:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
 		ImGui::Text("Texture type:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->type.c_str());
 		ImGui::Text("Texture storage:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(texture->textureSize).c_str());
+		ImGui::Text("Texture size:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), (std::to_string(texture->width)+ "x"+ std::to_string(texture->height)).c_str());
+
 		ImGui::Separator();
 		ImGui::SetCursorPosX((ImGui::GetWindowWidth() / 2) - 125);
 		ImGui::Image((void*)texture->id, ImVec2(250, 250));

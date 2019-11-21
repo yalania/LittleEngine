@@ -122,9 +122,7 @@ void ModuleRender::ProcessFile(const char * file) {
 		Engine->moduleCamera->FocusOnEntity(GetEntity());
 	}
 	else {
-		unsigned int textureId = Engine->moduleTexture->LoadTexture(file);
-		Texture texture{ textureId,"",file, 0.0f };
-		GetEntity().entityModel->ChangeTexture(texture);
+		GetEntity().entityModel->ChangeTexture(Engine->moduleTexture->LoadTexture(file));
 
 	}
 }

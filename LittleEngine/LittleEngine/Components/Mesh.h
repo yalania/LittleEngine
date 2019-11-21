@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <glm/glm.hpp>
+#include "Texture.h"
 
 struct Vertex {
 	// position
@@ -18,12 +19,6 @@ struct Vertex {
 	glm::vec3 Bitangent{};
 };
 
-struct Texture {
-	unsigned int id;
-	std::string type;
-	std::string path;
-	unsigned int textureSize;
-};
 
 struct MeshInfo {
 	unsigned int numberOfVertex = 0;

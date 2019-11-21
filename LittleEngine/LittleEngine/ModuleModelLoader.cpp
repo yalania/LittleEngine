@@ -50,7 +50,7 @@ void ModuleModelLoader::ProcessNode(const aiNode &node, const aiScene &scene, st
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node.mNumChildren; i++)
 	{
-		ProcessNode(*node.mChildren[i], scene, meshes);
+		ProcessNode(*node.mChildren[i], scene, meshes); //Recursive!!
 	}
 
 }

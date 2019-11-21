@@ -125,6 +125,10 @@ void Model::ChangeTexture(const Texture & newTexture) {
 		for (auto & texture : mesh.textures) {
 			texture->id = newTexture.id;
 			texture->path = newTexture.path;
+			texture->type = newTexture.type;
+			texture->textureSize = newTexture.textureSize;
+			texture->height = newTexture.height;
+			texture->width = newTexture.width;
 		}
 	}
 }

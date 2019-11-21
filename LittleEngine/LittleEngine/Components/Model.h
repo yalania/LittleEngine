@@ -8,6 +8,13 @@ class Model : public Component {
 
 public:
 	Model() = default;
+
+	Model(Model && model) = default;
+	Model(const Model & model) = default;
+
+	Model& operator = (Model && model) = default;
+	Model& operator = (const Model & model) = default;
+
 	Model(std::vector<Mesh> entityMeshes);
 	update_status Update() override;
 

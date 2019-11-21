@@ -9,7 +9,7 @@ bool ModuleTexture::Init() {
 	return true;
 }
 
-unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
+Texture ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 	std::string filename = std::string(texturePath);
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -67,7 +67,7 @@ unsigned int ModuleTexture::LoadTexture(const char *texturePath, const std::stri
 		"textureImg");
 	glUniform1i(textureOutput, texture);
 
-	return texture;
+	return 	Texture{ texture,"",filename, 0, width, height };
 }
 
 
@@ -90,8 +90,7 @@ std::vector<std::shared_ptr<Texture>> ModuleTexture::LoadMaterialTextures(aiMate
 		}
 		if (!skip)
 		{   // if texture hasn't been loaded already, load it
-			std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-			texture->id = LoadTexture(str.C_Str(), directory);
+			std::shared_ptr<Texture> texture = std::make_shared<Texture>(LoadTexture(str.C_Str(), directory));
 			texture->type = typeName;
 			texture->path = str.C_Str();
 			texture->textureSize = mat->mNumAllocated;
