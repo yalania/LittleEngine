@@ -14,7 +14,6 @@ public:
 private:
 	void GetCheckerboardTexture();
 	std::vector<std::shared_ptr<Texture>> texturesLoaded;
-	Texture GetTextureIfExist(const char * texturePath) const;
 public:
 	unsigned int checkerboardTextureId;
 };

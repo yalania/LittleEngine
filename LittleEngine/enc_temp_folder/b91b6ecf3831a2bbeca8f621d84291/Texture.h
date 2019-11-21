@@ -14,8 +14,8 @@ public:
 	Texture& operator = (const Texture & texture) = default;
 
 	unsigned int id = 0;
-	std::string type = "";
-	std::string path = "";
+	std::string type;
+	std::string path;
 	unsigned int textureSize = 0;
 	int width, height = 0;
 };

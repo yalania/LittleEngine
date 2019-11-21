@@ -10,11 +10,6 @@ bool ModuleTexture::Init() {
 }
 
 Texture ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
-
-	Texture newTexture = GetTextureIfExist(texturePath);
-	if (newTexture.path != "") {
-		return newTexture;
-	}
 	std::string filename = std::string(texturePath);
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -81,14 +76,23 @@ std::vector<std::shared_ptr<Texture>> ModuleTexture::LoadMaterialTextures(aiMate
 	std::vector<std::shared_ptr<Texture>> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
-		aiString path;
-		mat->GetTexture(type, i, &path);
-		Texture newTexture = GetTextureIfExist(path.C_Str());
-		if (newTexture.path != "")
+		aiString str;
+		mat->GetTexture(type, i, &str);
+		bool skip = false;
+		for (unsigned int j = 0; j < texturesLoaded.size(); j++)
+		{
+			if (std::strcmp(texturesLoaded[j]->path.data(), str.C_Str()) == 0)
+			{
+				textures.push_back(texturesLoaded[j]);
+				skip = true;
+				break;
+			}
+		}
+		if (!skip)
 		{   // if texture hasn't been loaded already, load it
-			std::shared_ptr<Texture> texture = std::make_shared<Texture>(LoadTexture(path.C_Str(), directory));
+			std::shared_ptr<Texture> texture = std::make_shared<Texture>(LoadTexture(str.C_Str(), directory));
 			texture->type = typeName;
-			texture->path = path.C_Str();
+			texture->path = str.C_Str();
 			texture->textureSize = mat->mNumAllocated;
 			textures.push_back(texture);
 			texturesLoaded.push_back(texture); // add to loaded textures
@@ -121,20 +125,4 @@ void ModuleTexture::GetCheckerboardTexture() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, checkerHeight,checkWidth, 0, GL_RGB, GL_UNSIGNED_BYTE,checkImage);
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-Texture ModuleTexture::GetTextureIfExist(const char * texturePath) const {
-	bool found = false;
-	Texture newTexture;
-	for (unsigned int j = 0; j < texturesLoaded.size(); j++)
-	{
-		if (std::strcmp(texturesLoaded[j]->path.data(), texturePath) == 0)
-		{
-			newTexture = texturesLoaded[j];
-			found = true;
-			break;
-		}
-	}
-
-	return newTexture;
 }
