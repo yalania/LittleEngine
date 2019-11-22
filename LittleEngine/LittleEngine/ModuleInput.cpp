@@ -57,6 +57,8 @@ update_status ModuleInput::Update()
 	}
 
 
+	CameraMovementWithKeys();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -76,7 +78,6 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 		lastMousePosition = glm::vec2(event.button.x, event.button.y);
 		if (event.button.button == SDL_BUTTON_RIGHT) {
 			rightMouseButtonIsDown = true;
-			CameraMovementWithKeys();
 		}
 		if (event.button.button == SDL_BUTTON_MIDDLE) {
 			middleMouseButtonIsDown = true;
@@ -123,27 +124,29 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 
 void ModuleInput::CameraMovementWithKeys() {
 
-	glm::vec3 translationDirection = glm::vec3(0.0f);
-	if (keyboard[SDL_SCANCODE_Q]) {
-		translationDirection.y = 1.0f;
-	}
-	if (keyboard[SDL_SCANCODE_A]) {
-		translationDirection.x = -1.0f;
-	}
-	if (keyboard[SDL_SCANCODE_E]) {
-		translationDirection.y = -1.0f;
-	}
-	if (keyboard[SDL_SCANCODE_D]) {
-		translationDirection.x = 1.0f;
-	}
-	if (keyboard[SDL_SCANCODE_W]) {
-		translationDirection.z = -1.0f;
-	}
-	if (keyboard[SDL_SCANCODE_S]) {
-		translationDirection.z = 1.0f;
-	}
-	if (translationDirection != glm::vec3(0.0f)) {
-		Engine->moduleCamera->Translate(translationDirection);
+	if (rightMouseButtonIsDown) {
+		glm::vec3 translationDirection = glm::vec3(0.0f);
+		if (keyboard[SDL_SCANCODE_Q]) {
+			translationDirection.y = 1.0f;
+		}
+		if (keyboard[SDL_SCANCODE_A]) {
+			translationDirection.x = -1.0f;
+		}
+		if (keyboard[SDL_SCANCODE_E]) {
+			translationDirection.y = -1.0f;
+		}
+		if (keyboard[SDL_SCANCODE_D]) {
+			translationDirection.x = 1.0f;
+		}
+		if (keyboard[SDL_SCANCODE_W]) {
+			translationDirection.z = -1.0f;
+		}
+		if (keyboard[SDL_SCANCODE_S]) {
+			translationDirection.z = 1.0f;
+		}
+		if (translationDirection != glm::vec3(0.0f)) {
+			Engine->moduleCamera->Translate(translationDirection);
+		}
 	}
 	if (keyboard[SDL_SCANCODE_LSHIFT] && !shiftButtonIsDown) {
 		cameraPreviousSpeed = Engine->moduleCamera->cameraSpeedKeys;
