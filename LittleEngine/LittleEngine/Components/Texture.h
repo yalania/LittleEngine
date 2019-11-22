@@ -11,7 +11,7 @@ public:
 	{
 
 	}
-	~Texture() = default;
+	~Texture()= default;
 	Texture(Texture && texture) = default;
 	Texture(const Texture & texture) = default;
 

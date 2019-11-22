@@ -9,6 +9,18 @@ bool ModuleTexture::Init() {
 	return true;
 }
 
+ModuleTexture::~ModuleTexture() {
+	CleanUp();
+}
+bool ModuleTexture::CleanUp() {
+
+	for (auto& texture : texturesLoaded)
+	{
+		glDeleteTextures(1, &texture->id);
+	}
+	texturesLoaded.erase(texturesLoaded.begin(), texturesLoaded.end());
+	return true;
+}
 std::shared_ptr<Texture> ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 
 	std::shared_ptr<Texture> newTexture = GetTextureIfExist(texturePath);
