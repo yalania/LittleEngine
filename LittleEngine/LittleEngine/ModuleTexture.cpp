@@ -41,12 +41,12 @@ std::shared_ptr<Texture> ModuleTexture::LoadTexture(const char *texturePath, con
 
 	if (!data) {
 		filepath = directory + '\\' + textureName;
-		LOG("Loading texture %s . Looking in same path as fbx", textureName);
+		LOG("Loading texture %s . Looking in same path as fbx", filepath.c_str());
 		data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (!data) {
 		filepath = "Textures\\" + textureName;
-		LOG("Loading texture %s . Looking in Textures folder", textureName);
+		LOG("Loading texture %s . Looking in Textures folder", filepath.c_str());
 		data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (data)
