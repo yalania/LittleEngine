@@ -9,13 +9,13 @@ bool ModuleTexture::Init() {
 	return true;
 }
 
-Texture ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
+std::shared_ptr<Texture> ModuleTexture::LoadTexture(const char *texturePath, const std::string &directory) {
 
-	Texture newTexture = GetTextureIfExist(texturePath);
-	if (newTexture.path != "") {
+	std::shared_ptr<Texture> newTexture = GetTextureIfExist(texturePath);
+	if (newTexture != nullptr) {
 		return newTexture;
 	}
-	std::string filename = std::string(texturePath);
+	std::string filepath = std::string(texturePath);
 	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -23,25 +23,19 @@ Texture ModuleTexture::LoadTexture(const char *texturePath, const std::string &d
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 
-	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+	unsigned char *data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 
-	size_t endPosition = filename.find_last_of('\\');
-	std::string textureName;
-	if (endPosition > filename.size() || endPosition <= 0) {
-		textureName = filename;
-	}
-	else {
-		textureName = filename.substr(endPosition, -1);
-	}
+	std::string textureName = GetFileNameFromPath(texturePath);
+
 	if (!data) {
-		filename = directory + '\\' + textureName;
+		filepath = directory + '\\' + textureName;
 		LOG("Loading texture %s . Looking in same path as fbx", textureName);
-		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+		data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (!data) {
-		filename = "Textures\\" + textureName;
+		filepath = "Textures\\" + textureName;
 		LOG("Loading texture %s . Looking in Textures folder", textureName);
-		data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
+		data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
 	}
 	if (data)
 	{
@@ -72,7 +66,9 @@ Texture ModuleTexture::LoadTexture(const char *texturePath, const std::string &d
 		"textureImg");
 	glUniform1i(textureOutput, texture);
 
-	return 	Texture{ texture,"",filename, 0, width, height };
+	newTexture = std::make_shared<Texture>( texture, "", filepath, textureName ,0, width, height );
+	texturesLoaded.push_back(newTexture); // add to loaded textures
+	return 	newTexture;
 }
 
 
@@ -83,16 +79,12 @@ std::vector<std::shared_ptr<Texture>> ModuleTexture::LoadMaterialTextures(aiMate
 	{
 		aiString path;
 		mat->GetTexture(type, i, &path);
-		Texture newTexture = GetTextureIfExist(path.C_Str());
-		if (newTexture.path != "")
-		{   // if texture hasn't been loaded already, load it
-			std::shared_ptr<Texture> texture = std::make_shared<Texture>(LoadTexture(path.C_Str(), directory));
-			texture->type = typeName;
-			texture->path = path.C_Str();
-			texture->textureSize = mat->mNumAllocated;
-			textures.push_back(texture);
-			texturesLoaded.push_back(texture); // add to loaded textures
-		}
+		std::shared_ptr<Texture> texture = LoadTexture(path.C_Str(), directory);
+		texture->type = typeName;
+		texture->path = path.C_Str();
+		texture->textureSize = mat->mNumAllocated;
+		textures.push_back(texture);
+		
 	}
 	return textures;
 }
@@ -123,18 +115,27 @@ void ModuleTexture::GetCheckerboardTexture() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-Texture ModuleTexture::GetTextureIfExist(const char * texturePath) const {
-	bool found = false;
-	Texture newTexture;
+std::shared_ptr<Texture> ModuleTexture::GetTextureIfExist(const char * texturePath) const {
+	std::string textureName = GetFileNameFromPath(texturePath);
 	for (unsigned int j = 0; j < texturesLoaded.size(); j++)
 	{
-		if (std::strcmp(texturesLoaded[j]->path.data(), texturePath) == 0)
+		if (std::strcmp(texturesLoaded[j]->name.data(), textureName.data()) == 0)
 		{
-			newTexture = texturesLoaded[j];
-			found = true;
-			break;
+			return texturesLoaded[j];
 		}
 	}
+	return nullptr;
+}
 
-	return newTexture;
+std::string ModuleTexture::GetFileNameFromPath(const char * texturePath) const {
+	std::string filePath = std::string(texturePath);
+	size_t endPosition = filePath.find_last_of('\\');
+	std::string filename;
+	if (endPosition > filePath.size() || endPosition <= 0) {
+		filename = filePath;
+	}
+	else {
+		filename = filePath.substr(endPosition+1, -1);
+	}
+	return filename;
 }

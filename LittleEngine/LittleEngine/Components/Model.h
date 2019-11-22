@@ -20,7 +20,7 @@ public:
 
 	std::vector<std::shared_ptr<Texture>> GetTextureInfo();
 	void ShowCheckerBoardTexture(bool enable);
-	void ChangeTexture(const Texture & newTexture);
+	void ChangeTexture(std::shared_ptr<Texture> newTexture);
 private:
 	glm::vec3 CalculateCenter();
 	void CalculateSphere();

@@ -120,15 +120,10 @@ void Model::ShowCheckerBoardTexture(bool enable) {
 }
 
 
-void Model::ChangeTexture(const Texture & newTexture) {
+void Model::ChangeTexture(std::shared_ptr<Texture> newTexture) {
 	for (auto & mesh : meshes) {
 		for (auto & texture : mesh.textures) {
-			texture->id = newTexture.id;
-			texture->path = newTexture.path;
-			texture->type = newTexture.type;
-			texture->textureSize = newTexture.textureSize;
-			texture->height = newTexture.height;
-			texture->width = newTexture.width;
+			texture = newTexture;
 		}
 	}
 }
