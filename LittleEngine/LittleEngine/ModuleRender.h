@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
-#include "Entity.h"
+#include "GameObject.h"
 
 class ModuleRender : public Module {
 public:
@@ -18,9 +18,9 @@ public:
 	update_status Update() override;
 	update_status PostUpdate() override;
 	bool CleanUp() override;
-	Entity& GetEntity() const;
+	GameObject& GetGameObject() const;
 
-	void AddEntity(const char * model);
+	void AddGameObject(const char * model);
 
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
@@ -28,8 +28,8 @@ public:
 	void ProcessFile(const char * file);
 private:
 	void InitOpenGlOptions() const;
-	std::unique_ptr<Entity> missingEntity = std::make_unique<Entity>();
-	std::vector<std::unique_ptr<Entity>> entities;
+	std::unique_ptr<GameObject> missingGameObject = std::make_unique<GameObject>();
+	std::vector<std::unique_ptr<GameObject>> gameObjects;
 };
 
 #endif // !_MODULE_RENDER_

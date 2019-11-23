@@ -11,11 +11,11 @@ bool ModuleRender::Init() {
 	return true;
 }
 
-void ModuleRender::AddEntity(const char * model) {
+void ModuleRender::AddGameObject(const char * model) {
 	Model newModel = Engine->moduleModelLoader->LoadModel(model);
-	entities.erase(entities.begin(), entities.end()); //ASSIMENT: For now because the assiment requirements
-	entities.push_back(std::make_unique<Entity>(newModel, Engine->moduleShaderProgram->defaultProgram));
-	Engine->moduleCamera->FocusOnEntity(*entities.back());
+	gameObjects.erase(gameObjects.begin(), gameObjects.end()); //ASSIMENT: For now because the assiment requirements
+	gameObjects.push_back(std::make_unique<GameObject>(newModel, Engine->moduleShaderProgram->defaultProgram));
+	Engine->moduleCamera->FocusOnGameObject(*gameObjects.back());
 }
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -24,8 +24,8 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-	for (auto & entity : entities) {
-		entity->Update();
+	for (auto & gameObject : gameObjects) {
+		gameObject->Update();
 	}
 	return UPDATE_CONTINUE;
 
@@ -70,12 +70,12 @@ bool ModuleRender::CleanUp() {
 	return true;
 }
 
-Entity& ModuleRender::GetEntity() const {
-	if (entities.size() > 0) {
-		return *entities.front();
+GameObject& ModuleRender::GetGameObject() const {
+	if (gameObjects.size() > 0) {
+		return *gameObjects.front();
 	}
 	else {
-		return *missingEntity.get();
+		return *missingGameObject.get();
 	}
 }
 
@@ -118,11 +118,11 @@ void ModuleRender::ProcessFile(const char * file) {
 	std::string fileExtension = std::string(file).substr(std::string(file).find_last_of('.'), -1);
 	std::transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(),::tolower);
 	if (fileExtension == ".fbx") {
-		AddEntity(file);
-		Engine->moduleCamera->FocusOnEntity(GetEntity());
+		AddGameObject(file);
+		Engine->moduleCamera->FocusOnGameObject(GetGameObject());
 	}
 	else {
-		GetEntity().entityModel->ChangeTexture(Engine->moduleTexture->LoadTexture(file));
+		GetGameObject().model->ChangeTexture(Engine->moduleTexture->LoadTexture(file));
 
 	}
 }

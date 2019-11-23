@@ -66,31 +66,31 @@ void ModuleCamera::UpdateMatricesInShaderPograms(){
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
-void ModuleCamera::FocusOnEntity(const Entity & entity) {
-	transform.position = entity.entityModel->sphereCenter;
-	float distance = entity.entityModel->sphereRadius / tan(glm::radians(frustumFov / 2));
+void ModuleCamera::FocusOnGameObject(const GameObject & gameObject) {
+	transform.position = gameObject.model->sphereCenter;
+	float distance = gameObject.model->sphereRadius / tan(glm::radians(frustumFov / 2));
 	transform.position.z += distance;
-	view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
+	view = glm::lookAt(transform.position, gameObject.model->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
 	transform.rotation = glm::quat(glm::inverse(view));
-	orthoUnits = entity.entityModel->sphereRadius;
+	orthoUnits = gameObject.model->sphereRadius;
 	UpdateProjection();
 }
 
-void ModuleCamera::OrbitAroundEntity(const Entity & entity, const glm::vec2 & mouseOffset) {
+void ModuleCamera::OrbitAroundGameObject(const GameObject & gameObject, const glm::vec2 & mouseOffset) {
 
-	glm::vec3 vector = transform.position - entity.entityModel->sphereCenter;
+	glm::vec3 vector = transform.position - gameObject.model->sphereCenter;
 
-	float amountInDifferentDirection = glm::dot(glm::normalize(vector),entity.entityTransform.GetFrontAxis());
+	float amountInDifferentDirection = glm::dot(glm::normalize(vector),gameObject.transform.GetFrontAxis());
 	//If -1 looking they are looking in opposite directions
 	if (amountInDifferentDirection < 0.0f) {
-		view = glm::lookAt(transform.position, entity.entityModel->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
+		view = glm::lookAt(transform.position, gameObject.model->sphereCenter, glm::vec3(0.0f, 1.0f, 0.0f));
 		transform.rotation = glm::quat(glm::inverse(view));
 	}
 	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(transform.GetRightAxis()));
 	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeedMouse, glm::vec3(0.0f, 1.0f, 0.0f));
 	vector = rotX * vector;
 	vector = rotY * vector;
-	transform.position = entity.entityModel->sphereCenter + vector;
+	transform.position = gameObject.model->sphereCenter + vector;
 	MoveCameraWithMousePosition(mouseOffset);
 }
 

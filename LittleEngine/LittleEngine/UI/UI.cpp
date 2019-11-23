@@ -26,7 +26,7 @@ update_status UI::ShowUI() {
 		{
 
 			if (ImGui::MenuItem("Load Default Model", NULL)) {
-				Engine->moduleRenderer->AddEntity("BakerHouse.fbx");
+				Engine->moduleRenderer->AddGameObject("BakerHouse.fbx");
 			}
 			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
@@ -128,20 +128,20 @@ void UI::TimeControlButtons() {
 void UI::GeometryPropertiesTab() {
 	ImGui::Begin("Model properties");
 
-	Entity &entity = Engine->moduleRenderer->GetEntity();
+	GameObject &gameObject = Engine->moduleRenderer->GetGameObject();
 	ImGui::Text("Transform:");
-	ImGui::DragFloat3("Position", &entity.entityTransform.position[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Rotation", &entity.entityTransform.rotation[0], NULL, NULL, NULL);
-	ImGui::DragFloat3("Scale", &entity.entityTransform.scale[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Position", &gameObject.transform.position[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Rotation", &gameObject.transform.rotation[0], NULL, NULL, NULL);
+	ImGui::DragFloat3("Scale", &gameObject.transform.scale[0], NULL, NULL, NULL);
 
 	ImGui::Separator();
-	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalTriangleCount).c_str());
-	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->totalVertexCount).c_str());
-	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(entity.entityModel->meshes.size()).c_str());
+	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(gameObject.model->totalTriangleCount).c_str());
+	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(gameObject.model->totalVertexCount).c_str());
+	ImGui::Text("Meshes count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(gameObject.model->meshes.size()).c_str());
 
 	ImGui::Separator();
 
-	for (auto & texture : entity.entityModel->GetTextureInfo()) {
+	for (auto & texture : gameObject.model->GetTextureInfo()) {
 		ImGui::Text("Texture name:"); ImGui::SameLine(); 
 		ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), texture->path.c_str());
 		if (texture->type != "") {
@@ -159,10 +159,10 @@ void UI::GeometryPropertiesTab() {
 		ImGui::Image((void*)texture->id, ImVec2(250, 250));
 		ImGui::Separator();
 	}
-	ImGui::Checkbox("Axis Align Bouding Box", &entity.entityModel->activateBoudingBox);
+	ImGui::Checkbox("Axis Align Bouding Box", &gameObject.model->activateBoudingBox);
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Checker Texture", &Geometry::showCheckerboardTexture)) {
-		entity.entityModel->ShowCheckerBoardTexture(Geometry::showCheckerboardTexture);
+		gameObject.model->ShowCheckerBoardTexture(Geometry::showCheckerboardTexture);
 	}
 	ImGui::End();
 }

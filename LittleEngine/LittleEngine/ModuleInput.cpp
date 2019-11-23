@@ -117,7 +117,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 				Engine->moduleCamera->Translate(glm::vec3(CalculateCurrentMousePosition(event.motion),0.0f));
 			}
 			if ((keyboard[SDL_SCANCODE_LALT] || keyboard[SDL_SCANCODE_RALT]) && leftMouseButtonIsDown) {
-				Engine->moduleCamera->OrbitAroundEntity(Engine->moduleRenderer->GetEntity(), CalculateCurrentMousePosition(event.motion));
+				Engine->moduleCamera->OrbitAroundGameObject(Engine->moduleRenderer->GetGameObject(), CalculateCurrentMousePosition(event.motion));
 			}
 	}
 }
@@ -159,7 +159,7 @@ void ModuleInput::CameraMovementWithKeys() {
 	}
 
 	if (keyboard[SDL_SCANCODE_F]) {
-		Engine->moduleCamera->FocusOnEntity(Engine->moduleRenderer->GetEntity());
+		Engine->moduleCamera->FocusOnGameObject(Engine->moduleRenderer->GetGameObject());
 	}
 
 }
