@@ -15,6 +15,7 @@ LittleEngine::LittleEngine()
 	modules.push_back((moduleCamera = std::make_unique<ModuleCamera>()).get());
 	modules.push_back((moduleTexture = std::make_unique<ModuleTexture>()).get());
 	modules.push_back((moduleGrid = std::make_unique<ModuleGrid>()).get());
+	modules.push_back((moduleSceneManager = std::make_unique<ModuleSceneManager>()).get());
 }
 
 LittleEngine::~LittleEngine()

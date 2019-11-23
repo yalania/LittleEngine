@@ -48,7 +48,7 @@ update_status ModuleInput::Update()
 		CameraMovementWithMouse(event);
 		if (event.type == SDL_DROPFILE) {      // In case if dropped file
 			char* dropped_filedir = event.drop.file;
-			Engine->moduleRenderer->ProcessFile(dropped_filedir);
+			Engine->moduleSceneManager->ProcessFile(dropped_filedir);
 			// Shows directory of dropped file
 			SDL_free(dropped_filedir);    // Free dropped_filedir memory
 			
@@ -117,7 +117,7 @@ void ModuleInput::CameraMovementWithMouse(const SDL_Event & event){
 				Engine->moduleCamera->Translate(glm::vec3(CalculateCurrentMousePosition(event.motion),0.0f));
 			}
 			if ((keyboard[SDL_SCANCODE_LALT] || keyboard[SDL_SCANCODE_RALT]) && leftMouseButtonIsDown) {
-				Engine->moduleCamera->OrbitAroundGameObject(Engine->moduleRenderer->GetGameObject(), CalculateCurrentMousePosition(event.motion));
+				Engine->moduleCamera->OrbitAroundGameObject(Engine->moduleSceneManager->GetGameObject(), CalculateCurrentMousePosition(event.motion));
 			}
 	}
 }
@@ -159,7 +159,7 @@ void ModuleInput::CameraMovementWithKeys() {
 	}
 
 	if (keyboard[SDL_SCANCODE_F]) {
-		Engine->moduleCamera->FocusOnGameObject(Engine->moduleRenderer->GetGameObject());
+		Engine->moduleCamera->FocusOnGameObject(Engine->moduleSceneManager->GetGameObject());
 	}
 
 }

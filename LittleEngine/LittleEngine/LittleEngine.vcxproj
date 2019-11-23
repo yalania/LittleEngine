@@ -180,6 +180,7 @@
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleModelLoader.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
+    <ClCompile Include="ModuleSceneManager.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
     <ClCompile Include="ModuleTimeController.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleModelLoader.h" />
     <ClInclude Include="ModuleRender.h" />
+    <ClInclude Include="ModuleSceneManager.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="ModuleTimeController.h" />
     <ClInclude Include="ModuleWindow.h" />

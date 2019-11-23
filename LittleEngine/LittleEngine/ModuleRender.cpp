@@ -11,12 +11,7 @@ bool ModuleRender::Init() {
 	return true;
 }
 
-void ModuleRender::AddGameObject(const char * model) {
-	Model newModel = Engine->moduleModelLoader->LoadModel(model);
-	gameObjects.erase(gameObjects.begin(), gameObjects.end()); //ASSIMENT: For now because the assiment requirements
-	gameObjects.push_back(std::make_unique<GameObject>(newModel, Engine->moduleShaderProgram->defaultProgram));
-	Engine->moduleCamera->FocusOnGameObject(*gameObjects.back());
-}
+
 update_status ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	return UPDATE_CONTINUE;
@@ -70,14 +65,7 @@ bool ModuleRender::CleanUp() {
 	return true;
 }
 
-GameObject& ModuleRender::GetGameObject() const {
-	if (gameObjects.size() > 0) {
-		return *gameObjects.front();
-	}
-	else {
-		return *missingGameObject.get();
-	}
-}
+
 
 ModuleRender::~ModuleRender() {
 	CleanUp();
@@ -114,15 +102,3 @@ void ModuleRender::SelectFillingMode(int mode) {
 	}
 }
 
-void ModuleRender::ProcessFile(const char * file) {
-	std::string fileExtension = std::string(file).substr(std::string(file).find_last_of('.'), -1);
-	std::transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(),::tolower);
-	if (fileExtension == ".fbx") {
-		AddGameObject(file);
-		Engine->moduleCamera->FocusOnGameObject(GetGameObject());
-	}
-	else {
-		GetGameObject().model->ChangeTexture(Engine->moduleTexture->LoadTexture(file));
-
-	}
-}

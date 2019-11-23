@@ -11,6 +11,7 @@
 #include "ModuleGrid.h"
 #include "ModuleModelLoader.h"
 #include "ModuleTimeController.h"
+#include "ModuleSceneManager.h"
 
 #include <vector>
 #include <memory>
@@ -37,6 +38,7 @@ public:
 	std::unique_ptr<ModuleGrid> moduleGrid;
 	std::unique_ptr<ModuleModelLoader> moduleModelLoader;
 	std::unique_ptr<ModuleTimeController> moduleTimeController;
+	std::unique_ptr<ModuleSceneManager> moduleSceneManager;
 
 private:
 

@@ -26,7 +26,7 @@ update_status UI::ShowUI() {
 		{
 
 			if (ImGui::MenuItem("Load Default Model", NULL)) {
-				Engine->moduleRenderer->AddGameObject("BakerHouse.fbx");
+				Engine->moduleSceneManager->AddGameObject("BakerHouse.fbx");
 			}
 			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
@@ -128,7 +128,7 @@ void UI::TimeControlButtons() {
 void UI::GeometryPropertiesTab() {
 	ImGui::Begin("Model properties");
 
-	GameObject &gameObject = Engine->moduleRenderer->GetGameObject();
+	GameObject &gameObject = Engine->moduleSceneManager->GetGameObject();
 	ImGui::Text("Transform:");
 	ImGui::DragFloat3("Position", &gameObject.transform.position[0], NULL, NULL, NULL);
 	ImGui::DragFloat3("Rotation", &gameObject.transform.rotation[0], NULL, NULL, NULL);
