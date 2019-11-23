@@ -1,25 +1,27 @@
 #ifndef _COMPONENT_
 #define _COMPONENT_
 #include "../Globals.h"
+
+
 class Component {
 
 public:
 	Component() = default;
 	virtual ~Component() = default;
 
-	virtual bool Init()
+	virtual void Enable()
 	{
-		return true;
+		active = true;
 	}
 
-	virtual update_status Update() {
-		return UPDATE_CONTINUE;
-	};
+	virtual void Update() {};
 
-	virtual bool CleanUp()
+	virtual void Disable()
 	{
-		return true;
+		active = false;
 	}
+
+	bool active = true;
 };
 #endif // !_COMPONENT_
 

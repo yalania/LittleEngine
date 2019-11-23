@@ -14,7 +14,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 Mesh::~Mesh() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-update_status Mesh::Update() {
+void Mesh::Update() {
 
 	if (!showCheckerboardTexture) {
 		for (unsigned int i = 0; i < textures.size(); i++)
@@ -32,7 +32,6 @@ update_status Mesh::Update() {
 
 	// always good practice to set everything back to defaults once configured.
 	glActiveTexture(GL_TEXTURE0);
-	return UPDATE_CONTINUE;
 }
 
 void Mesh::setupMesh()

@@ -6,7 +6,7 @@ Model::Model(std::vector<Mesh> meshes) : meshes(meshes){
 	CalculateSphere();
 	CalculateAxisAlignBoudingBox();
 }
-update_status Model::Update() {
+void Model::Update() {
 	update_status result = UPDATE_CONTINUE;
 
 	for (auto &mesh : meshes) {
@@ -17,7 +17,6 @@ update_status Model::Update() {
 		boundingBox.Update();
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	};
-	return result;
 }
 
 void Model::CalculateSphere() {

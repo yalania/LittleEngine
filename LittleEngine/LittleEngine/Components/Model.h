@@ -4,7 +4,7 @@
 #include "Component.h"
 #include <vector>
 #include "Mesh.h"
-class Model : public Component {
+class Model {
 
 public:
 	Model() = default;
@@ -16,7 +16,7 @@ public:
 	Model& operator = (const Model & model) = default;
 
 	Model(std::vector<Mesh> entityMeshes);
-	update_status Update() override;
+	void Update();
 
 	std::vector<std::shared_ptr<Texture>> GetTextureInfo();
 	void ShowCheckerBoardTexture(bool enable);

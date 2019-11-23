@@ -10,7 +10,7 @@ GameObject::GameObject(const char * name) : name(std::string(name)){
 void GameObject::Update(){
 	glUseProgram(shaderProgram);
 	if (!gameIsPaused) {
-		transform.UpdateModel();
+		transform.Update();
 	}
 	//update_status result = model->Update();
 	glUseProgram(0);

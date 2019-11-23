@@ -6,7 +6,7 @@
 Transform::Transform() {
 	CalculateTransformMatrix();
 }
-void Transform::UpdateModel(){
+void Transform::Update(){
 	/*double movementInX = sin(Engine->moduleTimeController->gameTimeClock.Read()/1000);
 	position.x = movementInX;
 	rotation = glm::rotate(rotation, static_cast<float>(movementInX), glm::vec3(0.0f,1.0f, 0.0f));*/

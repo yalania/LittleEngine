@@ -1,9 +1,9 @@
 #ifndef _GAME_OBJECT_
 #define _GAME_OBJECT_
 #include "Components/Transform.h"
-#include "Components/Model.h"
-#include <memory.h>
-
+#include "Components/Component.h"
+#include <memory>
+#include <vector>
 
 class GameObject {
 public:

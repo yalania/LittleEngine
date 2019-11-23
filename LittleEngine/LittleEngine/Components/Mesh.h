@@ -39,7 +39,7 @@ public:
 	Mesh& operator = (Mesh && mesh) = default;
 	Mesh& operator = (const Mesh & mesh) = default;
 
-	update_status Update() override;
+	void Update() override;
 
 private:
 	void setupMesh();
