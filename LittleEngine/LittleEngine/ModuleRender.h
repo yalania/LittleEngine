@@ -24,8 +24,6 @@ public:
 	void SelectFillingMode(int mode);
 private:
 	void InitOpenGlOptions() const;
-	std::unique_ptr<GameObject> missingGameObject = std::make_unique<GameObject>();
-	std::vector<std::unique_ptr<GameObject>> gameObjects;
 };
 
 #endif // !_MODULE_RENDER_

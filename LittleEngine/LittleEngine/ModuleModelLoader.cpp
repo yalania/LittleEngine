@@ -14,7 +14,7 @@ bool ModuleModelLoader::CleanUp() {
 	Assimp::DefaultLogger::kill();
 	return true;
 }
-Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture){
+std::vector<Mesh> ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string const &pathToTexture){
 	std::vector<Mesh> meshes;
 
 	const aiScene *scene = import->ReadFile(pathToModel, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -22,7 +22,7 @@ Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string c
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		LOG( "ERROR::ASSIMP::%s", import->GetErrorString());
-		return Model(meshes);
+		return meshes;
 	}
 
 	size_t endPosition = pathToModel.find_last_of('\\');
@@ -34,7 +34,7 @@ Model ModuleModelLoader::LoadModel(std::string const &pathToModel, std::string c
 	}
 
 	ProcessNode(*scene->mRootNode, *scene, meshes);
-	return Model(std::move(meshes));
+	return meshes;
 }
 
 void ModuleModelLoader::ProcessNode(const aiNode &node, const aiScene &scene, std::vector<Mesh> & meshes) const

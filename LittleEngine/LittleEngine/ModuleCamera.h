@@ -6,7 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
-#include "Components/Transform.h"
 #include <memory>
 
 class ModuleCamera : public Module {
@@ -35,8 +34,7 @@ public:
 
 private:
 	void UpdateMatricesInShaderPograms();
-
-	Transform transform;
+	GameObject * cameraGameObject;
 	glm::mat4 projection = glm::mat4(1.0f);
 	glm::mat4 view;
 private:

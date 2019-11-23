@@ -5,6 +5,7 @@ LittleEngine::LittleEngine()
 	// Order matters: they will Init/start/update in this order
 
 	modules.reserve(15);
+	modules.push_back((moduleSceneManager = std::make_unique<ModuleSceneManager>()).get());
 	modules.push_back((moduleWindow = std::make_unique<ModuleWindow>()).get());
 	modules.push_back((moduleTimeController = std::make_unique<ModuleTimeController>()).get());
 	modules.push_back((moduleInput = std::make_unique<ModuleInput>()).get());
@@ -15,7 +16,6 @@ LittleEngine::LittleEngine()
 	modules.push_back((moduleCamera = std::make_unique<ModuleCamera>()).get());
 	modules.push_back((moduleTexture = std::make_unique<ModuleTexture>()).get());
 	modules.push_back((moduleGrid = std::make_unique<ModuleGrid>()).get());
-	modules.push_back((moduleSceneManager = std::make_unique<ModuleSceneManager>()).get());
 }
 
 LittleEngine::~LittleEngine()

@@ -4,18 +4,16 @@
 #include "Component.h"
 #include <vector>
 #include "Mesh.h"
-class Model {
+class Collider {
 
 public:
-	Model() = default;
+	Collider() = default;
 
-	Model(Model && model) = default;
-	Model(const Model & model) = default;
+	Collider(Collider && model) = default;
+	Collider(const Collider & model) = default;
 
-	Model& operator = (Model && model) = default;
-	Model& operator = (const Model & model) = default;
-
-	Model(std::vector<Mesh> entityMeshes);
+	Collider& operator = (Collider && model) = default;
+	Collider& operator = (const Collider & model) = default;
 	void Update();
 
 	std::vector<std::shared_ptr<Texture>> GetTextureInfo();

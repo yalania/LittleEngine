@@ -2,15 +2,15 @@
 #include <GL/glew.h>
 #include "../LittleEngine.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures) : vertices(vertices), indices(indices), textures(textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures) : vertices(vertices), indices(indices), textures(textures), Component(nullptr, ComponentType::MESH)
 {
 	setupMesh();
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo) {
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo) : vertices(vertices), indices(indices), textures(textures), meshInfo(meshInfo), Component(nullptr, ComponentType::MESH)
+{
 	setupMesh();
 }
-
 Mesh::~Mesh() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

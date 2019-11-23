@@ -19,9 +19,9 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-	for (auto & gameObject : gameObjects) {
+	/*for (auto & gameObject : gameObjects) {
 		gameObject->Update();
-	}
+	}*/
 	return UPDATE_CONTINUE;
 
 }

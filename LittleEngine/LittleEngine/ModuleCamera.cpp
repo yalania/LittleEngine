@@ -2,8 +2,11 @@
 #include "LittleEngine.h"
 #include <GL/glew.h>
 
+
 bool ModuleCamera::Init() {
 	LOG("Init Camera System");
+	cameraGameObject = Engine->moduleSceneManager->CreateGameObject();
+	cameraGameObject->name = "Camera";
 	UpdateProjection();
 	return true;
 }
@@ -14,14 +17,14 @@ update_status ModuleCamera::PreUpdate() {
 }
 
 void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {
-	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(transform.GetRightAxis()));
+	glm::quat rotX = glm::angleAxis(mouseOffset.y * cameraSpeedMouse, glm::vec3(cameraGameObject->transform.GetRightAxis()));
 	glm::quat rotY = glm::angleAxis(mouseOffset.x * cameraSpeedMouse, glm::vec3(0.0f, 1.0f, 0.0f));
-	transform.rotation = rotY * rotX* transform.rotation;
+	cameraGameObject->transform.rotation = rotY * rotX* cameraGameObject->transform.rotation;
 }
 
 void ModuleCamera::Translate(const glm::vec3 & direction) {
 	glm::vec3 translationDirection = glm::vec3(direction.x, -direction.y, direction.z);
-	transform.TranslateLocal(translationDirection * cameraSpeedKeys);
+	cameraGameObject->transform.TranslateLocal(translationDirection * cameraSpeedKeys);
 }
 
 void ModuleCamera::Zoom(bool zoomIn) {
@@ -41,7 +44,7 @@ void ModuleCamera::Zoom(bool zoomIn) {
 		frustumFov = frustumFov > 179.9 ? 179.9f : frustumFov;*/
 		direction *= cameraSpeedKeys;
 	}
-	transform.TranslateLocal(direction);
+	cameraGameObject->transform.TranslateLocal(direction);
 }
 
 
@@ -56,7 +59,7 @@ void ModuleCamera::UpdateProjection() {
 
 void ModuleCamera::UpdateMatricesInShaderPograms(){
 
-	view = glm::inverse(transform.CalculateTransformMatrix());
+	view = glm::inverse(cameraGameObject->transform.CalculateTransformMatrix());
 	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);

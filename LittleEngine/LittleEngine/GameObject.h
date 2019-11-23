@@ -2,12 +2,10 @@
 #define _GAME_OBJECT_
 #include "Components/Transform.h"
 #include "Components/Component.h"
-#include <memory>
 #include <vector>
 
 class GameObject {
 public:
-	GameObject() = default;
 	GameObject(const char * name );
 	~GameObject() = default;
 

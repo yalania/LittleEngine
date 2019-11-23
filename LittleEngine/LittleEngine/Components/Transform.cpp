@@ -3,7 +3,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../LittleEngine.h"
 
-Transform::Transform() {
+Transform::Transform(GameObject * owner) : Component(owner, ComponentType::TRANSFORM) {
 	CalculateTransformMatrix();
 }
 void Transform::Update(){

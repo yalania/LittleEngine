@@ -3,7 +3,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-GameObject::GameObject(const char * name) : name(std::string(name)){
+GameObject::GameObject(const char * name) : name(std::string(name)), transform(this){
 }
 
 

@@ -105,9 +105,6 @@
     <ClCompile Include="Global.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Model.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\SystemProperties.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -122,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="UI\HierarchyPanel.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +212,6 @@
     <ClInclude Include="Utils\Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Model.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\SystemProperties.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -232,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="UI\HierarchyPanel.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

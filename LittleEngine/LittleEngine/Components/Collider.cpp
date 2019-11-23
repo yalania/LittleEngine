@@ -1,12 +1,8 @@
-#include "Model.h"
+#include "Collider.h"
 #include <gl/GL.h>
 #include <algorithm>
 
-Model::Model(std::vector<Mesh> meshes) : meshes(meshes){
-	CalculateSphere();
-	CalculateAxisAlignBoudingBox();
-}
-void Model::Update() {
+void Collider::Update() {
 	update_status result = UPDATE_CONTINUE;
 
 	for (auto &mesh : meshes) {
@@ -19,7 +15,7 @@ void Model::Update() {
 	};
 }
 
-void Model::CalculateSphere() {
+void Collider::CalculateSphere() {
 	sphereCenter = CalculateCenter();
 	for (auto & mesh : meshes) {
 		for (auto & vector : mesh.vertices) {
@@ -31,7 +27,7 @@ void Model::CalculateSphere() {
 	}
 }
 
-glm::vec3 Model::CalculateCenter() {
+glm::vec3 Collider::CalculateCenter() {
 	glm::vec3 vectorAddition = glm::vec3(0.0f);
 	totalVertexCount = 0.0f;
 	totalTriangleCount = 0.0f;
@@ -45,7 +41,7 @@ glm::vec3 Model::CalculateCenter() {
 	return vectorAddition / static_cast<float>(totalVertexCount);
 }
 
-void Model::CalculateAxisAlignBoudingBox(){
+void Collider::CalculateAxisAlignBoudingBox(){
 	glm::vec3 firstMeshVertexPosition = meshes.at(0).vertices.at(0).Position;
 	float maxX = firstMeshVertexPosition.x;
 	float maxY = firstMeshVertexPosition.y;
@@ -97,7 +93,7 @@ void Model::CalculateAxisAlignBoudingBox(){
 }
 
 
-std::vector<std::shared_ptr<Texture>> Model::GetTextureInfo() {
+std::vector<std::shared_ptr<Texture>> Collider::GetTextureInfo() {
 	std::vector<std::shared_ptr<Texture>> textureInfo;
 
 	for (auto & mesh : meshes) {
@@ -112,14 +108,14 @@ std::vector<std::shared_ptr<Texture>> Model::GetTextureInfo() {
 	return textureInfo;
 }
 
-void Model::ShowCheckerBoardTexture(bool enable) {
+void Collider::ShowCheckerBoardTexture(bool enable) {
 	for (auto & mesh : meshes) {
 		mesh.showCheckerboardTexture = enable;
 	}
 }
 
 
-void Model::ChangeTexture(std::shared_ptr<Texture> newTexture) {
+void Collider::ChangeTexture(std::shared_ptr<Texture> newTexture) {
 	for (auto & mesh : meshes) {
 		for (auto & texture : mesh.textures) {
 			texture = newTexture;

@@ -1,8 +1,10 @@
 #include "ModuleSceneManager.h"
 #include "LittleEngine.h"
 
-void ModuleSceneManager::CreateGameObject() {
-	root->children.push_back(std::make_shared<GameObject>("Game Object"));
+GameObject * ModuleSceneManager::CreateGameObject() {
+	std::shared_ptr<GameObject> newGameObject = std::make_shared<GameObject>("Game Object");
+	root->children.push_back(newGameObject);
+	return newGameObject.get();
 }
 
 void ModuleSceneManager::ProcessFile(const char * file) {

@@ -4,7 +4,6 @@
 #include <string>
 #include <assimp/scene.h>
 #include "Components/Mesh.h"
-#include "Components/Model.h"
 #include "Log.h"
 #include <assimp/Importer.hpp>
 
@@ -16,7 +15,7 @@ public:
 	}
 	bool Init() override;
 	bool CleanUp() override;
-	Model LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
+	std::vector<Mesh> LoadModel(std::string const &pathToModel, std::string const &pathToTexture = "");
 private:
 	void ProcessNode(const aiNode &node, const aiScene &scene, std::vector<Mesh> & meshes) const;
 	Mesh ProcessMesh(const aiMesh &mesh, const aiScene &scene) const;
