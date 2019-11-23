@@ -1,6 +1,7 @@
 #ifndef _UI_
 #define _UI_
 #include "PropertiesUI.h"
+#include "HierarchyPanel.h"
 #include "../Globals.h"
 class UI {
 
@@ -18,6 +19,7 @@ private:
 	//void GeometryPropertiesTab();
 	
 	PropertiesUI PropertiesUI;
+	HierarchyPanel hierarchyPanel;
 
 };
 

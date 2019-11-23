@@ -11,7 +11,7 @@ public:
 	void CreateGameObject();
 	void ProcessFile(const char * file);
 
-	std::unique_ptr<GameObject> root = std::unique_ptr<GameObject>();
+	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root");
 };
 
 #endif // !_MODULE_SCENE_MANAGER_

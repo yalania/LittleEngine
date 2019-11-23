@@ -185,6 +185,7 @@
     <ClCompile Include="ModuleTimeController.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ModuleProgram.cpp" />
+    <ClCompile Include="UI\HierarchyPanel.cpp" />
     <ClCompile Include="UI\PropertiesUI.cpp" />
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="Utils\MicroTimer.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="ModuleTimeController.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="ModuleProgram.h" />
+    <ClInclude Include="UI\HierarchyPanel.h" />
     <ClInclude Include="UI\UI.h" />
     <ClInclude Include="UI\PropertiesUI.h" />
     <ClInclude Include="Utils\MicroTimer.h" />

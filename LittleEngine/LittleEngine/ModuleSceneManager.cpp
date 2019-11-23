@@ -2,7 +2,7 @@
 #include "LittleEngine.h"
 
 void ModuleSceneManager::CreateGameObject() {
-	root->children.push_back(std::make_unique<GameObject>("Game Object"));
+	root->children.push_back(std::make_shared<GameObject>("Game Object"));
 }
 
 void ModuleSceneManager::ProcessFile(const char * file) {

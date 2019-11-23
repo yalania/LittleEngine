@@ -41,6 +41,7 @@ update_status UI::ShowUI() {
 		ImGui::EndMainMenuBar();
 	}
 
+	hierarchyPanel.ShowHierarchyPanel();
 	if (UIState::showingTextureInfo) {
 		//GeometryPropertiesTab();
 	}
