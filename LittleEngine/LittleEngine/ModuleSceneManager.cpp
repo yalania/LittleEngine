@@ -20,6 +20,6 @@ void ModuleSceneManager::ProcessFile(const char * file) {
 	}*/
 }
 
-const GameObject * ModuleSceneManager::GetRoot() const {
+GameObject * ModuleSceneManager::GetRoot() const {
 	return root.get();
 }

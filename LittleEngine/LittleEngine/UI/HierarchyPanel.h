@@ -7,11 +7,12 @@ class HierarchyPanel {
 public:
 	HierarchyPanel() = default;
 	~HierarchyPanel() = default;
-	void ShowHierarchyPanel() const;
+	void ShowHierarchyPanel();
+	void PopupOnClickPanel();
 
 
 private:
-	void IterateGameObjectsTree(const GameObject * parent, int deep) const;
+	void IterateGameObjectsTree(const GameObject * parent, int deep);
 	InspectorPanel inspector;
 };
 #endif // !_HIERARCHY_PANEL_

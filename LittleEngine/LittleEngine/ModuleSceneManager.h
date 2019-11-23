@@ -7,7 +7,7 @@
 class ModuleSceneManager : public Module {
 
 public:
-	const GameObject * GetRoot() const;
+	GameObject * GetRoot() const;
 	GameObject * CreateGameObject();
 	void ProcessFile(const char * file);
 

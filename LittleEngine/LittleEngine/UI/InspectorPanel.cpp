@@ -1,25 +1,39 @@
 #include "InspectorPanel.h"
 #include "../imgui/imgui.h"
 
-void InspectorPanel::ShowGameObjectInfo(GameObject & gameObject) const {
-	ImGui::Begin("Hierarchy Panel");
+void InspectorPanel::ShowGameObjectInfo() const {
+	ImGui::Begin("Inspector");
+	if (gameObject != nullptr) {
+		std::vector<char> writable(gameObject->name.begin(), gameObject->name.end());
+		writable.push_back('\0');
+
+		if (ImGui::InputText("", &writable[0], writable.size())) {
+			gameObject->name = std::string(&writable[0]);
+		}
+
+		ImGui::Separator();
+		ImGui::Text("Transform");
+		ImGui::Text("Position: "); ImGui::SameLine();  ImGui::DragFloat3("##Position", &gameObject->transform.position[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		ImGui::Text("Rotation: "); ImGui::SameLine();  ImGui::DragFloat3("##Rotation", &gameObject->transform.rotation[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		ImGui::Text("Scale:    "); ImGui::SameLine();  ImGui::DragFloat3("##Scale", &gameObject->transform.scale[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		ImGui::Separator();
 
 
-	ImGui::Separator();
-	ImGui::Text("Transform");
-	ImGui::Text("Position"); ImGui::SameLine();
-	ImGui::DragFloat("X", &gameObject.transform.position.x, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("Y", &gameObject.transform.position.y, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("Z", &gameObject.transform.position.z, NULL, NULL, NULL);
-	ImGui::Text("Rotation"); ImGui::SameLine();
-	ImGui::DragFloat("rX", &gameObject.transform.rotation.x, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("rY", &gameObject.transform.rotation.y, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("rZ", &gameObject.transform.rotation.z, NULL, NULL, NULL);
-	ImGui::Text("Scae"); ImGui::SameLine();
-	ImGui::DragFloat("sX", &gameObject.transform.scale.x, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("sY", &gameObject.transform.scale.y, NULL, NULL, NULL); ImGui::SameLine();
-	ImGui::DragFloat("sZ", &gameObject.transform.scale.z, NULL, NULL, NULL);
-	ImGui::Separator();
 
+		ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		ImGui::SetCursorPosX((ImGui::GetWindowWidth() / 2 - 50));
+		if (ImGui::Button("Add component")) {
+
+		}
+	}
 	ImGui::End();
+}
+
+
+void InspectorPanel::ShowComponentInfo(Component & component) {
+
+}
+
+void  InspectorPanel::AddNewComponent() {
+
 }
