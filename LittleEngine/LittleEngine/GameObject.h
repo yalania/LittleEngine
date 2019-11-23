@@ -7,6 +7,7 @@
 class GameObject {
 public:
 	GameObject(const char * name );
+	GameObject(std::string name);
 	~GameObject() = default;
 
 	void Update();

@@ -1,13 +1,13 @@
 #include "InspectorPanel.h"
 #include "../imgui/imgui.h"
 
-void InspectorPanel::ShowGameObjectInfo() const {
+void InspectorPanel::ShowGameObjectInfo() {
 	ImGui::Begin("Inspector");
 	if (gameObject != nullptr) {
-		std::vector<char> writable(gameObject->name.begin(), gameObject->name.end());
+		writable.erase(writable.begin(), writable.end());
+		std::copy(gameObject->name.begin(), gameObject->name.end(), std::back_inserter(writable));
 		writable.push_back('\0');
-
-		if (ImGui::InputText("", &writable[0], writable.size())) {
+		if (ImGui::InputText("", &writable[0], 20)) {
 			gameObject->name = std::string(&writable[0]);
 		}
 

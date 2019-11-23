@@ -9,6 +9,7 @@ class ModuleSceneManager : public Module {
 public:
 	GameObject * GetRoot() const;
 	GameObject * CreateGameObject();
+	GameObject * CreateGameObjectChild(GameObject * parent);
 	void ProcessFile(const char * file);
 
 	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root");

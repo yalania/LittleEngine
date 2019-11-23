@@ -40,8 +40,17 @@ void HierarchyPanel::PopupOnClickPanel() {
 	if (ImGui::BeginPopupContextWindow())
 	{
 		if (ImGui::Selectable("Create empty")) {
-			Engine->moduleSceneManager->CreateGameObject();
+			if (inspector.gameObject == nullptr) {
+				Engine->moduleSceneManager->CreateGameObject();
+			}
+			else {
+				Engine->moduleSceneManager->CreateGameObjectChild(inspector.gameObject);
+			}
 		}
 		ImGui::EndPopup();
+	}
+
+	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)) {
+		inspector.gameObject = nullptr;
 	}
 }

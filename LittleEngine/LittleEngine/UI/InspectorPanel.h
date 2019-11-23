@@ -6,10 +6,11 @@ class InspectorPanel {
 public:
 	InspectorPanel() = default;
 	~InspectorPanel() = default;
-	void ShowGameObjectInfo() const;
+	void ShowGameObjectInfo();
 	void ShowComponentInfo(Component & component);
 	void AddNewComponent();
 	GameObject * gameObject = nullptr;
+	std::vector<char> writable;
 };
 #endif // !_INSPECTOR_PANEL_
 
