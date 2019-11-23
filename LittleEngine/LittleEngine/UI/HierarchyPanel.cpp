@@ -34,3 +34,4 @@ void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep)
 		IterateGameObjectsTree(child.get(), ++deep);
 	}
 }
+

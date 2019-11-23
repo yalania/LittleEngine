@@ -123,6 +123,9 @@
     <ClCompile Include="Components\Collider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="UI\InspectorPanel.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LittleEngine.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Components\Collider.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\InspectorPanel.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
