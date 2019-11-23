@@ -15,7 +15,7 @@ private:
 	void DrawAboutWindow(); 
 	void UpdateState();
 	void TimeControlButtons();
-	void GeometryPropertiesTab();
+	//void GeometryPropertiesTab();
 	
 	PropertiesUI PropertiesUI;
 

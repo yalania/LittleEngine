@@ -7,13 +7,11 @@
 class ModuleSceneManager : public Module {
 
 public:
-	GameObject& GetGameObject() const;
-	void AddGameObject(const char * model);
+	const GameObject * GetRoot() const;
+	void CreateGameObject();
 	void ProcessFile(const char * file);
 
-
-	std::unique_ptr<GameObject> missingGameObject = std::make_unique<GameObject>();
-	std::vector<std::unique_ptr<GameObject>> gameObjects;
+	std::unique_ptr<GameObject> root = std::unique_ptr<GameObject>();
 };
 
 #endif // !_MODULE_SCENE_MANAGER_

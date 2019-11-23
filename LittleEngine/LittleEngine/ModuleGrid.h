@@ -16,6 +16,7 @@ private:
 	void ShowDirectionArrows() const;
 	glm::mat4 model;
 	GLuint gridShaderProgram;
+
 };
 
 #endif // !_MODULE_GRID_

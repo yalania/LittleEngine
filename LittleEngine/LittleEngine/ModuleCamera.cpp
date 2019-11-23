@@ -67,17 +67,18 @@ void ModuleCamera::UpdateMatricesInShaderPograms(){
 }
 
 void ModuleCamera::FocusOnGameObject(const GameObject & gameObject) {
-	transform.position = gameObject.model->sphereCenter;
+	/*transform.position = gameObject.model->sphereCenter;
 	float distance = gameObject.model->sphereRadius / tan(glm::radians(frustumFov / 2));
 	transform.position.z += distance;
 	view = glm::lookAt(transform.position, gameObject.model->sphereCenter, glm::vec3(0.0f,1.0f, 0.0f));
 	transform.rotation = glm::quat(glm::inverse(view));
-	orthoUnits = gameObject.model->sphereRadius;
+	orthoUnits = gameObject.model->sphereRadius;*/
 	UpdateProjection();
 }
 
 void ModuleCamera::OrbitAroundGameObject(const GameObject & gameObject, const glm::vec2 & mouseOffset) {
 
+	/*
 	glm::vec3 vector = transform.position - gameObject.model->sphereCenter;
 
 	float amountInDifferentDirection = glm::dot(glm::normalize(vector),gameObject.transform.GetFrontAxis());
@@ -91,7 +92,7 @@ void ModuleCamera::OrbitAroundGameObject(const GameObject & gameObject, const gl
 	vector = rotX * vector;
 	vector = rotY * vector;
 	transform.position = gameObject.model->sphereCenter + vector;
-	MoveCameraWithMousePosition(mouseOffset);
+	MoveCameraWithMousePosition(mouseOffset);*/
 }
 
 //Setters

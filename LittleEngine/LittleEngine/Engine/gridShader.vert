@@ -9,11 +9,10 @@ layout (std140) uniform Matrices
     mat4 view;
 	mat4 model;
 } matrices;
-uniform mat4 model;
 
 out vec3 color;
 void main()
 {
-    gl_Position = matrices.proj*matrices.view*model*vec4(aPos, 1.0);
+    gl_Position = matrices.proj*matrices.view*matrices.model*vec4(aPos, 1.0);
 	color = gl_Color;
 }

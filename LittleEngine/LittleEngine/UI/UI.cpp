@@ -24,10 +24,6 @@ update_status UI::ShowUI() {
 	{
 		if (ImGui::BeginMenu("LittleEngine"))
 		{
-
-			if (ImGui::MenuItem("Load Default Model", NULL)) {
-				Engine->moduleSceneManager->AddGameObject("BakerHouse.fbx");
-			}
 			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 			if (ImGui::MenuItem("Quit")) {
@@ -46,7 +42,7 @@ update_status UI::ShowUI() {
 	}
 
 	if (UIState::showingTextureInfo) {
-		GeometryPropertiesTab();
+		//GeometryPropertiesTab();
 	}
 	UpdateState();
 	return updateStatus;
@@ -124,7 +120,7 @@ void UI::TimeControlButtons() {
 	ImGui::End();
 }
 
-
+/*
 void UI::GeometryPropertiesTab() {
 	ImGui::Begin("Model properties");
 
@@ -166,3 +162,4 @@ void UI::GeometryPropertiesTab() {
 	}
 	ImGui::End();
 }
+*/

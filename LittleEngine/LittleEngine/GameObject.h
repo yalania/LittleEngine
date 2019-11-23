@@ -7,16 +7,20 @@
 
 class GameObject {
 public:
-	GameObject();
-	GameObject(Model gameObjectModel, unsigned int shaderProgram);
+	GameObject() = default;
+	GameObject(const char * name );
 	~GameObject() = default;
 
-	update_status Update();
+	void Update();
 
 	Transform transform;
-	std::unique_ptr<Model> model;
+	std::vector<std::shared_ptr<Component>> components;
+	std::string name = "";
+
+	std::shared_ptr<GameObject> parent = nullptr;
+	std::vector<std::shared_ptr<GameObject>> children;
 private:
-	unsigned int shaderProgram;
+	unsigned int shaderProgram = 0;
 
 };
 #endif // !_GAME_OBJECT_
