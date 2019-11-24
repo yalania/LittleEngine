@@ -9,12 +9,6 @@ GameObject::GameObject(std::string name) : name(name), transform(this) {
 }
 
 void GameObject::Update(){
-	glUseProgram(shaderProgram);
-	if (!gameIsPaused) {
-		transform.Update();
-	}
-	//update_status result = model->Update();
-	glUseProgram(0);
 }
 
 std::vector<Component *> GameObject::GetComponents(ComponentType type) {

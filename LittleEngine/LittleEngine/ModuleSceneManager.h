@@ -7,12 +7,13 @@
 class ModuleSceneManager : public Module {
 
 public:
+	update_status Update() override;
 	GameObject * GetRoot() const;
 	GameObject * CreateGameObject();
 	GameObject * CreateGameObjectChild(GameObject * parent);
-	void ProcessFile(const char * file);
 
 	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root");
+	std::vector<Transform *> transforms;
 };
 
 #endif // !_MODULE_SCENE_MANAGER_

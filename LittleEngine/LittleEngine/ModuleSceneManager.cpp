@@ -1,6 +1,17 @@
 #include "ModuleSceneManager.h"
 #include "LittleEngine.h"
 
+
+update_status ModuleSceneManager::Update() {
+	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
+	for (auto & transform : transforms) {
+		if (!gameIsPaused) {
+			transform->Update();
+		}
+	}
+	glUseProgram(0);
+	return UPDATE_CONTINUE;
+}
 GameObject * ModuleSceneManager::CreateGameObject() {
 	return CreateGameObjectChild(root.get());
 }
@@ -20,21 +31,10 @@ GameObject * ModuleSceneManager::CreateGameObjectChild(GameObject * parent) {
 
 	std::shared_ptr<GameObject> newGameObject = std::make_shared<GameObject>(gameObjectEmptyName);
 	parent->children.push_back(newGameObject);
+	transforms.push_back(&newGameObject->transform);
 	return newGameObject.get();
 }
 
-void ModuleSceneManager::ProcessFile(const char * file) {
-	/*std::string fileExtension = std::string(file).substr(std::string(file).find_last_of('.'), -1);
-	std::transform(fileExtension.begin(), fileExtension.end(), fileExtension.begin(), ::tolower);
-	if (fileExtension == ".fbx") {
-		AddGameObject(file);
-		Engine->moduleCamera->FocusOnGameObject(GetGameObject());
-	}
-	else {
-		GetGameObject().model->ChangeTexture(Engine->moduleTexture->LoadTexture(file));
-
-	}*/
-}
 
 GameObject * ModuleSceneManager::GetRoot() const {
 	return root.get();

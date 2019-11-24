@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\Mesh.cpp" />
     <ClCompile Include="Components\Collider.cpp" />
     <ClCompile Include="Components\Transform.cpp" />

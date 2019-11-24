@@ -29,8 +29,12 @@ public:
 	}
 
 	bool active = true;
-	GameObject * owner;
 	ComponentType type;
+
+	void SetOwner(GameObject * owner);
+	GameObject * const GetOwner() const;
+private:
+	GameObject * owner;
 };
 #endif // !_COMPONENT_
 

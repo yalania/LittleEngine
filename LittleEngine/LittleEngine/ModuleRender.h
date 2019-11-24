@@ -20,6 +20,7 @@ public:
 	bool CleanUp() override;
 
 	void AddMeshComponentToGameObject(GameObject * gameObject);
+	void CreateMeshGameObjectFromFile(const char * file);
 
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);

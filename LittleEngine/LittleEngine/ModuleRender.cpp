@@ -19,9 +19,11 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
+	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
 	for (auto & mesh : gameObjectMeshes) {
 		mesh->Update();
 	}
+	glUseProgram(0);
 	return UPDATE_CONTINUE;
 
 }
@@ -34,7 +36,17 @@ update_status ModuleRender::PostUpdate() {
 
 void ModuleRender::AddMeshComponentToGameObject(GameObject * gameObject) {
 	if (gameObject->GetComponents(ComponentType::MESH).size() < 1) {
-		gameObjectMeshes.push_back(std::make_unique<Mesh>(gameObject));
+
+	}
+}
+
+void ModuleRender::CreateMeshGameObjectFromFile(const char * file) {
+	std::vector<Mesh> meshes = Engine->moduleModelLoader->LoadModel(file);
+	for (auto & mesh : meshes) {
+		GameObject * newGameObject = Engine->moduleSceneManager->CreateGameObject();
+		std::unique_ptr<Mesh> uniqueMesh = std::make_unique<Mesh>(mesh);
+		uniqueMesh->SetOwner(newGameObject);
+		gameObjectMeshes.push_back(std::move(uniqueMesh));
 	}
 }
 void ModuleRender::InitOpenGlOptions() const{
