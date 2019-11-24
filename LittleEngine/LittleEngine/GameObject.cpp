@@ -19,10 +19,11 @@ void GameObject::SetParent(GameObject * parent) {
 }
 void GameObject::RemoveChildren(GameObject * gameObject) {
 	if (!children.empty()) {
-		std::remove_if(children.begin(), children.end(), [gameObject](GameObject* child)
+		auto it = std::remove_if(children.begin(), children.end(), [gameObject](GameObject* child)
 		{ 
 			return child == gameObject;  
 		});
+		children.erase(it);
 	}
 }
 

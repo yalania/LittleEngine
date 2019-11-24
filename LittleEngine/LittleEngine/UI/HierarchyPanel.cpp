@@ -30,14 +30,13 @@ void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep)
 				inspector.gameObject = child;
 			}
 			CheckDragAndDrop(child);
-		}else {
-			if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
-				if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
-					inspector.gameObject = child;
-				}
-				ImGui::TreePop();
+		}else if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
+			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
+				inspector.gameObject = child;
 			}
+			CheckDragAndDrop(child);
 			IterateGameObjectsTree(child, ++deep);
+			ImGui::TreePop();
 		}
 	}
 }
@@ -66,15 +65,14 @@ void HierarchyPanel::PopupOnClickPanel() {
 void HierarchyPanel::CheckDragAndDrop(GameObject * gameObject) {
 
 	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-		ImGui::SetDragDropPayload("DRAG", gameObject,sizeof(GameObject));
+		ImGui::SetDragDropPayload("DRAG", &gameObject,sizeof(GameObject*));
 		ImGui::EndDragDropSource();
 	}
 	if (ImGui::BeginDragDropTarget()) {
 		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DRAG");
 		if (payload != nullptr) {
-			assert(payload->DataSize == sizeof(GameObject));
-			GameObject * newChild = reinterpret_cast<GameObject*>(payload->Data);
-			newChild->SetParent(gameObject);
+			GameObject * newChild = *reinterpret_cast<GameObject**>(payload->Data);
+			newChild->SetParent(gameObject); 
 		}
 		ImGui::EndDragDropTarget();
 	}
