@@ -27,15 +27,17 @@ void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep)
 		if (child->children.size() == 0) {
 			ImGui::Selectable(child->name.c_str());
 			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
-				inspector.gameObject = child.get();
+				inspector.gameObject = child;
 			}
-			CheckDragAndDrop(child.get());
-		}else if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
-			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
-				inspector.gameObject = child.get();
+			CheckDragAndDrop(child);
+		}else {
+			if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
+				if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
+					inspector.gameObject = child;
+				}
+				ImGui::TreePop();
 			}
-			IterateGameObjectsTree(child.get(), ++deep);
-			ImGui::TreePop();
+			IterateGameObjectsTree(child, ++deep);
 		}
 	}
 }

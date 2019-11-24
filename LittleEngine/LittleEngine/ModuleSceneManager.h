@@ -13,7 +13,7 @@ public:
 	GameObject * CreateGameObjectChild(GameObject * parent);
 
 	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root", nullptr);
-	std::vector<Transform *> transforms;
+	std::vector<std::unique_ptr<GameObject>> gameObjectsOwnership;
 };
 
 #endif // !_MODULE_SCENE_MANAGER_

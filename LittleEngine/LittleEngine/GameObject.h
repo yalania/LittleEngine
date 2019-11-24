@@ -4,10 +4,10 @@
 #include "Components/Component.h"
 #include <vector>
 
-class GameObject : std::enable_shared_from_this<GameObject> {
+class GameObject {
 public:
-	GameObject(const char * name, std::shared_ptr<GameObject> parent);
-	GameObject(std::string name, std::shared_ptr<GameObject> parent);
+	GameObject(const char * name, GameObject* parent);
+	GameObject(std::string name, GameObject* parent);
 	~GameObject() = default;
 
 	void Update();
@@ -19,8 +19,8 @@ public:
 	std::vector<Component *> components;
 	std::string name = "";
 
-	std::shared_ptr<GameObject> parent = nullptr;
-	std::vector<std::shared_ptr<GameObject>> children;
+	GameObject* parent = nullptr;
+	std::vector<GameObject*> children;
 	bool active = true;
 	bool staticGameObject = false;
 

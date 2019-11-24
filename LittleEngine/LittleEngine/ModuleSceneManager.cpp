@@ -4,9 +4,9 @@
 
 update_status ModuleSceneManager::Update() {
 	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
-	for (auto & transform : transforms) {
+	for (auto & gameObjects : gameObjectsOwnership) {
 		if (!gameIsPaused) {
-			transform->Update();
+			gameObjects->Update();
 		}
 	}
 	glUseProgram(0);
@@ -29,10 +29,11 @@ GameObject * ModuleSceneManager::CreateGameObjectChild(GameObject * parent) {
 		gameObjectEmptyName += " (" + std::to_string(numberOfGameObjectWithSameName) + ")";
 	}
 
-	std::shared_ptr<GameObject> newGameObject = std::make_shared<GameObject>(gameObjectEmptyName, std::shared_ptr<GameObject>(parent));
-	parent->children.push_back(newGameObject);
-	transforms.push_back(&newGameObject->transform);
-	return newGameObject.get();
+	std::unique_ptr<GameObject> newGameObject = std::make_unique<GameObject>(gameObjectEmptyName, parent);
+	GameObject * newGameObjectPtr = newGameObject.get();
+	gameObjectsOwnership.push_back(std::move(newGameObject));
+	parent->children.push_back(newGameObjectPtr);
+	return newGameObjectPtr;
 }
 
 
