@@ -2,16 +2,6 @@
 #include "LittleEngine.h"
 
 
-update_status ModuleSceneManager::Update() {
-	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
-	for (auto & gameObjects : gameObjectsOwnership) {
-		if (!gameIsPaused) {
-			gameObjects->Update();
-		}
-	}
-	glUseProgram(0);
-	return UPDATE_CONTINUE;
-}
 GameObject * ModuleSceneManager::CreateGameObject() {
 	return CreateGameObjectChild(root.get());
 }
