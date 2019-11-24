@@ -29,7 +29,7 @@ struct MeshInfo {
 class Mesh : public Component {
 
 public:
-	Mesh(GameObject * owner) : Component(owner, ComponentType::MESH) {};
+	Mesh(GameObject * owner);
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo);
 	Mesh(Mesh && mesh) = default;

@@ -11,9 +11,9 @@ public:
 	~GameObject() = default;
 
 	void Update();
-
+	std::vector<Component *> GetComponents(ComponentType type);
 	Transform transform;
-	std::vector<std::shared_ptr<Component>> components;
+	std::vector<Component *> components;
 	std::string name = "";
 
 	std::shared_ptr<GameObject> parent = nullptr;

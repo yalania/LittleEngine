@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include <GL/glew.h>
 #include "../LittleEngine.h"
+#include "../GameObject.h"
+Mesh::Mesh(GameObject * owner) : Component(owner, ComponentType::MESH) { owner->components.push_back(this); };
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures) : vertices(vertices), indices(indices), textures(textures), Component(nullptr, ComponentType::MESH)
 {

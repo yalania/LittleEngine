@@ -19,11 +19,14 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 
+	void AddMeshComponentToGameObject(GameObject * gameObject);
+
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
 	void SelectFillingMode(int mode);
 private:
 	void InitOpenGlOptions() const;
+	std::vector<std::unique_ptr<Mesh>> gameObjectMeshes;
 };
 
 #endif // !_MODULE_RENDER_

@@ -19,9 +19,9 @@ update_status ModuleRender::PreUpdate() {
 }
 
 update_status ModuleRender::Update() {
-	/*for (auto & gameObject : gameObjects) {
-		gameObject->Update();
-	}*/
+	for (auto & mesh : gameObjectMeshes) {
+		mesh->Update();
+	}
 	return UPDATE_CONTINUE;
 
 }
@@ -31,6 +31,12 @@ update_status ModuleRender::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
+
+void ModuleRender::AddMeshComponentToGameObject(GameObject * gameObject) {
+	if (gameObject->GetComponents(ComponentType::MESH).size() < 1) {
+		gameObjectMeshes.push_back(std::make_unique<Mesh>(gameObject));
+	}
+}
 void ModuleRender::InitOpenGlOptions() const{
 
 	SDL_GLContext glcontext = SDL_GL_CreateContext(Engine->moduleWindow->window);

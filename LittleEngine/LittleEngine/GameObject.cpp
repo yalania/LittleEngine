@@ -16,3 +16,11 @@ void GameObject::Update(){
 	//update_status result = model->Update();
 	glUseProgram(0);
 }
+
+std::vector<Component *> GameObject::GetComponents(ComponentType type) {
+	std::vector<Component *> result;
+	for (auto & component : components) {
+		result.push_back(component);
+	}
+	return result;
+}
