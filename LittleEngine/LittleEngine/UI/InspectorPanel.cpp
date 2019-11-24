@@ -5,18 +5,24 @@
 void InspectorPanel::ShowGameObjectInfo() {
 	ImGui::Begin("Inspector");
 	if (gameObject != nullptr) {
+
+		ImGui::Checkbox("", &gameObject->active);
+		ImGui::SameLine();
 		writable.erase(writable.begin(), writable.end());
 		std::copy(gameObject->name.begin(), gameObject->name.end(), std::back_inserter(writable));
 		writable.push_back('\0');
 		if (ImGui::InputText("", &writable[0], 20)) {
 			gameObject->name = std::string(&writable[0]);
 		}
+		ImGui::SameLine();
+		ImGui::Checkbox("Static", &gameObject->staticGameObject);
 
 		ImGui::Separator();
-		ImGui::Text("Transform");
-		ImGui::Text("Position: "); ImGui::SameLine();  ImGui::DragFloat3("##Position", &gameObject->transform.position[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
-		ImGui::Text("Rotation: "); ImGui::SameLine();  ImGui::DragFloat3("##Rotation", &gameObject->transform.rotation[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
-		ImGui::Text("Scale:    "); ImGui::SameLine();  ImGui::DragFloat3("##Scale", &gameObject->transform.scale[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		if (ImGui::CollapsingHeader("Transform")) {
+			ImGui::Text("Position: "); ImGui::SameLine();  ImGui::DragFloat3("##Position", &gameObject->transform.position[0], 0.01f, -100.0f, 100.0f); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+			ImGui::Text("Rotation: "); ImGui::SameLine();  ImGui::DragFloat3("##Rotation", &gameObject->transform.rotation[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+			ImGui::Text("Scale:    "); ImGui::SameLine();  ImGui::DragFloat3("##Scale", &gameObject->transform.scale[0], NULL, NULL, NULL); ImGui::Dummy(ImVec2(0.0f, 5.0f));
+		}
 		ImGui::Separator();
 
 		for (auto & component : gameObject->components) {
@@ -77,8 +83,9 @@ void  InspectorPanel::AddNewComponent() {
 
 void InspectorPanel::ShowMeshComponentInfo(Mesh & mesh) {
 
-	ImGui::Text("Mesh");
-	ImGui::Text(mesh.meshInfo.meshName.c_str());
-	ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(mesh.meshInfo.numberOfTriangles).c_str());
-	ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(mesh.meshInfo.numberOfVertex).c_str());
+	if (ImGui::CollapsingHeader("Mesh")) {
+		ImGui::Text(mesh.meshInfo.meshName.c_str());
+		ImGui::Text("Triangle count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(mesh.meshInfo.numberOfTriangles).c_str());
+		ImGui::Text("Vertex count:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0.5, 0.5, 1, 1), std::to_string(mesh.meshInfo.numberOfVertex).c_str());
+	}
 }

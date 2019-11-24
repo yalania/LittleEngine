@@ -36,7 +36,7 @@ update_status ModuleRender::PostUpdate() {
 
 void ModuleRender::AddMeshComponentToGameObject(GameObject * gameObject) {
 	if (gameObject->GetComponents(ComponentType::MESH).size() < 1) {
-
+		gameObjectMeshes.push_back(std::make_unique<Mesh>(gameObject));
 	}
 }
 

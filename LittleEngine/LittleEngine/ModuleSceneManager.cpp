@@ -29,7 +29,7 @@ GameObject * ModuleSceneManager::CreateGameObjectChild(GameObject * parent) {
 		gameObjectEmptyName += " (" + std::to_string(numberOfGameObjectWithSameName) + ")";
 	}
 
-	std::shared_ptr<GameObject> newGameObject = std::make_shared<GameObject>(gameObjectEmptyName);
+	std::shared_ptr<GameObject> newGameObject = std::make_shared<GameObject>(gameObjectEmptyName, std::shared_ptr<GameObject>(parent));
 	parent->children.push_back(newGameObject);
 	transforms.push_back(&newGameObject->transform);
 	return newGameObject.get();

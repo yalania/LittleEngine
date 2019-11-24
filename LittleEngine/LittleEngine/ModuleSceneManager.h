@@ -12,7 +12,7 @@ public:
 	GameObject * CreateGameObject();
 	GameObject * CreateGameObjectChild(GameObject * parent);
 
-	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root");
+	std::unique_ptr<GameObject> root = std::make_unique<GameObject>("Root", nullptr);
 	std::vector<Transform *> transforms;
 };
 

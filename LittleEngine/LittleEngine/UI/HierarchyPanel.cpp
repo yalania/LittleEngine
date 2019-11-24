@@ -1,11 +1,13 @@
 #include "HierarchyPanel.h"
-#include "../imgui/imgui.h"
+
 #include "../LittleEngine.h"
+
+ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_OpenOnArrow;
 
 void HierarchyPanel::ShowHierarchyPanel() {
 	ImGui::Begin("Hierarchy Panel");
 	static GameObject * sceneRoot = Engine->moduleSceneManager->GetRoot();
-	if (ImGui::TreeNode(sceneRoot->name.c_str())) {
+	if (ImGui::TreeNodeEx(sceneRoot->name.c_str(), treeFlags | ImGuiTreeNodeFlags_DefaultOpen)) {
 		if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
 			inspector.gameObject = sceneRoot;
 		}
@@ -16,6 +18,7 @@ void HierarchyPanel::ShowHierarchyPanel() {
 	
 	ImGui::End();
 	inspector.ShowGameObjectInfo();
+
 	ImGui::ShowDemoWindow();
 }
 
@@ -26,8 +29,11 @@ void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep)
 			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
 				inspector.gameObject = child.get();
 			}
-
-		}else if (ImGui::TreeNode(child->name.c_str())) {
+			CheckDragAndDrop(child.get());
+		}else if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
+			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
+				inspector.gameObject = child.get();
+			}
 			IterateGameObjectsTree(child.get(), ++deep);
 			ImGui::TreePop();
 		}
@@ -53,4 +59,22 @@ void HierarchyPanel::PopupOnClickPanel() {
 	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)) {
 		inspector.gameObject = nullptr;
 	}
+}
+
+void HierarchyPanel::CheckDragAndDrop(GameObject * gameObject) {
+
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+		ImGui::SetDragDropPayload("DRAG", gameObject,sizeof(GameObject));
+		ImGui::EndDragDropSource();
+	}
+	if (ImGui::BeginDragDropTarget()) {
+		const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DRAG");
+		if (payload != nullptr) {
+			assert(payload->DataSize == sizeof(GameObject));
+			GameObject * newChild = reinterpret_cast<GameObject*>(payload->Data);
+			newChild->SetParent(gameObject);
+		}
+		ImGui::EndDragDropTarget();
+	}
+	
 }
