@@ -50,8 +50,10 @@ void ModuleProgram::CompileShader(const GLuint & shader, const char * shaderFile
 	
 }
 
-GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fragment_path) const{
+GLuint ModuleProgram::LoadShaderProgram(const char *vertexPath, const char *fragmentPath) const{
 
+	std::string localVertexPath = shaderPath + std::string(vertexPath);
+	std::string localFargmentPath = shaderPath + std::string(fragmentPath);
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -60,8 +62,8 @@ GLuint ModuleProgram::LoadShaderProgram(const char *vertex_path, const char *fra
 
 	GLuint program = glCreateProgram();
 
-	const std::string vertexShaderFile = ReadFile(vertex_path);
-	const std::string farmentShaderFile = ReadFile(fragment_path);
+	const std::string vertexShaderFile = ReadFile(localVertexPath.c_str());
+	const std::string farmentShaderFile = ReadFile(localFargmentPath.c_str());
 
 	CompileShader(vertexShader, vertexShaderFile.c_str());
 	CompileShader(fragmentShader, farmentShaderFile.c_str());

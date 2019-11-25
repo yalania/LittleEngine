@@ -19,6 +19,7 @@ private:
 	const std::string ReadFile(const std::string & shaderFilePath) const;
 	void CompileShader(const GLuint & shader, const char * shaderFile) const;
 	void SetUpUniformsBuffer();
+	const std::string shaderPath = "shaders//";
 };
 #endif // _SHADERS_PROGRAM_
 

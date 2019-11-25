@@ -234,10 +234,10 @@
     <ClInclude Include="Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Engine\fragmentShader.frag" />
-    <None Include="Engine\gridShader.frag" />
-    <None Include="Engine\gridShader.vert" />
-    <None Include="Engine\vertexShader.vert" />
+    <None Include="Engine\shaders\fragmentShader.frag" />
+    <None Include="Engine\shaders\gridShader.frag" />
+    <None Include="Engine\shaders\gridShader.vert" />
+    <None Include="Engine\shaders\vertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
