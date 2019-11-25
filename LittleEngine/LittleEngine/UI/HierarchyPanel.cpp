@@ -19,24 +19,32 @@ void HierarchyPanel::ShowHierarchyPanel() {
 	ImGui::End();
 	inspector.ShowGameObjectInfo();
 
-	ImGui::ShowDemoWindow();
+	ImGui::ShowStyleEditor();
 }
 
 void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep) {
 	for (auto & child : parent->children) {
+		bool selected = child == inspector.gameObject;
+		ImGuiTreeNodeFlags innerTreeFlags = treeFlags;
+		if (selected) {
+			innerTreeFlags = treeFlags | ImGuiTreeNodeFlags_Selected;
+		}
 		if (child->children.size() == 0) {
-			ImGui::Selectable(child->name.c_str());
+			ImGui::Selectable(child->name.c_str(),selected);
 			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
 				inspector.gameObject = child;
 			}
 			CheckDragAndDrop(child);
-		}else if (ImGui::TreeNodeEx(child->name.c_str(), treeFlags)) {
-			if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
-				inspector.gameObject = child;
+		}
+		else {
+			if (ImGui::TreeNodeEx(child->name.c_str(), innerTreeFlags)) {
+				if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
+					inspector.gameObject = child;
+				}
+				IterateGameObjectsTree(child, ++deep);
+				ImGui::TreePop();
 			}
 			CheckDragAndDrop(child);
-			IterateGameObjectsTree(child, ++deep);
-			ImGui::TreePop();
 		}
 	}
 }
