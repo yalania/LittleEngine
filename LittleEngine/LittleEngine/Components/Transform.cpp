@@ -17,6 +17,10 @@ void Transform::Update(){
 }
 
 glm::mat4 & Transform::CalculateTransformMatrix()  {
+	glm::mat4 globalMatrix = glm::mat4(1.0f);
+	if (owner->parent != nullptr) {
+		globalMatrix = owner->parent->transform.model;
+	}
 	model = glm::mat4(1.0f);
 	rotation = glm::normalize(rotation);
 	model = glm::mat4_cast(rotation);
@@ -24,9 +28,9 @@ glm::mat4 & Transform::CalculateTransformMatrix()  {
 	model[3][0] = position.x;
 	model[3][1] = position.y;
 	model[3][2] = position.z;
+	model = globalMatrix * model;
 	return model;
 }
-
 
 void Transform::TranslateLocal(glm::vec3 translation) {
 		position += translation.x * glm::vec3(model[0]);

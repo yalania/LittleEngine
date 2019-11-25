@@ -21,7 +21,6 @@ update_status ModuleRender::PreUpdate() {
 update_status ModuleRender::Update() {
 	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
 	for (auto & mesh : gameObjectMeshes) {
-		mesh->GetOwner()->Update();
 		mesh->Update();
 	}
 	glUseProgram(0);

@@ -33,7 +33,7 @@ public:
 
 	void SetOwner(GameObject * owner);
 	GameObject * const GetOwner() const;
-private:
+protected:
 	GameObject * owner;
 };
 #endif // !_COMPONENT_

@@ -17,7 +17,7 @@ Mesh::~Mesh() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 void Mesh::Update() {
-
+	owner->transform.Update();
 	if (!showCheckerboardTexture) {
 		for (unsigned int i = 0; i < textures.size(); i++)
 		{

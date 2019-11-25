@@ -7,6 +7,7 @@
 class ModuleSceneManager : public Module {
 
 public:
+	update_status Update() override;
 	GameObject * GetRoot() const;
 	GameObject * CreateGameObject();
 	GameObject * CreateGameObjectChild(GameObject * parent);
