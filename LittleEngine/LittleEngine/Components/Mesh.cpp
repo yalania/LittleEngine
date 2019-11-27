@@ -17,8 +17,11 @@ Mesh::~Mesh() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
-		glDeleteTextures(1,static_cast<const GLuint *>(&(textures[i]->id)));
+		glDeleteTextures(1,&textures[i]->id);
 	}
+	glDeleteVertexArrays(1,&VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 }
 
 void Mesh::Delete() {
