@@ -28,6 +28,14 @@ void GameObject::Update(){
 }
 
 void GameObject::SetParent(GameObject * parent) {
+	//New Parent is not is child
+	GameObject * grandFather = parent->parent;
+	while (grandFather != nullptr) {
+		if (grandFather == this) {
+			return;
+		}
+		grandFather = grandFather->parent;
+	}
 	this->parent->RemoveChild(this);
 	this->parent = parent;
 	parent->children.push_back(this);

@@ -8,6 +8,7 @@ void HierarchyPanel::ShowHierarchyPanel() {
 	ImGui::Begin("Hierarchy Panel");
 	static GameObject * sceneRoot = Engine->moduleSceneManager->GetRoot();
 	if (ImGui::TreeNodeEx(sceneRoot->name.c_str(), treeFlags | ImGuiTreeNodeFlags_DefaultOpen)) {
+		CheckDragAndDrop(sceneRoot);
 		if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
 			inspector.gameObject = sceneRoot;
 		}
@@ -15,7 +16,6 @@ void HierarchyPanel::ShowHierarchyPanel() {
 		ImGui::TreePop();
 	}
 	PopupOnClickPanel();
-	
 	ImGui::End();
 	inspector.ShowGameObjectInfo();
 
@@ -41,10 +41,10 @@ void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep)
 				if ((ImGui::IsItemHovered() || ImGui::IsItemFocused()) && ImGui::GetIO().MouseClicked[0]) {
 					inspector.gameObject = child;
 				}
+				CheckDragAndDrop(child);
 				IterateGameObjectsTree(child, ++deep);
 				ImGui::TreePop();
 			}
-			CheckDragAndDrop(child);
 		}
 	}
 }
@@ -77,8 +77,8 @@ void HierarchyPanel::PopupOnClickPanel() {
 }
 
 void HierarchyPanel::CheckDragAndDrop(GameObject * gameObject) {
-
-	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+	bool dragging = ImGui::GetDragDropPayload() != nullptr;
+	if (!dragging && ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
 		ImGui::SetDragDropPayload("DRAG", &gameObject,sizeof(GameObject*));
 		ImGui::EndDragDropSource();
 	}
