@@ -27,7 +27,9 @@ public:
 	{
 		active = false;
 	}
-
+	virtual void Delete() {
+		delete this;
+	}
 	bool active = true;
 	ComponentType type;
 

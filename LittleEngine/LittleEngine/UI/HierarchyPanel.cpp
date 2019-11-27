@@ -62,6 +62,12 @@ void HierarchyPanel::PopupOnClickPanel() {
 				Engine->moduleSceneManager->CreateGameObjectChild(inspector.gameObject);
 			}
 		}
+		if(ImGui::Selectable("Delete")) {
+			if (inspector.gameObject != nullptr && inspector.gameObject != Engine->moduleSceneManager->GetRoot()) {
+				Engine->moduleSceneManager->RemoveGameObject(inspector.gameObject);
+				inspector.gameObject = nullptr;
+			}
+		}
 		ImGui::EndPopup();
 	}
 

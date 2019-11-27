@@ -8,19 +8,21 @@ class GameObject {
 public:
 	GameObject(const char * name, GameObject* parent);
 	GameObject(std::string name, GameObject* parent);
-	~GameObject() = default;
+	~GameObject();
 
 	void Update();
 	std::vector<Component *> GetComponents(ComponentType type);
 	void SetParent(GameObject * parent);
-	void RemoveChildren(GameObject * gameObject);
+	void RemoveChild(GameObject * gameObject);
+	void AddChild(GameObject * gameObject);
+	void Delete();
 
 	Transform transform;
 	std::vector<Component *> components;
+	std::vector<GameObject*> children;
+	GameObject* parent = nullptr;
 	std::string name = "";
 
-	GameObject* parent = nullptr;
-	std::vector<GameObject*> children;
 	bool active = true;
 	bool staticGameObject = false;
 

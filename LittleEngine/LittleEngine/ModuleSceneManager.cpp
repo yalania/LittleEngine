@@ -35,6 +35,13 @@ GameObject * ModuleSceneManager::CreateGameObjectChild(GameObject * parent) {
 	return newGameObjectPtr;
 }
 
+void ModuleSceneManager::RemoveGameObject(GameObject * gameObjectToRemove) {
+	auto it = std::remove_if(gameObjectsOwnership.begin(), gameObjectsOwnership.end(), [gameObjectToRemove](auto const & gameObject)
+	{
+		return gameObject.get() == gameObjectToRemove;
+	});
+	gameObjectsOwnership.erase(it);
+}
 
 GameObject * ModuleSceneManager::GetRoot() const {
 	return root.get();
