@@ -25,7 +25,7 @@ void Mesh::Delete() {
 	Engine->moduleRenderer->RemoveMeshComponent(this);
 }
 void Mesh::Update() {
-	owner->transform.Update();
+	owner->transform.UpdateModelInUniformBuffer();
 	if (!showCheckerboardTexture) {
 		for (unsigned int i = 0; i < textures.size(); i++)
 		{

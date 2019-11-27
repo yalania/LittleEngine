@@ -18,8 +18,6 @@ void HierarchyPanel::ShowHierarchyPanel() {
 	PopupOnClickPanel();
 	ImGui::End();
 	inspector.ShowGameObjectInfo();
-
-	ImGui::ShowStyleEditor();
 }
 
 void HierarchyPanel::IterateGameObjectsTree(const GameObject * parent, int deep) {

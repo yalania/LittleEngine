@@ -7,13 +7,8 @@ Transform::Transform(GameObject * owner) : Component(owner, ComponentType::TRANS
 	CalculateTransformMatrix();
 }
 void Transform::Update(){
-	/*double movementInX = sin(Engine->moduleTimeController->gameTimeClock.Read()/1000);
-	position.x = movementInX;
-	rotation = glm::rotate(rotation, static_cast<float>(movementInX), glm::vec3(0.0f,1.0f, 0.0f));*/
-	glm::mat4 model = CalculateTransformMatrix();
-	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
-	glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(model));
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	CalculateTransformMatrix();
+	UpdateModelInUniformBuffer();
 }
 
 glm::mat4 & Transform::CalculateTransformMatrix()  {
@@ -32,10 +27,22 @@ glm::mat4 & Transform::CalculateTransformMatrix()  {
 	return model;
 }
 
-void Transform::TranslateLocal(glm::vec3 translation) {
+void Transform::TranslateLocal(const glm::vec3 & translation) {
 		position += translation.x * glm::vec3(model[0]);
 		position += translation.y * glm::vec3(model[1]);
 		position += translation.z * glm::vec3(model[2]);
+}
+
+void Transform::RotateLocal(const glm::quat & rotation){}
+void Transform::RotateLocal(const glm::vec3 & rotationEuler){}
+void Transform::ScaleLocal(const glm::vec3 & scale){}
+
+void Transform::SetRotationFromEuler(const glm::vec3 & eulerRotation) {
+	rotation = glm::quat(eulerRotation);
+}
+
+glm::vec3 Transform::GetEulerRotation() const {
+	return glm::eulerAngles(rotation);
 }
 
 glm::vec3 Transform::GetRightAxis() const {
@@ -46,4 +53,10 @@ glm::vec3 Transform::GetUptAxis() const{
 }
 glm::vec3 Transform::GetFrontAxis() const{
 	return model[2];
+}
+
+void Transform::UpdateModelInUniformBuffer() {
+	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
+	glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(model));
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
