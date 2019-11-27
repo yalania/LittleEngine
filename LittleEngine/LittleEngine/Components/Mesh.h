@@ -40,6 +40,7 @@ public:
 	Mesh& operator = (const Mesh & mesh) = default;
 
 	void Update() override;
+	void Delete() override;
 
 private:
 	void setupMesh();

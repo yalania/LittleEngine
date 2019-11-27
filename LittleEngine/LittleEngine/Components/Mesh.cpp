@@ -15,6 +15,14 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 }
 Mesh::~Mesh() {
 	glBindTexture(GL_TEXTURE_2D, 0);
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glDeleteTextures(1,static_cast<const GLuint *>(&(textures[i]->id)));
+	}
+}
+
+void Mesh::Delete() {
+	Engine->moduleRenderer->RemoveMeshComponent(this);
 }
 void Mesh::Update() {
 	owner->transform.Update();

@@ -21,6 +21,7 @@ LittleEngine::LittleEngine()
 LittleEngine::~LittleEngine()
 {
 	CleanUp();
+	_CrtDumpMemoryLeaks();
 }
 
 bool LittleEngine::Init()

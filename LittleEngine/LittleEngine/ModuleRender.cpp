@@ -20,7 +20,7 @@ update_status ModuleRender::PreUpdate() {
 
 update_status ModuleRender::Update() {
 	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
-	for (auto & mesh : gameObjectMeshes) {
+	for (auto & mesh : meshesComponent) {
 		mesh->Update();
 	}
 	glUseProgram(0);
@@ -36,18 +36,26 @@ update_status ModuleRender::PostUpdate() {
 
 void ModuleRender::AddMeshComponentToGameObject(GameObject * gameObject) {
 	if (gameObject->GetComponents(ComponentType::MESH).size() < 1) {
-		gameObjectMeshes.push_back(std::make_unique<Mesh>(gameObject));
+		meshesComponent.push_back(std::make_unique<Mesh>(gameObject));
 	}
 }
 
-void ModuleRender::CreateMeshGameObjectFromFile(const char * file) {
+void ModuleRender::CreateMeshComponentFromFile(const char * file) {
 	std::vector<Mesh> meshes = Engine->moduleModelLoader->LoadModel(file);
 	for (auto & mesh : meshes) {
 		GameObject * newGameObject = Engine->moduleSceneManager->CreateGameObject();
 		std::unique_ptr<Mesh> uniqueMesh = std::make_unique<Mesh>(mesh);
 		uniqueMesh->SetOwner(newGameObject);
-		gameObjectMeshes.push_back(std::move(uniqueMesh));
+		meshesComponent.push_back(std::move(uniqueMesh));
 	}
+}
+
+void ModuleRender::RemoveMeshComponent(Mesh * componentToRemove){
+	auto it = std::remove_if(meshesComponent.begin(), meshesComponent.end(), [componentToRemove](auto const & mesh)
+	{
+		return mesh.get() == componentToRemove;
+	});
+	meshesComponent.erase(it);
 }
 void ModuleRender::InitOpenGlOptions() const{
 

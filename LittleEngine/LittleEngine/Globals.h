@@ -42,4 +42,10 @@ extern bool gameIsPaused;
 #define OPENGL_MAJOR_VERSION 3
 #define OPENGL_MINOR_VERSION 3
 
+
+#include <windows.h>
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #endif // !_GLOBALS_

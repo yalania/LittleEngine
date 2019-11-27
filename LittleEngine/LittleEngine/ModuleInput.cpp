@@ -48,7 +48,7 @@ update_status ModuleInput::Update()
 		CameraMovementWithMouse(event);
 		if (event.type == SDL_DROPFILE) {      // In case if dropped file
 			char* dropped_filedir = event.drop.file;
-			Engine->moduleRenderer->CreateMeshGameObjectFromFile(dropped_filedir);
+			Engine->moduleRenderer->CreateMeshComponentFromFile(dropped_filedir);
 			SDL_free(dropped_filedir);    // Free dropped_filedir memory
 			
 			break;

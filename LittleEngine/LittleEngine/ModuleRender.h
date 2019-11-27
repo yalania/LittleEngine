@@ -20,14 +20,15 @@ public:
 	bool CleanUp() override;
 
 	void AddMeshComponentToGameObject(GameObject * gameObject);
-	void CreateMeshGameObjectFromFile(const char * file);
+	void CreateMeshComponentFromFile(const char * file);
+	void RemoveMeshComponent(Mesh * componentToRemove);
 
 	void EnableFaceCulling(bool faceCullingEnabled);
 	void EnableClockwiseFaceCulling(bool clockwiseFaceCullingEnabled);
 	void SelectFillingMode(int mode);
 private:
 	void InitOpenGlOptions() const;
-	std::vector<std::unique_ptr<Mesh>> gameObjectMeshes;
+	std::vector<std::unique_ptr<Mesh>> meshesComponent;
 };
 
 #endif // !_MODULE_RENDER_
