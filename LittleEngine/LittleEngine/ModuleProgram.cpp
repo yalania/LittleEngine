@@ -20,7 +20,7 @@ const std::string ModuleProgram::ReadFile(const std::string & shaderFilePath) co
 
 	if (!file.is_open()) {
 		LOG("Shader couldn't be opened! File path: %s\n", shaderFilePath);
-		return false;
+		return std::string("");
 	}
 
 	std::string shader((std::istreambuf_iterator<char>(file)),
