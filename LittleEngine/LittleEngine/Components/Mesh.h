@@ -32,11 +32,29 @@ public:
 	Mesh(GameObject * owner);
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo);
-	Mesh(Mesh && mesh) = default;
-	Mesh(const Mesh & mesh) = default;
 	~Mesh();
+	Mesh(Mesh && mesh) : Component(std::move(mesh)) {
+		*this = std::move(mesh);
+	};
 
-	Mesh& operator = (Mesh && mesh) = default;
+	Mesh(const Mesh & mesh) = default;
+
+	Mesh& operator = (Mesh && mesh) {
+		Component::operator=(mesh);
+		this->EBO = mesh.EBO;
+		this->VAO = mesh.VAO;
+		this->VBO = mesh.VBO;
+		mesh.EBO = 0;
+		mesh.VAO = 0;
+		mesh.VBO = 0;
+		this->vertices = std::move(mesh.vertices);
+		this->indices = std::move(mesh.indices);
+		this->textures = std::move(mesh.textures);
+		this->meshInfo = mesh.meshInfo;
+		this->showCheckerboardTexture = mesh.showCheckerboardTexture;
+		return *this;
+	};
+
 	Mesh& operator = (const Mesh & mesh) = default;
 
 	void Update() override;

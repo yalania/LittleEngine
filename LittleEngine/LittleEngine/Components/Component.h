@@ -16,6 +16,12 @@ public:
 	Component(GameObject * owner,ComponentType componentType) : owner(owner), type(componentType) {}
 	virtual ~Component() = default;
 
+	Component(const Component & component);
+	Component(Component && component);
+
+	Component& operator = (const Component & component);
+	Component& operator = (Component && component);
+
 	virtual void Enable()
 	{
 		active = true;
