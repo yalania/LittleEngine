@@ -33,13 +33,15 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures, MeshInfo meshInfo);
 	~Mesh();
-	Mesh(Mesh && mesh) : Component(std::move(mesh)) {
+	Mesh(Mesh && mesh) noexcept : Component(std::move(mesh)) {
 		*this = std::move(mesh);
 	};
 
-	Mesh(const Mesh & mesh) = default;
+	Mesh(const Mesh & mesh) : Component(mesh) {
+		*this = mesh;
+	};
 
-	Mesh& operator = (Mesh && mesh) {
+	Mesh& operator = (Mesh && mesh) noexcept {
 		Component::operator=(mesh);
 		this->EBO = mesh.EBO;
 		this->VAO = mesh.VAO;
@@ -55,7 +57,16 @@ public:
 		return *this;
 	};
 
-	Mesh& operator = (const Mesh & mesh) = default;
+	Mesh& operator = (const Mesh & mesh) {
+		Component::operator=(mesh);
+		this->vertices =mesh.vertices;
+		this->indices = mesh.indices;
+		this->textures =mesh.textures;
+		this->meshInfo = mesh.meshInfo;
+		this->showCheckerboardTexture = mesh.showCheckerboardTexture;
+		this->setupMesh();
+		return *this;
+	};
 
 	void Update() override;
 	void Delete() override;
