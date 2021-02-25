@@ -2,7 +2,7 @@
 #define _COMPONENT_
 #include "../Globals.h"
 #include <memory>
-
+#include <string>
 
 enum class ComponentType {
 	TRANSFORM,

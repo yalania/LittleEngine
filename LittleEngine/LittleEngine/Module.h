@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 #include "Log.h"
-
+#include <memory>
 class Module
 {
 public:
