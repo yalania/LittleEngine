@@ -23,19 +23,19 @@
     <ProjectGuid>{3B62BF64-91D9-4D81-880F-CAB86A9BDF1D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LittleEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -105,7 +105,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2main.lib;physfs-static.lib;assimp-vc141-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2main.lib;physfs-static.lib;assimp-vc142-mt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,7 +122,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2main.lib;physfs-static.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL2.lib;SDL2main.lib;physfs-static.lib;assimp-vc142-mt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,78 +165,78 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Components\Collider.cpp" />
-    <ClCompile Include="src\Components\Component.cpp" />
-    <ClCompile Include="src\Components\Mesh.cpp" />
-    <ClCompile Include="src\Components\Transform.cpp" />
-    <ClCompile Include="src\Editor\HierarchyPanel.cpp" />
-    <ClCompile Include="src\Editor\InspectorPanel.cpp" />
-    <ClCompile Include="src\Editor\PropertiesUI.cpp" />
-    <ClCompile Include="src\Editor\UI.cpp" />
-    <ClCompile Include="src\GameObject.cpp" />
-    <ClCompile Include="src\Global.cpp" />
-    <ClCompile Include="src\imgui\imgui.cpp" />
-    <ClCompile Include="src\imgui\imgui_demo.cpp" />
-    <ClCompile Include="src\imgui\imgui_draw.cpp" />
-    <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="src\imgui\imgui_impl_sdl.cpp" />
-    <ClCompile Include="src\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\LittleEngine.cpp" />
-    <ClCompile Include="src\log.cpp" />
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Modules\ModuleCamera.cpp" />
-    <ClCompile Include="src\Modules\ModuleGrid.cpp" />
-    <ClCompile Include="src\Modules\ModuleIMGUI.cpp" />
-    <ClCompile Include="src\Modules\ModuleInput.cpp" />
-    <ClCompile Include="src\Modules\ModuleModelLoader.cpp" />
-    <ClCompile Include="src\Modules\ModuleProgram.cpp" />
-    <ClCompile Include="src\Modules\ModuleRender.cpp" />
-    <ClCompile Include="src\Modules\ModuleSceneManager.cpp" />
-    <ClCompile Include="src\Modules\ModuleTexture.cpp" />
-    <ClCompile Include="src\Modules\ModuleTimeController.cpp" />
-    <ClCompile Include="src\Modules\ModuleWindow.cpp" />
-    <ClCompile Include="src\Utils\MicroTimer.cpp" />
-    <ClCompile Include="src\Utils\MsTimer.cpp" />
-    <ClCompile Include="src\Utils\SystemProperties.cpp" />
+    <ClCompile Include="LittleEngine\src\Components\Collider.cpp" />
+    <ClCompile Include="LittleEngine\src\Components\Component.cpp" />
+    <ClCompile Include="LittleEngine\src\Components\Mesh.cpp" />
+    <ClCompile Include="LittleEngine\src\Components\Transform.cpp" />
+    <ClCompile Include="LittleEngine\src\Editor\HierarchyPanel.cpp" />
+    <ClCompile Include="LittleEngine\src\Editor\InspectorPanel.cpp" />
+    <ClCompile Include="LittleEngine\src\Editor\PropertiesUI.cpp" />
+    <ClCompile Include="LittleEngine\src\Editor\UI.cpp" />
+    <ClCompile Include="LittleEngine\src\GameObject.cpp" />
+    <ClCompile Include="LittleEngine\src\Global.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="LittleEngine\src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="LittleEngine\src\LittleEngine.cpp" />
+    <ClCompile Include="LittleEngine\src\log.cpp" />
+    <ClCompile Include="LittleEngine\src\Main.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleCamera.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleGrid.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleIMGUI.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleModelLoader.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleProgram.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleRender.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleSceneManager.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleTexture.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleTimeController.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleWindow.cpp" />
+    <ClCompile Include="LittleEngine\src\Utils\MicroTimer.cpp" />
+    <ClCompile Include="LittleEngine\src\Utils\MsTimer.cpp" />
+    <ClCompile Include="LittleEngine\src\Utils\SystemProperties.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Components\Collider.h" />
-    <ClInclude Include="src\Components\Component.h" />
-    <ClInclude Include="src\Components\Mesh.h" />
-    <ClInclude Include="src\Components\Texture.h" />
-    <ClInclude Include="src\Components\Transform.h" />
-    <ClInclude Include="src\Editor\HierarchyPanel.h" />
-    <ClInclude Include="src\Editor\InspectorPanel.h" />
-    <ClInclude Include="src\Editor\PropertiesUI.h" />
-    <ClInclude Include="src\Editor\UI.h" />
+    <ClInclude Include="LittleEngine\src\Components\Collider.h" />
+    <ClInclude Include="LittleEngine\src\Components\Component.h" />
+    <ClInclude Include="LittleEngine\src\Components\Mesh.h" />
+    <ClInclude Include="LittleEngine\src\Components\Texture.h" />
+    <ClInclude Include="LittleEngine\src\Components\Transform.h" />
+    <ClInclude Include="LittleEngine\src\Editor\HierarchyPanel.h" />
+    <ClInclude Include="LittleEngine\src\Editor\InspectorPanel.h" />
+    <ClInclude Include="LittleEngine\src\Editor\PropertiesUI.h" />
+    <ClInclude Include="LittleEngine\src\Editor\UI.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imconfig.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imgui.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imgui_internal.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imstb_rectpack.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imstb_textedit.h" />
+    <ClInclude Include="LittleEngine\src\imgui\imstb_truetype.h" />
+    <ClInclude Include="LittleEngine\src\Modules\Module.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleCamera.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleGrid.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleIMGUI.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleModelLoader.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleProgram.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleRender.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleSceneManager.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleTexture.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleTimeController.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleWindow.h" />
+    <ClInclude Include="LittleEngine\src\Utils\MicroTimer.h" />
+    <ClInclude Include="LittleEngine\src\Utils\MsTimer.h" />
+    <ClInclude Include="LittleEngine\src\Utils\SystemProperties.h" />
+    <ClInclude Include="LittleEngine\src\Utils\Timer.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Globals.h" />
-    <ClInclude Include="src\imgui\imconfig.h" />
-    <ClInclude Include="src\imgui\imgui.h" />
-    <ClInclude Include="src\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="src\imgui\imgui_impl_sdl.h" />
-    <ClInclude Include="src\imgui\imgui_internal.h" />
-    <ClInclude Include="src\imgui\imstb_rectpack.h" />
-    <ClInclude Include="src\imgui\imstb_textedit.h" />
-    <ClInclude Include="src\imgui\imstb_truetype.h" />
     <ClInclude Include="src\LittleEngine.h" />
     <ClInclude Include="src\Log.h" />
-    <ClInclude Include="src\Modules\Module.h" />
-    <ClInclude Include="src\Modules\ModuleCamera.h" />
-    <ClInclude Include="src\Modules\ModuleGrid.h" />
-    <ClInclude Include="src\Modules\ModuleIMGUI.h" />
-    <ClInclude Include="src\Modules\ModuleInput.h" />
-    <ClInclude Include="src\Modules\ModuleModelLoader.h" />
-    <ClInclude Include="src\Modules\ModuleProgram.h" />
-    <ClInclude Include="src\Modules\ModuleRender.h" />
-    <ClInclude Include="src\Modules\ModuleSceneManager.h" />
-    <ClInclude Include="src\Modules\ModuleTexture.h" />
-    <ClInclude Include="src\Modules\ModuleTimeController.h" />
-    <ClInclude Include="src\Modules\ModuleWindow.h" />
-    <ClInclude Include="src\Utils\MicroTimer.h" />
-    <ClInclude Include="src\Utils\MsTimer.h" />
-    <ClInclude Include="src\Utils\SystemProperties.h" />
-    <ClInclude Include="src\Utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\shaders\fragmentShader.frag" />
