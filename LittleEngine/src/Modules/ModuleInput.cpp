@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include "imgui/imgui_impl_sdl.h"
 
+#include <Modules/ModuleWindow.h>
 // Destructor
 ModuleInput::~ModuleInput()
 {

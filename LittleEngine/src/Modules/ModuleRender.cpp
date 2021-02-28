@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
 
+#include <Modules/ModuleWindow.h>
+
 bool ModuleRender::Init() {
 	LOG("Init Render system");
 	InitOpenGlOptions();

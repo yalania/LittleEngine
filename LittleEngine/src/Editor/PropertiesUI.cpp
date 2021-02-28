@@ -1,7 +1,8 @@
 #include "PropertiesUI.h"
 #include "../Utils/SystemProperties.h"
 #include "../imgui/imgui.h"
-#include "../LittleEngine.h"
+#include <LittleEngine.h>
+#include <Modules/ModuleWindow.h>
 
 namespace WindowOptions {
 	bool showingDebugWindow = false;

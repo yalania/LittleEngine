@@ -1,5 +1,9 @@
 #include "LittleEngine.h"
 #include "Log.h"
+
+#include <Modules/ModuleWindow.h>
+#include <Modules/ModuleInput.h>
+#include <Modules/ModuleFilesystem.h>
 LittleEngine::LittleEngine()
 {
 	// Order matters: they will Init/start/update in this order
@@ -16,6 +20,7 @@ LittleEngine::LittleEngine()
 	modules.push_back((moduleCamera = std::make_unique<ModuleCamera>()).get());
 	modules.push_back((moduleTexture = std::make_unique<ModuleTexture>()).get());
 	modules.push_back((moduleGrid = std::make_unique<ModuleGrid>()).get());
+	modules.push_back((moduleFilesystem = std::make_unique<ModuleFilesystem>()).get());
 }
 
 LittleEngine::~LittleEngine()

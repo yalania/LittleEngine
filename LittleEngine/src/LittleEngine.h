@@ -2,8 +2,6 @@
 #define _LITTLE_ENGINE_
 
 #include <Modules/ModuleRender.h>
-#include <Modules/ModuleWindow.h>
-#include <Modules/ModuleInput.h>
 #include <Modules/ModuleProgram.h>
 #include <Modules/ModuleIMGUI.h>
 #include <Modules/ModuleCamera.h>
@@ -15,7 +13,9 @@
 
 #include <vector>
 #include <memory>
-
+class ModuleWindow;
+class ModuleFilesystem;
+class ModuleInput;
 class LittleEngine {
 
 public:
@@ -39,7 +39,7 @@ public:
 	std::unique_ptr<ModuleModelLoader> moduleModelLoader;
 	std::unique_ptr<ModuleTimeController> moduleTimeController;
 	std::unique_ptr<ModuleSceneManager> moduleSceneManager;
-
+	std::unique_ptr<ModuleFilesystem> moduleFilesystem;
 private:
 
 	std::vector<Module *> modules;

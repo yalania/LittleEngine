@@ -185,6 +185,7 @@
     <ClCompile Include="LittleEngine\src\log.cpp" />
     <ClCompile Include="LittleEngine\src\Main.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleCamera.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleFilesystem.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleGrid.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleIMGUI.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="LittleEngine\src\imgui\imstb_truetype.h" />
     <ClInclude Include="LittleEngine\src\Modules\Module.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleCamera.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleFilesystem.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleGrid.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleIMGUI.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h" />

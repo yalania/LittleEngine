@@ -4,6 +4,7 @@
 #include "Module.h"
 #include <Globals.h>
 #include <glm/vec2.hpp>
+#include <SDL/SDL.h>
 
 class ModuleInput : public Module
 {

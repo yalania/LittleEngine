@@ -9,6 +9,7 @@
 #include "imgui/imgui_impl_sdl.h"
 
 #include "LittleEngine.h"
+#include <Modules/ModuleWindow.h>
 
 bool ModuleIMGUI::Init() {
 	LOG("Init IMGUI sytem");
