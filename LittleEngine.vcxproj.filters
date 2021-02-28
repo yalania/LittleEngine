@@ -31,6 +31,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{7c4ee385-e58c-4f8b-b41d-eeff00275176}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Filesystem">
+      <UniqueIdentifier>{ce5602a1-cdb8-4bfe-a7bd-460b1edaa25d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LittleEngine\src\Modules\ModuleRender.cpp">
@@ -134,6 +137,12 @@
     </ClCompile>
     <ClCompile Include="LittleEngine\src\Modules\ModuleFilesystem.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\Filesystem\Path.cpp">
+      <Filter>Filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\Filesystem\File.cpp">
+      <Filter>Filesystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleFilesystem.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\Filesystem\File.h">
+      <Filter>Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\Filesystem\Path.h">
+      <Filter>Filesystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

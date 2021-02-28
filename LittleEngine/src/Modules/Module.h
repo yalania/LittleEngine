@@ -3,7 +3,9 @@
 
 #include <Globals.h>
 #include "Log.h"
+#include <vector>
 #include <memory>
+#include <string>
 class Module
 {
 public:

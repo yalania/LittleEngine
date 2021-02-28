@@ -173,6 +173,8 @@
     <ClCompile Include="LittleEngine\src\Editor\InspectorPanel.cpp" />
     <ClCompile Include="LittleEngine\src\Editor\PropertiesUI.cpp" />
     <ClCompile Include="LittleEngine\src\Editor\UI.cpp" />
+    <ClCompile Include="LittleEngine\src\Filesystem\File.cpp" />
+    <ClCompile Include="LittleEngine\src\Filesystem\Path.cpp" />
     <ClCompile Include="LittleEngine\src\GameObject.cpp" />
     <ClCompile Include="LittleEngine\src\Global.cpp" />
     <ClCompile Include="LittleEngine\src\imgui\imgui.cpp" />
@@ -210,6 +212,8 @@
     <ClInclude Include="LittleEngine\src\Editor\InspectorPanel.h" />
     <ClInclude Include="LittleEngine\src\Editor\PropertiesUI.h" />
     <ClInclude Include="LittleEngine\src\Editor\UI.h" />
+    <ClInclude Include="LittleEngine\src\Filesystem\File.h" />
+    <ClInclude Include="LittleEngine\src\Filesystem\Path.h" />
     <ClInclude Include="LittleEngine\src\imgui\imconfig.h" />
     <ClInclude Include="LittleEngine\src\imgui\imgui.h" />
     <ClInclude Include="LittleEngine\src\imgui\imgui_impl_opengl3.h" />

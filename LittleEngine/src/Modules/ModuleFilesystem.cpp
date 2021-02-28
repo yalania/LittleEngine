@@ -2,6 +2,7 @@
 
 #include <physfs/physfs.h>
 
+#include <stack>
 namespace
 {
 	const char* const LIBRARY_PATH = "Library";
@@ -12,7 +13,7 @@ ModuleFilesystem::~ModuleFilesystem()
 	CleanUp();
 }
 
-bool ModuleFilesystem::Exists(const std::string& path)
+bool ModuleFilesystem::Exists(const std::string& path) const
 {
 	return PHYSFS_exists(path.c_str());
 }
@@ -59,6 +60,7 @@ bool ModuleFilesystem::Init()
 	{
 		MakeDirectory(ASSETS_PATH);
 	}
+	mAssets = GetPaths(ASSETS_PATH);
 
 	return true;
 }
@@ -67,4 +69,41 @@ bool ModuleFilesystem::Init()
 bool ModuleFilesystem::CleanUp()
 {
 	return PHYSFS_deinit();
+}
+std::vector<std::unique_ptr<Path>> ModuleFilesystem::GetPaths(const std::string& rootPath) const
+{
+	std::vector<std::unique_ptr<Path>> paths;
+
+	paths.emplace_back(std::make_unique<Path>(rootPath));
+
+	Path* currentPath = nullptr;
+	std::stack<Path*> pathsToAdd;
+	pathsToAdd.push(paths.back().get());
+
+	while (!pathsToAdd.empty())
+	{
+		currentPath = pathsToAdd.top();
+		pathsToAdd.pop();
+
+		std::string currentFullPath = currentPath->mFullPath;
+		char** files_array = PHYSFS_enumerateFiles(currentFullPath.c_str());
+		if (*files_array == NULL)
+		{
+			LOG("Error reading directory %s: %s", currentFullPath.c_str(), PHYSFS_getLastError());
+			return paths;
+		}
+
+		char** filename;
+		for (filename = files_array; *filename != NULL; filename++)
+		{
+			if (*filename[0] != '.')
+			{
+				paths.emplace_back(std::make_unique<Path>(currentFullPath + '/' + *filename));
+				currentPath->mChildren.push_back(paths.back().get());
+				pathsToAdd.push(currentPath->mChildren.back());
+			}
+		}
+		PHYSFS_freeList(files_array);
+	}
+	return paths;
 }
