@@ -57,9 +57,6 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleGrid.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="LittleEngine\src\Modules\ModuleIMGUI.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -144,6 +141,9 @@
     <ClCompile Include="LittleEngine\src\Filesystem\File.cpp">
       <Filter>Filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="LittleEngine\src\Modules\ModuleEditor.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Globals.h">
@@ -180,9 +180,6 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleGrid.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="LittleEngine\src\Modules\ModuleIMGUI.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h">
@@ -265,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Filesystem\Path.h">
       <Filter>Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\Modules\ModuleEditor.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

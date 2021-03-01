@@ -189,7 +189,7 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleCamera.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleFilesystem.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleGrid.cpp" />
-    <ClCompile Include="LittleEngine\src\Modules\ModuleIMGUI.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleEditor.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleModelLoader.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleProgram.cpp" />
@@ -226,7 +226,7 @@
     <ClInclude Include="LittleEngine\src\Modules\ModuleCamera.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleFilesystem.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleGrid.h" />
-    <ClInclude Include="LittleEngine\src\Modules\ModuleIMGUI.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleEditor.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleModelLoader.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleProgram.h" />

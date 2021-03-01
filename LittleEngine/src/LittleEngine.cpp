@@ -4,6 +4,7 @@
 #include <Modules/ModuleWindow.h>
 #include <Modules/ModuleInput.h>
 #include <Modules/ModuleFilesystem.h>
+#include <Modules/ModuleEditor.h>
 LittleEngine::LittleEngine()
 {
 	// Order matters: they will Init/start/update in this order
@@ -14,7 +15,7 @@ LittleEngine::LittleEngine()
 	modules.push_back((moduleTimeController = std::make_unique<ModuleTimeController>()).get());
 	modules.push_back((moduleInput = std::make_unique<ModuleInput>()).get());
 	modules.push_back((moduleModelLoader = std::make_unique<ModuleModelLoader>()).get());
-	modules.push_back((moduleImgui = std::make_unique<ModuleIMGUI>()).get());
+	modules.push_back((moduleEditor = std::make_unique<ModuleEditor>()).get());
 	modules.push_back((moduleRenderer = std::make_unique<ModuleRender>()).get());
 	modules.push_back((moduleShaderProgram = std::make_unique<ModuleProgram>()).get());
 	modules.push_back((moduleCamera = std::make_unique<ModuleCamera>()).get());

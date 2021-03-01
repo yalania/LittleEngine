@@ -1,20 +1,18 @@
-#ifndef _MODULE_IMGUI_
-#define _MODULE_IMGUI_
+#pragma once
 #include "Module.h"
 #include <Editor/UI.h>
 
-class ModuleIMGUI : public Module {
+class ModuleEditor : public Module {
 
 public:
-	ModuleIMGUI() = default;
-	~ModuleIMGUI() = default;
+	ModuleEditor() = default;
+	~ModuleEditor() = default;
 	bool Init() override;
 	bool CleanUp() override;
 	update_status Update() override;
 	update_status PreUpdate() override;
 	update_status PostUpdate() override;
 private:
-	UI generalUi;
+	UI mGeneralUI;
 };
-#endif // _MODULE_IMGUI_
 
