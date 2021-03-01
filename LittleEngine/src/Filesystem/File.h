@@ -29,7 +29,12 @@ public:
 	~File() = default;
 
 	std::vector<char> Open();
-	bool Save(const std::vector<char>& data, bool append);
+	bool Save(const std::vector<char>& data, bool append =false);
+	bool Save(const std::string& serializedData, bool append = false);
+	std::string GetFullPath() const;
+	FileType GetFileType() const;
+	uint32_t GetModificationTimestamp() const;
+
 private:
 
 	FileType CalculateFileType(const PHYSFS_FileType& fileType, const std::string& extension) const;

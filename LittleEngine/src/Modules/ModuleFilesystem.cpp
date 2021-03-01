@@ -3,11 +3,7 @@
 #include <physfs/physfs.h>
 
 #include <stack>
-namespace
-{
-	const char* const LIBRARY_PATH = "Library";
-	const char* const ASSETS_PATH = "Assets";
-}
+
 ModuleFilesystem::~ModuleFilesystem()
 {
 	CleanUp();
@@ -52,15 +48,15 @@ bool ModuleFilesystem::Init()
 		return false;
 	}
 
-	if (!Exists(LIBRARY_PATH))
+	if (!Exists(FilePaths::LIBRARY_PATH))
 	{
-		MakeDirectory(LIBRARY_PATH);
+		MakeDirectory(FilePaths::LIBRARY_PATH);
 	}
-	if (!Exists(ASSETS_PATH))
+	if (!Exists(FilePaths::ASSETS_PATH))
 	{
-		MakeDirectory(ASSETS_PATH);
+		MakeDirectory(FilePaths::ASSETS_PATH);
 	}
-	mAssets = GetPaths(ASSETS_PATH);
+	mAssets = GetPaths(FilePaths::ASSETS_PATH);
 
 	return true;
 }
@@ -69,6 +65,14 @@ bool ModuleFilesystem::Init()
 bool ModuleFilesystem::CleanUp()
 {
 	return PHYSFS_deinit();
+}
+const std::unique_ptr<Path>& ModuleFilesystem::FindOrCreatePath(const std::string& path)
+{
+	return std::make_unique<Path>("");
+}
+Path* ModuleFilesystem::GetPath(const std::string& path)
+{
+	return nullptr;
 }
 std::vector<std::unique_ptr<Path>> ModuleFilesystem::GetPaths(const std::string& rootPath) const
 {

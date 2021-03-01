@@ -173,6 +173,7 @@
     <ClCompile Include="LittleEngine\src\Editor\InspectorPanel.cpp" />
     <ClCompile Include="LittleEngine\src\Editor\PropertiesUI.cpp" />
     <ClCompile Include="LittleEngine\src\Editor\UI.cpp" />
+    <ClCompile Include="LittleEngine\src\Filesystem\Config.cpp" />
     <ClCompile Include="LittleEngine\src\Filesystem\File.cpp" />
     <ClCompile Include="LittleEngine\src\Filesystem\Path.cpp" />
     <ClCompile Include="LittleEngine\src\GameObject.cpp" />
@@ -194,10 +195,15 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleModelLoader.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleProgram.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleRender.cpp" />
+    <ClCompile Include="LittleEngine\src\Modules\ModuleResources.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleSceneManager.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleTexture.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleTimeController.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleWindow.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\Importer.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Resources\Resource.cpp" />
     <ClCompile Include="LittleEngine\src\Utils\MicroTimer.cpp" />
     <ClCompile Include="LittleEngine\src\Utils\MsTimer.cpp" />
     <ClCompile Include="LittleEngine\src\Utils\SystemProperties.cpp" />
@@ -212,6 +218,7 @@
     <ClInclude Include="LittleEngine\src\Editor\InspectorPanel.h" />
     <ClInclude Include="LittleEngine\src\Editor\PropertiesUI.h" />
     <ClInclude Include="LittleEngine\src\Editor\UI.h" />
+    <ClInclude Include="LittleEngine\src\Filesystem\Config.h" />
     <ClInclude Include="LittleEngine\src\Filesystem\File.h" />
     <ClInclude Include="LittleEngine\src\Filesystem\Path.h" />
     <ClInclude Include="LittleEngine\src\imgui\imconfig.h" />
@@ -231,10 +238,15 @@
     <ClInclude Include="LittleEngine\src\Modules\ModuleModelLoader.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleProgram.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleRender.h" />
+    <ClInclude Include="LittleEngine\src\Modules\ModuleResources.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleSceneManager.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleTexture.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleTimeController.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleWindow.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\Importer.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Resources\Resource.h" />
     <ClInclude Include="LittleEngine\src\Utils\MicroTimer.h" />
     <ClInclude Include="LittleEngine\src\Utils\MsTimer.h" />
     <ClInclude Include="LittleEngine\src\Utils\SystemProperties.h" />

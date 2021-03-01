@@ -73,6 +73,33 @@ bool File::Save(const std::vector<char>& data, bool append)
 	return true;
 }
 
+bool File::Save(const std::string& serializedData, bool append)
+{
+	std::vector<char> data(serializedData.begin(), serializedData.end());
+	return Save(data,append);
+}
+
+std::string File::GetFullPath() const
+{
+	return mFilePath;
+}
+
+FileType File::GetFileType() const
+{
+	return mFileType;
+}
+
+uint32_t File::GetModificationTimestamp() const
+{
+	PHYSFS_Stat path_info;
+	if (PHYSFS_stat(mFilePath.c_str(), &path_info) == 0)
+	{
+		LOG("Error getting %s path info: %s", mFilePath.c_str(), PHYSFS_getLastError());
+	}
+
+	return path_info.modtime;
+}
+
 
 FileType File::CalculateFileType(const PHYSFS_FileType& fileType, const std::string& extension) const
 {

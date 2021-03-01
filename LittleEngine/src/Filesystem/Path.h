@@ -10,10 +10,20 @@ public:
 
 	std::unique_ptr<File> GetFile() const;
 	std::string GetExtension() const;
+	std::string GetFullPath() const;
 
+	std::string GetFilename() const;
+
+	std::string GetFilenameWithoutExtension() const;
+
+	std::string GetFullPathWithoutExtension() const;
+
+	Path* GetParent() const;
+
+	std::vector<Path*> mChildren;
 private:
 	std::string mFullPath;
-	std::vector<Path*> mChildren;
+	Path* mParent = nullptr;
 	friend class ModuleFilesystem;
 };
 

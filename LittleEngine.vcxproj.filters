@@ -34,6 +34,18 @@
     <Filter Include="Filesystem">
       <UniqueIdentifier>{ce5602a1-cdb8-4bfe-a7bd-460b1edaa25d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ResourceManagement">
+      <UniqueIdentifier>{74aadef9-a702-4475-9a4c-cf546974a0de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManagement\Resources">
+      <UniqueIdentifier>{2efb75f4-e1c9-45b8-9367-740e975d5b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManagement\Importers">
+      <UniqueIdentifier>{98660cae-7512-4efb-bb2a-8e1c8998101b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManagement\Metafile">
+      <UniqueIdentifier>{d4872581-d9c6-45bf-af1c-e939175625c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LittleEngine\src\Modules\ModuleRender.cpp">
@@ -143,6 +155,24 @@
     </ClCompile>
     <ClCompile Include="LittleEngine\src\Modules\ModuleEditor.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\Modules\ModuleResources.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\Importer.cpp">
+      <Filter>ResourceManagement\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Resources\Resource.cpp">
+      <Filter>ResourceManagement\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.cpp">
+      <Filter>ResourceManagement\Metafile</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\Filesystem\Config.cpp">
+      <Filter>Filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.cpp">
+      <Filter>ResourceManagement\Metafile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +295,24 @@
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleEditor.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\Modules\ModuleResources.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\Importer.h">
+      <Filter>ResourceManagement\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Resources\Resource.h">
+      <Filter>ResourceManagement\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.h">
+      <Filter>ResourceManagement\Metafile</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\Filesystem\Config.h">
+      <Filter>Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.h">
+      <Filter>ResourceManagement\Metafile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

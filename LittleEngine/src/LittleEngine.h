@@ -16,6 +16,7 @@ class ModuleWindow;
 class ModuleFilesystem;
 class ModuleInput;
 class ModuleEditor;
+class ModuleResources;
 class LittleEngine {
 
 public:
@@ -40,6 +41,7 @@ public:
 	std::unique_ptr<ModuleTimeController> moduleTimeController;
 	std::unique_ptr<ModuleSceneManager> moduleSceneManager;
 	std::unique_ptr<ModuleFilesystem> moduleFilesystem;
+	std::unique_ptr<ModuleResources> moduleResources;
 private:
 
 	std::vector<Module *> modules;
