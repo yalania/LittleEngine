@@ -3,7 +3,13 @@
 
 Path::Path(const std::string& fullPath)
 : mFullPath (fullPath)
+, mHash(std::hash<std::string>{}(mFullPath))
 {
+}
+
+bool Path::IsDirectory() const
+{
+	return GetExtension().empty();
 }
 
 std::unique_ptr<File> Path::GetFile() const
@@ -44,4 +50,13 @@ std::string Path::GetFullPathWithoutExtension() const
 Path* Path::GetParent() const
 {
 	return mParent;
+}
+
+std::string Path::GetParentPathString(const std::string& path)
+{
+	std::size_t found = path.find_last_of("/");
+	if (found == std::string::npos || found == 0) {
+		return "";
+	}
+	return path.substr(0, found);
 }

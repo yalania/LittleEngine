@@ -12,8 +12,8 @@ public:
 	~ModuleTimeController() = default;
 
 	bool Init() override;
-	update_status PreUpdate() override;
-	update_status PostUpdate() override;
+	UpdateStatus PreUpdate() override;
+	UpdateStatus PostUpdate() override;
 	void LimitFrameRate();
 	void Pause();
 	void Play();

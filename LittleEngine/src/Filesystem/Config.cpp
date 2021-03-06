@@ -12,7 +12,7 @@ Config::Config()
 
 Config::Config(const std::vector<char>& data)
 {
-	std::string serialized_string(data.front(), data.size());
+	std::string serialized_string(data.begin(), data.end());
 	configDocument.Parse(serialized_string.c_str());
 	allocator = &configDocument.GetAllocator();
 }
@@ -159,7 +159,7 @@ bool Config::GetBool(const std::string& name, bool optValue) const
 void Config::AddString(const std::string valueToAdd, const std::string& name)
 {
 	rapidjson::Value member_name(name.c_str(), *allocator);
-	rapidjson::Value string_value(valueToAdd.c_str(), valueToAdd.size(), *allocator);
+	rapidjson::Value string_value(valueToAdd.c_str(), static_cast<rapidjson::SizeType>(valueToAdd.size()), *allocator);
 	configDocument.AddMember(member_name, string_value, *allocator);
 }
 

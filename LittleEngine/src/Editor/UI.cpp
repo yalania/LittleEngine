@@ -18,8 +18,8 @@ namespace Geometry {
 	bool showCheckerboardTexture = false;
 }
 
-update_status UI::ShowUI() {
-	update_status updateStatus = UPDATE_CONTINUE;
+UpdateStatus UI::ShowUI() {
+	UpdateStatus updateStatus = UpdateStatus::UPDATE_CONTINUE;
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("LittleEngine"))
@@ -27,7 +27,7 @@ update_status UI::ShowUI() {
 			ImGui::MenuItem("Properties", NULL, &UIState::showingPropertiesWindow);
 			ImGui::MenuItem("About", NULL, &UIState::showingAboutWindow);
 			if (ImGui::MenuItem("Quit")) {
-				updateStatus = UPDATE_STOP;
+				updateStatus = UpdateStatus::UPDATE_STOP;
 			}
 			ImGui::EndMenu();
 		}

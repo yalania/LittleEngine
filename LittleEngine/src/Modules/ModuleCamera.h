@@ -12,7 +12,7 @@ class ModuleCamera : public Module {
 
 public:
 	bool Init() override;
-	update_status PreUpdate() override;
+	UpdateStatus PreUpdate() override;
 	void MoveCameraWithMousePosition(const glm::vec2 & mouseOffset);
 	void Translate(const glm::vec3 & direction);
 	void Zoom(bool zoomIn);

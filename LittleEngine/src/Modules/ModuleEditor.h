@@ -9,9 +9,9 @@ public:
 	~ModuleEditor() = default;
 	bool Init() override;
 	bool CleanUp() override;
-	update_status Update() override;
-	update_status PreUpdate() override;
-	update_status PostUpdate() override;
+	UpdateStatus Update() override;
+	UpdateStatus PreUpdate() override;
+	UpdateStatus PostUpdate() override;
 private:
 	UI mGeneralUI;
 };

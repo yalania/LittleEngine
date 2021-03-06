@@ -13,7 +13,7 @@ bool ModuleGrid::Init() {
 	return true;
 }
 
-update_status ModuleGrid::Update() {
+UpdateStatus ModuleGrid::Update() {
 	glUseProgram(gridShaderProgram);
 	glBindBuffer(GL_UNIFORM_BUFFER, Engine->moduleShaderProgram->uniformsBuffer);
 	glBufferSubData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(model));
@@ -21,7 +21,7 @@ update_status ModuleGrid::Update() {
 	ShowGrid();
 	ShowDirectionArrows();
 	glUseProgram(0);
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 
 }
 

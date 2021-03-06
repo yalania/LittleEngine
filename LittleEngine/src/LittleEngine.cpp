@@ -46,28 +46,28 @@ bool LittleEngine::Init()
 	return result;
 }
 
-update_status LittleEngine::Update()
+UpdateStatus LittleEngine::Update()
 {
-	update_status result = UPDATE_CONTINUE;
+	UpdateStatus result = UpdateStatus::UPDATE_CONTINUE;
 	for (auto &module : modules) {
-		update_status ret = module->PreUpdate();
-		if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
+		UpdateStatus ret = module->PreUpdate();
+		if (ret == UpdateStatus::UPDATE_ERROR || ret == UpdateStatus::UPDATE_STOP) {
 			result = ret;
 		}
 	}
-	if (result == UPDATE_CONTINUE) {
+	if (result == UpdateStatus::UPDATE_CONTINUE) {
 		for (auto &module : modules) {
-			update_status ret = module->Update();
-			if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
+			UpdateStatus ret = module->Update();
+			if (ret == UpdateStatus::UPDATE_ERROR || ret == UpdateStatus::UPDATE_STOP) {
 				result = ret;
 			}
 		}
 	}
 
-	if (result == UPDATE_CONTINUE) {
+	if (result == UpdateStatus::UPDATE_CONTINUE) {
 		for (auto &module : modules) {
-			update_status ret = module->PostUpdate();
-			if (ret == UPDATE_ERROR || ret == UPDATE_STOP) {
+			UpdateStatus ret = module->PostUpdate();
+			if (ret == UpdateStatus::UPDATE_ERROR || ret == UpdateStatus::UPDATE_STOP) {
 				result = ret;
 			}
 		}

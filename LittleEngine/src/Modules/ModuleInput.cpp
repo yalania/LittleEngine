@@ -28,7 +28,7 @@ bool ModuleInput::Init()
 }
 
 // Called every draw update
-update_status ModuleInput::Update()
+UpdateStatus ModuleInput::Update()
 {
 	SDL_PumpEvents();
 
@@ -40,7 +40,7 @@ update_status ModuleInput::Update()
 		ImGui_ImplSDL2_ProcessEvent(&event);
 		if (event.type == SDL_QUIT || keyboard[SDL_SCANCODE_ESCAPE])
 		{
-			return UPDATE_STOP;
+			return UpdateStatus::UPDATE_STOP;
 		}
 		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED) 
 		{
@@ -59,7 +59,7 @@ update_status ModuleInput::Update()
 
 	CameraMovementWithKeys();
 
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 // Called before quitting

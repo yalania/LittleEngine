@@ -2,13 +2,13 @@
 #include "LittleEngine.h"
 
 
-update_status ModuleSceneManager::Update() {
+UpdateStatus ModuleSceneManager::Update() {
 
 	for ( auto & gameObject : gameObjectsOwnership  )
 	{
 		gameObject->Update();
 	}
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 GameObject * ModuleSceneManager::CreateGameObject() {

@@ -19,14 +19,19 @@ MetafileManager::~MetafileManager()
 	metafiles.clear();
 }
 
-Metafile* MetafileManager::GetMetafile(const Path& metafilePath)
+Metafile* MetafileManager::GetMetafile(const std::unique_ptr<Path>& assetsFilePath)
 {
-	if (metafiles.find(metafilePath.GetFullPath()) != metafiles.end())
+	const auto& metafilePath = Engine->moduleFilesystem->GetPath(GetMetafilePath(assetsFilePath));
+	if (!metafilePath)
 	{
-		return metafiles[metafilePath.GetFullPath()];
+		return nullptr;
+	}
+	if ( metafiles.find(metafilePath->GetFullPath()) != metafiles.end())
+	{
+		return metafiles[metafilePath->GetFullPath()];
 	}
 
-	std::unique_ptr<File> metafile = metafilePath.GetFile();
+	std::unique_ptr<File> metafile = metafilePath->GetFile();
 	return GetMetafile(metafile);
 }
 Metafile* MetafileManager::GetMetafile(const std::unique_ptr<File>& metafile)
@@ -36,17 +41,17 @@ Metafile* MetafileManager::GetMetafile(const std::unique_ptr<File>& metafile)
 
 	Metafile* createdMetafile = CreateSpecializedMetafile(ResourceType::UNKNOWN);
 	createdMetafile->Load(metaConfig);
-	Metafile* specialized_metafile = CreateSpecializedMetafile(createdMetafile->mResourceType);
+	Metafile* specializedMetafile = CreateSpecializedMetafile(createdMetafile->mResourceType);
 	delete createdMetafile;
 
-	specialized_metafile->Load(metaConfig);
-	specialized_metafile->mMetafilePath = specialized_metafile->mMetafilePath.empty() ? metafile->GetFullPath() : specialized_metafile->mMetafilePath;
-	metafiles[specialized_metafile->mMetafilePath] = specialized_metafile;
+	specializedMetafile->Load(metaConfig);
+	specializedMetafile->mMetafilePath = specializedMetafile->mMetafilePath.empty() ? metafile->GetFullPath() : specializedMetafile->mMetafilePath;
+	metafiles[specializedMetafile->mMetafilePath] = specializedMetafile;
 
-	return specialized_metafile;
+	return specializedMetafile;
 }
 
-Metafile* MetafileManager::CreateMetafile(Path& assetFilePath, ResourceType resource_type, uint32_t uuid)
+Metafile* MetafileManager::CreateMetafile(const std::unique_ptr<Path>& assetFilePath, ResourceType resource_type, uint32_t uuid)
 {
 
 	Metafile* createdMetafile = CreateSpecializedMetafile(resource_type);
@@ -54,23 +59,23 @@ Metafile* MetafileManager::CreateMetafile(Path& assetFilePath, ResourceType reso
 	std::string metafilePath_string = GetMetafilePath(assetFilePath);
 
 	createdMetafile->uuid = uuid == 0 ? GenerateUUID() : uuid;
-	createdMetafile->resourceName = assetFilePath.GetFilenameWithoutExtension();
+	createdMetafile->resourceName = assetFilePath->GetFilenameWithoutExtension();
 	createdMetafile->mResourceType = resource_type;
 
 	createdMetafile->mMetafilePath = metafilePath_string;
-	createdMetafile->mImportedFilePath = assetFilePath.GetFullPath();
+	createdMetafile->mImportedFilePath = assetFilePath->GetFullPath();
 	createdMetafile->mExportedFilePath = GetMetafileExportedFile(*createdMetafile);
 
 	createdMetafile->version = Importer::IMPORTER_VERSION;
 
-	SaveMetafile(createdMetafile, assetFilePath);
+	SaveMetafile(createdMetafile);
 
 	metafiles[createdMetafile->mMetafilePath] = createdMetafile;
 
 	return createdMetafile;
 }
 
-void MetafileManager::SaveMetafile(Metafile* created_metafile, Path& assetFilePath) const
+void MetafileManager::SaveMetafile(Metafile* created_metafile) const
 {
 	Config metafileConfig;
 	created_metafile->Save(metafileConfig);
@@ -78,14 +83,13 @@ void MetafileManager::SaveMetafile(Metafile* created_metafile, Path& assetFilePa
 	std::string metafileConfigString;
 	metafileConfig.GetSerializedString(metafileConfigString);
 
-	std::string metafileNameString = GetMetafilePath(assetFilePath.GetFilename());
-	const auto& path = Engine->moduleFilesystem->FindOrCreatePath(assetFilePath.GetParent()->GetFullPath() + metafileNameString);
+	const auto& path = Engine->moduleFilesystem->FindOrCreatePath(created_metafile->mMetafilePath);
 	path->GetFile()->Save(metafileConfigString);
 }
 
-std::string MetafileManager::GetMetafilePath(const Path& file_path) const
+std::string MetafileManager::GetMetafilePath(const std::unique_ptr<Path>& filePath) const
 {
-	return GetMetafilePath(file_path.GetFullPath());
+	return GetMetafilePath(filePath->GetFullPath());
 }
 
 std::string MetafileManager::GetMetafilePath(const std::string& filePathString) const
@@ -107,7 +111,7 @@ void MetafileManager::UpdateMetafile(Metafile& metafile)
 	metafilePath->GetFile()->Save(metafileConfigString);
 }
 
-bool MetafileManager::IsMetafileConsistent(const Path& metafilePath)
+bool MetafileManager::IsMetafileConsistent(const std::unique_ptr<Path>& metafilePath)
 {
 	Metafile* metafile = GetMetafile(metafilePath);
 	if (!metafile)
@@ -121,8 +125,8 @@ bool MetafileManager::IsMetafileConsistent(const Metafile& metafile)
 {
 	Path* importedFilePath = Engine->moduleFilesystem->GetPath(metafile.mImportedFilePath);
 
-	std::string metafile_directory = GetParentPathString(metafile.mMetafilePath);
-	std::string imported_file_directory = GetParentPathString(metafile.mImportedFilePath);
+	std::string metafile_directory = Path::GetParentPathString(metafile.mMetafilePath);
+	std::string imported_file_directory = Path::GetParentPathString(metafile.mImportedFilePath);
 	if (metafile_directory != imported_file_directory)
 	{
 		return false;
@@ -131,26 +135,25 @@ bool MetafileManager::IsMetafileConsistent(const Metafile& metafile)
 	return true;
 }
 
-bool MetafileManager::IsMetafileMoved(const Path& metafilePath)
+bool MetafileManager::IsMetafileMoved(const std::unique_ptr<Path>& metafilePath)
 {
 	Metafile* metafile = GetMetafile(metafilePath);
-	return metafile->mMetafilePath != metafilePath.GetFullPath();
+	return metafile->mMetafilePath != metafilePath->GetFullPath();
 }
 
-void MetafileManager::RefreshMetafile(const Path& metafilePath)
+void MetafileManager::RefreshMetafile(const std::unique_ptr<Path>& metafilePath)
 {
-	std::string assets_file = metafilePath.GetFullPathWithoutExtension();
+	std::string assets_file = metafilePath->GetFullPathWithoutExtension();
 	Path* newImportedFilePath = Engine->moduleFilesystem->GetPath(assets_file);
 	if (!newImportedFilePath)
 	{
 		return;
 	}
 	Metafile* metafile = GetMetafile(metafilePath);
-	metafile->mMetafilePath = metafilePath.GetFullPath();
-	assert(newImportedFilePath);
+	metafile->mMetafilePath = metafilePath->GetFullPath();
 	metafile->mImportedFilePath = newImportedFilePath->GetFullPath();
 	metafile->resourceName = newImportedFilePath->GetFilename();
-	SaveMetafile(metafile, *newImportedFilePath);
+	SaveMetafile(metafile);
 }
 
 std::string MetafileManager::GetMetafileExportedFolder(const Metafile& metafile)
@@ -190,13 +193,4 @@ Metafile * MetafileManager::CreateSpecializedMetafile(ResourceType resource_type
 uint32_t MetafileManager::GenerateUUID() const
 {
 	return uint32_t();
-}
-
-std::string MetafileManager::GetParentPathString(const std::string& path)
-{
-	std::size_t found = path.find_last_of("/");
-	if (found == std::string::npos || found == 0) {
-		return "";
-	}
-	return path.substr(0, found);
 }

@@ -14,7 +14,7 @@ public:
 	~ModuleInput();
 
 	bool Init() override;
-	update_status Update() override;
+	UpdateStatus Update() override;
 	bool CleanUp() override;
 
 private:

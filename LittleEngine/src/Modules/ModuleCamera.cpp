@@ -11,9 +11,9 @@ bool ModuleCamera::Init() {
 	return true;
 }
 
-update_status ModuleCamera::PreUpdate() {
+UpdateStatus ModuleCamera::PreUpdate() {
 	UpdateMatricesInShaderPograms();
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 void ModuleCamera::MoveCameraWithMousePosition(const glm::vec2 & mouseOffset) {

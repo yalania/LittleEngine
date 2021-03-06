@@ -1,26 +1,23 @@
 #pragma once
-#include <Filesystem/Path.h>
-#include <Filesystem/File.h>
 #include "ResourceManagement/Resources/Resource.h"
 #include <vector>
-class File;
+class Path;
 class Metafile;
 class MetafileManager;
 class Importer 
 {
 public:
-	Importer() = default;
-	Importer(ResourceType resourceType) : mResourceType(resourceType) {};
-	virtual ~Importer() = default;
+	Importer(ResourceType resourceType);
+	virtual ~Importer();
 
-	Metafile* Import(Path& assetsFile);
-	virtual std::vector<char> ExtractData(Path& assetsFilePath, const Metafile& metafile) const;
+	Metafile* Import(const std::unique_ptr<Path>& assetsFile);
+	virtual std::vector<char> ExtractData(const std::unique_ptr<Path>& assetsFilePath, const Metafile& metafile) const;
 
-	bool ImportRequired(const Path& path);
+	bool ImportRequired(const std::unique_ptr<Path>& path);
 
 public:
 	ResourceType mResourceType = ResourceType::UNKNOWN;
 	static const int IMPORTER_VERSION = 0;
-	std::unique_ptr<MetafileManager> mMetafileManager;
+	std::unique_ptr<MetafileManager> mMetafileManager = nullptr;
 };
 

@@ -7,7 +7,7 @@ bool ModuleTimeController::Init() {
 	return true;
 }
 
-update_status ModuleTimeController::PreUpdate() {
+UpdateStatus ModuleTimeController::PreUpdate() {
 	frameStartTime = fpsTimer.Read();
 	float avgFPS = static_cast<float>(totalNumberOfFrames / (fpsTimer.Read() / 1000.f));
 	frameRateLog[frameRateIndex] = avgFPS;
@@ -15,12 +15,12 @@ update_status ModuleTimeController::PreUpdate() {
 	if (frameRateIndex > 60) {
 		frameRateIndex = 0;
 	}
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
-update_status ModuleTimeController::PostUpdate() {
+UpdateStatus ModuleTimeController::PostUpdate() {
 	++totalNumberOfFrames;
 	--advanceOnFrameCounter;
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 void ModuleTimeController::LimitFrameRate() {

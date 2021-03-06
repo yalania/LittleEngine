@@ -3,7 +3,7 @@
 #include <algorithm>
 
 void Collider::Update() {
-	update_status result = UPDATE_CONTINUE;
+	UpdateStatus result = UpdateStatus::UPDATE_CONTINUE;
 
 	for (auto &mesh : meshes) {
 		mesh.Update();
@@ -29,8 +29,8 @@ void Collider::CalculateSphere() {
 
 glm::vec3 Collider::CalculateCenter() {
 	glm::vec3 vectorAddition = glm::vec3(0.0f);
-	totalVertexCount = 0.0f;
-	totalTriangleCount = 0.0f;
+	totalVertexCount = 0;
+	totalTriangleCount = 0;
 	for (auto & mesh : meshes) {
 		for (auto & vector : mesh.vertices) {
 			vectorAddition += vector.Position;

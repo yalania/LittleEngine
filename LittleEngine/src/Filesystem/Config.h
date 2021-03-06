@@ -78,7 +78,7 @@ public:
 		rapidjson::Value vectorValue(rapidjson::kArrayType);
 		for (size_t i = 0; i < valueToAdd.size(); ++i)
 		{
-			rapidjson::Value stringValue(valueToAdd[i].c_str(), valueToAdd[i].size(), *allocator);
+			rapidjson::Value stringValue(valueToAdd[i].c_str(), static_cast<rapidjson::SizeType>(valueToAdd[i].size()), *allocator);
 			vectorValue.PushBack(stringValue, *allocator);
 		}
 
@@ -131,7 +131,7 @@ public:
 		{
 			const rapidjson::Value& currentValue = configDocument[name.c_str()];
 			returnValue = std::vector<std::string>();
-			for (size_t i = 0; i < currentValue.Capacity(); ++i)
+			for (rapidjson::SizeType i = 0; i < currentValue.Capacity(); ++i)
 			{
 				returnValue.push_back(currentValue[i].GetString());
 			}
@@ -150,7 +150,7 @@ public:
 			const rapidjson::Value& currentValue = configDocument[name.c_str()];
 			returnValue = std::vector<glm::vec3>();
 
-			for (size_t i = 0; i < currentValue.Capacity(); ++i)
+			for (rapidjson::SizeType i = 0; i < currentValue.Capacity(); ++i)
 			{
 				const rapidjson::Value& currentFloat3Value = currentValue[i];
 				returnValue.push_back(

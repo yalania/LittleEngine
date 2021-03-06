@@ -1,6 +1,4 @@
-#ifndef _METAFILEMANAGER_H_
-#define _METAFILEMANAGER_H_
-
+#pragma once
 #include <string>
 #include <unordered_map>
 #include <memory>
@@ -15,15 +13,15 @@ public:
 	MetafileManager() = default;
 	~MetafileManager();
 
-	Metafile* CreateMetafile(Path& assetFilePath, ResourceType resourceType, uint32_t uuid = 0);
+	Metafile* CreateMetafile(const std::unique_ptr<Path>& assetFilePath, ResourceType resourceType, uint32_t uuid = 0);
 
-	void SaveMetafile(Metafile* created_metafile, Path& assetFilePath) const;
+	void SaveMetafile(Metafile* created_metafile) const;
 	
-	Metafile* GetMetafile(const Path& metafilePath);
+	Metafile* GetMetafile(const std::unique_ptr<Path>& metafilePath);
 
 	Metafile* GetMetafile(const std::unique_ptr<File>& metafile);
 
-	std::string GetMetafilePath(const Path& file_path) const;
+	std::string GetMetafilePath(const std::unique_ptr<Path>& file_path) const;
 	std::string GetMetafilePath(const std::string& file_path_string) const;
 
 	static std::string GetMetafileExportedFolder(const Metafile& metafile);
@@ -41,18 +39,10 @@ private:
 	Metafile* CreateSpecializedMetafile(ResourceType resourceType) const;
 
 	uint32_t GenerateUUID() const;
-	std::string GetParentPathString(const std::string& path);
 	/*
 	A metafile is consistent when both imported path and exported path exist
 		*/
-	bool IsMetafileConsistent(const Path& metafilePath);
-
-	bool IsMetafileMoved(const Path& metafilePath);
-
-
-	void RefreshMetafile(const Path& metafilePath);
+	bool IsMetafileConsistent(const std::unique_ptr<Path>& metafilePath);
+	bool IsMetafileMoved(const std::unique_ptr<Path>& metafilePath);
+	void RefreshMetafile(const std::unique_ptr<Path>& metafilePath);
 };
-
-
-#endif // _METAFILEMANAGER_H_
-

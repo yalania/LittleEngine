@@ -1,14 +1,21 @@
 #include "Importer.h"
 
+#include <LittleEngine.h>
+#include <Filesystem/Path.h>
+#include <Filesystem/File.h>
+#include <Modules/ModuleFilesystem.h>
 #include <ResourceManagement/Metafile/MetafileManager.h>
 #include <ResourceManagement/Metafile/Metafile.h>
 #include <cassert>
 
-#include <LittleEngine.h>
-#include <Modules/ModuleFilesystem.h>
-Metafile* Importer::Import(Path& assetsFile)
+Importer::Importer(ResourceType resourceType) : mResourceType(resourceType) { mMetafileManager = std::make_unique<MetafileManager>(); };
+Importer::~Importer()
 {
-	if (!ImportRequired(assetsFile))
+}
+
+Metafile* Importer::Import(const std::unique_ptr<Path>& assetsFile)
+{
+	if (!ImportRequired(assetsFile) || assetsFile->GetExtension() == "meta")
 	{
 		return nullptr;
 	}
@@ -26,8 +33,7 @@ Metafile* Importer::Import(Path& assetsFile)
 		metafile = mMetafileManager->CreateMetafile(assetsFile, mResourceType);
 	}
 
-	std::string metafileExportedFile = MetafileManager::GetMetafileExportedFolder(*metafile) + std::to_string(metafile->uuid).c_str();
-	const auto& metafileExportedPath = Engine->moduleFilesystem->FindOrCreatePath(metafileExportedFile);
+	const auto& metafileExportedPath = Engine->moduleFilesystem->FindOrCreatePath(metafile->mExportedFilePath);
 
 	std::vector<char> importedData = ExtractData(assetsFile, *metafile);
 	metafileExportedPath->GetFile()->Save(importedData);
@@ -35,7 +41,7 @@ Metafile* Importer::Import(Path& assetsFile)
 	return metafile;
 }
 
-bool Importer::ImportRequired(const Path& path)
+bool Importer::ImportRequired(const std::unique_ptr<Path>& path)
 {
 	Metafile* metafile = mMetafileManager->GetMetafile(path);
 	if (metafile)
@@ -50,7 +56,7 @@ bool Importer::ImportRequired(const Path& path)
 		else if (libraryPath)
 		{
 			std::unique_ptr<File> libraryFile = libraryPath->GetFile();
-			std::unique_ptr<File> metaFile = path.GetFile();
+			std::unique_ptr<File> metaFile = path->GetFile();
 			return  libraryFile && metaFile  && metaFile->GetModificationTimestamp() > libraryFile->GetModificationTimestamp();
 		}
 		else
@@ -62,6 +68,6 @@ bool Importer::ImportRequired(const Path& path)
 	return true;
 }
 
-std::vector<char> Importer::ExtractData(Path& assetsFilePath, const Metafile& metafile) const {
-	return assetsFilePath.GetFile()->Open();
+std::vector<char> Importer::ExtractData(const std::unique_ptr<Path>& assetsFilePath, const Metafile& metafile) const {
+	return assetsFilePath->GetFile()->Open();
 }

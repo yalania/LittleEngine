@@ -2,7 +2,7 @@
 #define _GLOBALS_
 
 #include <windows.h>
-enum update_status
+enum class UpdateStatus
 {
 	UPDATE_CONTINUE = 1,
 	UPDATE_STOP,

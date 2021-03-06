@@ -333,5 +333,5 @@ ASALocalRun/
 .mfractor/
 
 #Engine directcories
-./LittleEngine/Engine/Assets/
-./LittleEngine/Engine/Library/
+LittleEngine/Engine/Assets/
+LittleEngine/Engine/Library/

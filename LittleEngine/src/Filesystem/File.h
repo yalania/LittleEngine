@@ -35,6 +35,7 @@ public:
 	FileType GetFileType() const;
 	uint32_t GetModificationTimestamp() const;
 
+	bool mIsDirectory = false;
 private:
 
 	FileType CalculateFileType(const PHYSFS_FileType& fileType, const std::string& extension) const;
@@ -42,5 +43,4 @@ private:
 	std::string mFilePath;
 	std::vector<char> mLoadedData;
 	FileType mFileType;
-	bool mIsDirectory = false;
 };

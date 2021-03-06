@@ -14,25 +14,25 @@ bool ModuleRender::Init() {
 }
 
 
-update_status ModuleRender::PreUpdate() {
+UpdateStatus ModuleRender::PreUpdate() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 
 }
 
-update_status ModuleRender::Update() {
+UpdateStatus ModuleRender::Update() {
 	glUseProgram(Engine->moduleShaderProgram->defaultProgram);
 	for (auto & mesh : meshesComponent) {
 		mesh->Update();
 	}
 	glUseProgram(0);
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 
 }
 
-update_status ModuleRender::PostUpdate() {
+UpdateStatus ModuleRender::PostUpdate() {
 	SDL_GL_SwapWindow(Engine->moduleWindow->window);
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 

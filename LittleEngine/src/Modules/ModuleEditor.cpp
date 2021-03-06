@@ -18,24 +18,24 @@ bool ModuleEditor::Init() {
 	return ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-update_status ModuleEditor::PreUpdate() {
+UpdateStatus ModuleEditor::PreUpdate() {
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(Engine->moduleWindow->window);
 	ImGui::NewFrame();
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
-update_status ModuleEditor::Update() {	
+UpdateStatus ModuleEditor::Update() {	
 	return mGeneralUI.ShowUI();
 }
 
 
-update_status ModuleEditor::PostUpdate() {
+UpdateStatus ModuleEditor::PostUpdate() {
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	return UPDATE_CONTINUE;
+	return UpdateStatus::UPDATE_CONTINUE;
 }
 
 bool ModuleEditor::CleanUp() {

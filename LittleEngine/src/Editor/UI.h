@@ -6,7 +6,7 @@
 class UI {
 
 public:
-	update_status ShowUI();
+	UpdateStatus ShowUI();
 	UI() = default;
 	~UI() = default;
 
