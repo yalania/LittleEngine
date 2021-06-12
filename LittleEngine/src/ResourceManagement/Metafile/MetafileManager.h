@@ -11,7 +11,7 @@ class MetafileManager
 {
 public:
 	MetafileManager() = default;
-	~MetafileManager();
+	~MetafileManager() = default;
 
 	Metafile* CreateMetafile(const std::unique_ptr<Path>& assetFilePath, ResourceType resourceType, uint32_t uuid = 0);
 
@@ -33,12 +33,12 @@ public:
 	bool IsMetafileConsistent(const Metafile& metafile);
 
 	static void UpdateMetafile(Metafile& metafile);
+	static uint32_t GenerateUUID();
 
 private:
-	std::unordered_map<std::string, Metafile*> metafiles;
-	Metafile* CreateSpecializedMetafile(ResourceType resourceType) const;
+	std::unordered_map<std::string, std::unique_ptr<Metafile>> metafiles;
+	std::unique_ptr<Metafile> CreateSpecializedMetafile(ResourceType resourceType) const;
 
-	uint32_t GenerateUUID() const;
 	/*
 	A metafile is consistent when both imported path and exported path exist
 		*/

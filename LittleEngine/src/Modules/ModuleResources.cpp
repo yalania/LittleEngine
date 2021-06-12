@@ -19,7 +19,7 @@ bool ModuleResources::Init()
 	{
 		if (!path->GetExtension().empty())
 		{
-			mImporter->Import(path);
+			//mImporter->Import(path);
 		}
 	}
 	return true;

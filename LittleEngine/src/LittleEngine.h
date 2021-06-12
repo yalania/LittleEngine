@@ -6,7 +6,6 @@
 #include <Modules/ModuleCamera.h>
 #include <Modules/ModuleTexture.h>
 #include <Modules/ModuleGrid.h>
-#include <Modules/ModuleModelLoader.h>
 #include <Modules/ModuleTimeController.h>
 #include <Modules/ModuleSceneManager.h>
 
@@ -37,7 +36,6 @@ public:
 	std::unique_ptr<ModuleCamera> moduleCamera;
 	std::unique_ptr<ModuleTexture> moduleTexture;
 	std::unique_ptr<ModuleGrid> moduleGrid;
-	std::unique_ptr<ModuleModelLoader> moduleModelLoader;
 	std::unique_ptr<ModuleTimeController> moduleTimeController;
 	std::unique_ptr<ModuleSceneManager> moduleSceneManager;
 	std::unique_ptr<ModuleFilesystem> moduleFilesystem;

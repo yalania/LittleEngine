@@ -35,7 +35,7 @@ glm::vec3 Collider::CalculateCenter() {
 		for (auto & vector : mesh.vertices) {
 			vectorAddition += vector.Position;
 		}
-		totalVertexCount +=mesh.vertices.size();
+		totalVertexCount +=static_cast<int>(mesh.vertices.size());
 		totalTriangleCount += mesh.meshInfo.numberOfTriangles;
 	}
 	return vectorAddition / static_cast<float>(totalVertexCount);

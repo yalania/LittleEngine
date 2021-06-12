@@ -192,7 +192,6 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleGrid.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleEditor.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp" />
-    <ClCompile Include="LittleEngine\src\Modules\ModuleModelLoader.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleProgram.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleRender.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleResources.cpp" />
@@ -201,6 +200,8 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleTimeController.cpp" />
     <ClCompile Include="LittleEngine\src\Modules\ModuleWindow.cpp" />
     <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\Importer.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\MeshImporter.cpp" />
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\ModelImporter.cpp" />
     <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.cpp" />
     <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.cpp" />
     <ClCompile Include="LittleEngine\src\ResourceManagement\Resources\Resource.cpp" />
@@ -235,7 +236,6 @@
     <ClInclude Include="LittleEngine\src\Modules\ModuleGrid.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleEditor.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h" />
-    <ClInclude Include="LittleEngine\src\Modules\ModuleModelLoader.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleProgram.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleRender.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleResources.h" />
@@ -244,6 +244,8 @@
     <ClInclude Include="LittleEngine\src\Modules\ModuleTimeController.h" />
     <ClInclude Include="LittleEngine\src\Modules\ModuleWindow.h" />
     <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\Importer.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\MeshImporter.h" />
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\ModelImporter.h" />
     <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\Metafile.h" />
     <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.h" />
     <ClInclude Include="LittleEngine\src\ResourceManagement\Resources\Resource.h" />

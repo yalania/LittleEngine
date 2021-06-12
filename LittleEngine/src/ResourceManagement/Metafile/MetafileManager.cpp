@@ -10,15 +10,6 @@
 
 #include <chrono>
 
-MetafileManager::~MetafileManager()
-{
-	for (auto& metafile : metafiles)
-	{
-		delete metafile.second;
-	}
-	metafiles.clear();
-}
-
 Metafile* MetafileManager::GetMetafile(const std::unique_ptr<Path>& assetsFilePath)
 {
 	const auto& metafilePath = Engine->moduleFilesystem->GetPath(GetMetafilePath(assetsFilePath));
@@ -28,7 +19,7 @@ Metafile* MetafileManager::GetMetafile(const std::unique_ptr<Path>& assetsFilePa
 	}
 	if ( metafiles.find(metafilePath->GetFullPath()) != metafiles.end())
 	{
-		return metafiles[metafilePath->GetFullPath()];
+		return metafiles[metafilePath->GetFullPath()].get();
 	}
 
 	std::unique_ptr<File> metafile = metafilePath->GetFile();
@@ -39,27 +30,27 @@ Metafile* MetafileManager::GetMetafile(const std::unique_ptr<File>& metafile)
 	std::vector<char> metafileData = metafile->Open();
 	Config metaConfig(metafileData);
 
-	Metafile* createdMetafile = CreateSpecializedMetafile(ResourceType::UNKNOWN);
+	/*std::unique_ptr<Metafile> createdMetafile = CreateSpecializedMetafile(ResourceType::UNKNOWN);
 	createdMetafile->Load(metaConfig);
-	Metafile* specializedMetafile = CreateSpecializedMetafile(createdMetafile->mResourceType);
-	delete createdMetafile;
+	std::unique_ptr<Metafile> specializedMetafile = CreateSpecializedMetafile(createdMetafile->mResourceType);
 
 	specializedMetafile->Load(metaConfig);
 	specializedMetafile->mMetafilePath = specializedMetafile->mMetafilePath.empty() ? metafile->GetFullPath() : specializedMetafile->mMetafilePath;
-	metafiles[specializedMetafile->mMetafilePath] = specializedMetafile;
+	metafiles[specializedMetafile->mMetafilePath] = std::move(specializedMetafile);
 
-	return specializedMetafile;
+	return specializedMetafile.get();*/
+	return nullptr;
 }
 
 Metafile* MetafileManager::CreateMetafile(const std::unique_ptr<Path>& assetFilePath, ResourceType resource_type, uint32_t uuid)
 {
 
-	Metafile* createdMetafile = CreateSpecializedMetafile(resource_type);
+	std::unique_ptr<Metafile> createdMetafile = CreateSpecializedMetafile(resource_type);
 
 	std::string metafilePath_string = GetMetafilePath(assetFilePath);
 
 	createdMetafile->uuid = uuid == 0 ? GenerateUUID() : uuid;
-	createdMetafile->resourceName = assetFilePath->GetFilenameWithoutExtension();
+	createdMetafile->mResourceName = assetFilePath->GetFilenameWithoutExtension();
 	createdMetafile->mResourceType = resource_type;
 
 	createdMetafile->mMetafilePath = metafilePath_string;
@@ -68,11 +59,11 @@ Metafile* MetafileManager::CreateMetafile(const std::unique_ptr<Path>& assetFile
 
 	createdMetafile->version = Importer::IMPORTER_VERSION;
 
-	SaveMetafile(createdMetafile);
+	SaveMetafile(createdMetafile.get());
 
-	metafiles[createdMetafile->mMetafilePath] = createdMetafile;
+	metafiles[createdMetafile->mMetafilePath] = std::move(createdMetafile);
 
-	return createdMetafile;
+	return createdMetafile.get();
 }
 
 void MetafileManager::SaveMetafile(Metafile* created_metafile) const
@@ -152,7 +143,7 @@ void MetafileManager::RefreshMetafile(const std::unique_ptr<Path>& metafilePath)
 	Metafile* metafile = GetMetafile(metafilePath);
 	metafile->mMetafilePath = metafilePath->GetFullPath();
 	metafile->mImportedFilePath = newImportedFilePath->GetFullPath();
-	metafile->resourceName = newImportedFilePath->GetFilename();
+	metafile->mResourceName = newImportedFilePath->GetFilename();
 	SaveMetafile(metafile);
 }
 
@@ -178,19 +169,18 @@ std::string MetafileManager::GetUUIDExportedFile(uint32_t uuid)
 	return std::string(FilePaths::LIBRARY_PATH) + "/" + uuid_string.substr(0, 2) + "/" + uuid_string;
 }
 
-Metafile * MetafileManager::CreateSpecializedMetafile(ResourceType resource_type) const
+std::unique_ptr<Metafile> MetafileManager::CreateSpecializedMetafile(ResourceType resource_type) const
 {
-	Metafile* metafile;
 	switch (resource_type)
 	{
 		default:
-			metafile = new Metafile();
+			return std::make_unique<Metafile>();
 			break;
 	}
-	return metafile;
+	return std::make_unique<Metafile>();
 }
 
-uint32_t MetafileManager::GenerateUUID() const
+uint32_t MetafileManager::GenerateUUID()
 {
 	return uint32_t();
 }

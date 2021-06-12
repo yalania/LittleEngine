@@ -43,13 +43,6 @@ void ModuleRender::AddMeshComponentToGameObject(GameObject * gameObject) {
 }
 
 void ModuleRender::CreateMeshComponentFromFile(const char * file) {
-	std::vector<Mesh> meshes = Engine->moduleModelLoader->LoadModel(file);
-	for (auto & mesh : meshes) {
-		GameObject * newGameObject = Engine->moduleSceneManager->CreateGameObject();
-		std::unique_ptr<Mesh> uniqueMesh = std::make_unique<Mesh>(std::move(mesh));
-		uniqueMesh->SetOwner(newGameObject);
-		meshesComponent.push_back(std::move(uniqueMesh));
-	}
 }
 
 void ModuleRender::RemoveMeshComponent(Mesh * componentToRemove){

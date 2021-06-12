@@ -72,9 +72,6 @@
     <ClCompile Include="LittleEngine\src\Modules\ModuleInput.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="LittleEngine\src\Modules\ModuleModelLoader.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="LittleEngine\src\Modules\ModuleProgram.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -174,6 +171,12 @@
     <ClCompile Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.cpp">
       <Filter>ResourceManagement\Metafile</Filter>
     </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\ModelImporter.cpp">
+      <Filter>ResourceManagement\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="LittleEngine\src\ResourceManagement\Importer\MeshImporter.cpp">
+      <Filter>ResourceManagement\Importers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Globals.h">
@@ -213,9 +216,6 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleInput.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="LittleEngine\src\Modules\ModuleModelLoader.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="LittleEngine\src\Modules\ModuleProgram.h">
@@ -313,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="LittleEngine\src\ResourceManagement\Metafile\MetafileManager.h">
       <Filter>ResourceManagement\Metafile</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\ModelImporter.h">
+      <Filter>ResourceManagement\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="LittleEngine\src\ResourceManagement\Importer\MeshImporter.h">
+      <Filter>ResourceManagement\Importers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
